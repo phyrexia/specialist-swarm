@@ -76,7 +76,7 @@ button { font-family: inherit; cursor: pointer; }
 .ghost-btn:hover { background: rgba(200,155,80,.2); box-shadow: 0 0 20px rgba(200,155,80,.25); }
 
 /* ---------- LAYOUT ---------- */
-.main { min-height: 0; display: grid; grid-template-columns: 420px 1fr; gap: 20px; padding: 18px 22px 0 22px; }
+.main { min-height: 0; display: grid; grid-template-columns: clamp(360px, 25vw, 520px) minmax(0, 1fr); gap: 20px; padding: 18px 22px 0 22px; }
 .panel {
   background: linear-gradient(180deg, rgba(22, 46, 84, .55), rgba(8, 18, 40, .62));
   border: 1px solid var(--line); border-radius: var(--radius);
@@ -122,7 +122,7 @@ button { font-family: inherit; cursor: pointer; }
 /* voice dock */
 .voice-dock { display: flex; align-items: center; gap: 16px; padding: 10px 16px; margin: 0 12px; border-radius: 18px; background: rgba(6,14,32,.5); border: 1px solid var(--line); }
 .mic {
-  position: relative; flex: none; width: 74px; height: 74px; border-radius: 50%; border: none;
+  position: relative; flex: none; width: 66px; height: 66px; border-radius: 50%; border: none;
   background: radial-gradient(circle at 35% 30%, #F0B57A, var(--amber) 45%, #8E4F1F 100%);
   box-shadow: 0 0 0 2px rgba(246,230,192,.25), 0 10px 30px rgba(214,140,76,.45), inset 0 -6px 14px rgba(0,0,0,.25);
   display: grid; place-items: center; transition: transform .2s var(--ease), filter .3s;
@@ -163,8 +163,8 @@ button { font-family: inherit; cursor: pointer; }
 /* ---------- STAGE ---------- */
 .stage { min-height: 0; overflow-y: auto; padding-right: 6px; padding-bottom: 10px; display: flex; flex-direction: column; gap: 18px; }
 .stage > * { flex-shrink: 0; }
-.row-top { display: grid; grid-template-columns: minmax(440px, 1.05fr) 1fr; gap: 18px; min-height: 610px; }
-.row-mid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 18px; }
+.row-top { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 18px; min-height: clamp(560px, calc(100vh - 300px), 720px); }
+.row-mid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 18px; }
 .col-stack { display: flex; flex-direction: column; gap: 18px; }
 .stage.empty .row-days, .stage.empty .row-mid, .stage.empty .insider-panel { display: none; }
 .stage.empty .row-top { min-height: calc(100vh - 150px); }
@@ -331,7 +331,7 @@ button { font-family: inherit; cursor: pointer; }
 .meta span b { color: var(--champ); font-weight: 700; }
 .weather { font-size: 13px; color: var(--mist); display: flex; gap: 8px; align-items: flex-start; padding: 9px 12px; border-radius: 12px; background: rgba(26,62,104,.35); }
 .next-q {
-  position: relative; padding: 16px 18px 16px 20px; border-radius: 16px; margin-top: auto;
+  position: relative; padding: 16px 18px 16px 20px; border-radius: 16px;
   background: linear-gradient(135deg, rgba(200,155,80,.18), rgba(214,140,76,.06));
   border: 1px solid rgba(200,155,80,.55); box-shadow: 0 0 34px rgba(200,155,80,.15), inset 0 0 20px rgba(200,155,80,.06);
   cursor: pointer; transition: transform .25s var(--ease);
@@ -340,7 +340,7 @@ button { font-family: inherit; cursor: pointer; }
 .next-q .eyebrow { margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
 .next-q .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); animation: blink 1.6s infinite; }
 .next-q-text { font-family: var(--display); font-size: 25px; line-height: 1.2; color: var(--champ); font-weight: 600; }
-.sum-bottom { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.sum-bottom { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: auto; }
 .total-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--slate); font-weight: 700; }
 .total { font-family: var(--display); font-size: 38px; font-weight: 700; color: #fff; line-height: 1; }
 .book-btn {
@@ -357,9 +357,10 @@ button { font-family: inherit; cursor: pointer; }
 .section-head { display: flex; align-items: baseline; gap: 12px; margin: 2px 4px 10px; }
 .section-head h3 { margin: 0; font-family: var(--display); font-weight: 600; font-size: 28px; color: var(--champ); }
 .hint { font-size: 12px; color: var(--slate); letter-spacing: 1px; }
-.days { display: grid; grid-auto-flow: column; grid-auto-columns: 330px; gap: 16px; overflow-x: auto; padding: 4px 4px 14px; scroll-snap-type: x mandatory; }
+/* fills the row when the days fit, scrolls when they don't */
+.days { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(310px, 1fr); gap: 18px; overflow-x: auto; padding: 4px 4px 14px; scroll-snap-type: x mandatory; }
 .day { scroll-snap-align: start; overflow: hidden; display: flex; flex-direction: column; animation: reveal .7s var(--ease) both; }
-.day-media { position: relative; height: 190px; overflow: hidden; background: linear-gradient(135deg, var(--ocean), var(--navy-2)); border-radius: var(--radius) var(--radius) 0 0; }
+.day-media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: linear-gradient(135deg, var(--ocean), var(--navy-2)); border-radius: var(--radius) var(--radius) 0 0; }
 .day-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 6s ease-out, opacity .6s; opacity: 0; }
 .day-media img.loaded { opacity: 1; }
 .day:hover .day-media img { transform: scale(1.08); }
@@ -388,7 +389,7 @@ button { font-family: inherit; cursor: pointer; }
 
 /* ---------- MAP ---------- */
 .map-panel { display: flex; flex-direction: column; overflow: hidden; }
-#map { flex: 1; min-height: 400px; margin: 0 12px 12px; border-radius: 14px; overflow: hidden; background: #0A1730; }
+#map { flex: 1; min-height: clamp(440px, 52vh, 680px); margin: 0 14px 14px; border-radius: 14px; overflow: hidden; background: #0A1730; }
 .leaflet-container { background: #0A1730; font-family: var(--body); }
 .leaflet-tile-pane { filter: invert(1) hue-rotate(195deg) brightness(.82) contrast(.92) saturate(.55); }
 .leaflet-control-attribution { background: rgba(6,14,32,.7) !important; color: var(--slate) !important; font-size: 9px !important; }
@@ -469,11 +470,88 @@ button { font-family: inherit; cursor: pointer; }
 .confetti { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 70; }
 
 @media (min-width: 1800px) {
-  .main { grid-template-columns: 470px 1fr; }
-  .days { grid-auto-columns: 360px; }
   body { font-size: 16px; }
 }
 @media (max-width: 1280px) {
-  .main { grid-template-columns: 360px 1fr; }
-  .row-top { grid-template-columns: 1fr; }
+  .main { grid-template-columns: 340px minmax(0, 1fr); }
+  .row-top { grid-template-columns: 1fr; min-height: 0; }
+  .swarm-stage { min-height: 420px; }
+}
+
+/* grid/flex children may shrink below their content; long words wrap instead of widening the page */
+.main > *, .row-top > *, .row-mid > *, .col-stack > *, .stage > *, .summary-body > *, .sum-top > div, .sum-bottom > *, .transcript, .tick, .day, .exp > div { min-width: 0; }
+.sum-title, .next-q-text, .sum-summary, .bubble, .slot-title, .slot-desc, .tip-title, .tip-desc, .exp-title, .weather, .status-msg, .day-line { overflow-wrap: anywhere; }
+.meta { min-width: 0; }
+
+/* ---------- TABLET (<=1100): chat stacks above the stage, one page that scrolls ---------- */
+@media (max-width: 1100px) {
+  html, body { height: auto; }
+  body { overflow: visible; }
+  .app { height: auto; min-height: 100vh; grid-template-rows: auto 1fr; }
+  .hero { min-height: 76px; }
+  .main { grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 14px 14px 0; }
+  .left { margin-bottom: 0; overflow: visible; }
+  .chat { overflow: visible; max-height: none; }
+  .stage { overflow: visible; padding-right: 0; }
+  .row-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 0; }
+  .stage.empty .row-top { min-height: 0; }
+  .stage.empty .summary { min-height: 460px; }
+  .days { grid-auto-columns: minmax(280px, 1fr); }
+  .icon-btn { width: 44px; height: 44px; }
+  .ghost-btn { min-height: 44px; }
+}
+
+@media (max-width: 900px) {
+  .row-top, .row-mid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 768px) {
+  .app { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+  .hero { min-height: 60px; padding: 0 14px; }
+  .hero-claim, .brand-tag, .panel-title .sub { display: none; }
+  .main { padding: 12px 10px 0; gap: 14px; }
+  .row-top, .row-mid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .stage { gap: 14px; }
+  /* quick-start chips: one swipeable line */
+  .chips { flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: none; white-space: nowrap; min-height: 44px; scroll-snap-align: start; }
+  /* composer + mic: fixed bottom bar */
+  .composer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; }
+  .composer input { min-height: 48px; font-size: 16px; }
+  .send { min-height: 48px; }
+  .voice-dock { position: fixed; left: 12px; bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 41; }
+  .mic { width: 48px; height: 48px; }
+  .mic-icon { width: 22px; height: 22px; }
+  .transcript { display: none; position: absolute; left: 0; bottom: 60px; width: calc(100vw - 24px); padding: 10px 14px; border-radius: 14px; }
+  .transcript.live, .transcript.final { display: block; }
+  /* swarm scaled to fit */
+  .swarm-stage { flex: none; min-height: 0; height: 300px; }
+  .orb-core { width: 44px; height: 44px; font-size: 20px; }
+  .orb.coord .orb-core { width: 62px; height: 62px; font-size: 28px; }
+  .orb { gap: 4px; }
+  .orb-name { font-size: 11.5px; }
+  .orb-model, .orb-bubble { display: none; }
+  .ticker { height: 74px; padding-bottom: 6px; }
+  .status-msg { white-space: normal; font-size: 13px; }
+  .stage.empty .summary { min-height: 400px; }
+  .empty-copy { left: 18px; right: 18px; bottom: 20px; }
+  .sum-bottom { flex-wrap: wrap; }
+  .book-btn { width: 100%; min-height: 48px; }
+  /* itinerary: full-width cards, 16:9 photos */
+  .days { grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: minmax(0, 1fr); overflow: visible; padding: 4px 0 6px; }
+  .day-media { aspect-ratio: 16 / 9; }
+  .section-head { margin: 4px 4px 8px; }
+  .hint { display: none; }
+  #map { flex: none; height: 260px; min-height: 0; margin: 0 10px 10px; }
+  .pass { gap: 8px; padding: 12px; grid-template-columns: 1fr auto 1fr auto; }
+  .pass::before, .pass::after { right: 74px; }
+  .pass .fare { padding-left: 10px; }
+  .exp-price { font-size: 14px; }
+  .insider { grid-template-columns: minmax(0, 1fr); }
+  .play { width: 44px; height: 44px; }
+  .modal-x { width: 44px; height: 44px; }
+  .modal { padding: 26px 18px 20px; }
+  .conf-code { font-size: 32px; letter-spacing: 3px; }
 }

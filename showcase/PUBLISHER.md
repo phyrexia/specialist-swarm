@@ -30,3 +30,14 @@ Engagement posts between milestones are queued in `CALENDAR.md`.
 - Never upload secrets, keys, tokens, private data or screenshots that show them.
 - Log every upload in `showcase/posted.json` as `{file, caption, milestone, uploaded_at}`, with `uploaded_at` as an ISO time.
 - Use real facts only. If a number is not in the repo, leave it off the card.
+
+## Wording rule (Owner, 2026-11-06 15:40)
+Never say "swarm" or "agents" in cards or captions. Say **"your travel specialists, working for you"**. Display names:
+- Your Trip Planner
+- Destination Expert
+- Flight Specialist
+- Stays Curator
+- Experience Curator
+- Local Insider
+
+The "Meet the swarm" series becomes **"Meet your travel specialists"**. Re-render any queued card that still says swarm (e.g. `c02-meet-architect.png`) before uploading it. Already-posted items stay as they are.

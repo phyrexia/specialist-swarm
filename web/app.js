@@ -805,17 +805,17 @@
     stage.classList.remove('empty');
     stage.classList.toggle('sketching', sketch);
     const nextQ = sketch ? '' : it.next_question;
-    const verLabel = sketch ? `v${v} · ${draft.label}` : `v${v} · prepared by your specialists`;
+    const verLabel = sketch ? draft.label : 'Prepared by your specialists';
 
     // Summary
     const sb = $('#summaryBody');
     sb.classList.toggle('is-v0', sketch);
     sb.innerHTML = `
       <div class="sum-top">
-        <div class="version version-badge ${isNew ? 'flip' : ''} ${sketch ? 'is-v0' : ''}"><div class="version-inner">v${esc(v)}</div></div>
+        <div class="version version-badge ${isNew ? 'flip' : ''} ${sketch ? 'is-v0' : ''}"><div class="version-inner">✦</div></div>
         <div>
           <span class="ver-label ${sketch ? 'is-v0' : ''}">${esc(verLabel)}</span>
-          ${prevVersion !== null && isNew && !sketch ? '<span class="sum-new">NEW VERSION</span>' : ''}
+          ${prevVersion !== null && isNew && !sketch ? '<span class="sum-new">UPDATED</span>' : ''}
           <h2 class="sum-title">${esc(it.title || 'Your trip')}</h2>
         </div>
       </div>
@@ -836,7 +836,7 @@
     if (isNew) {
       addMsg('system', sketch
         ? `✦ ${draft.chat}`
-        : `✦ Version ${v} is ready — refined by your specialists`);
+        : '✦ Your updated plan is ready — refined by your specialists');
     }
     if (nextQ && isNew) addMsg('assistant', nextQ, 'question');
 

@@ -1,0 +1,159 @@
+{
+  "budget_style": "comfort",
+  "dates": "3 days (dates flexible)",
+  "days": [
+    {
+      "afternoon": {
+        "description": "Hotel desk or nearby café; short walk to settle in.",
+        "place_id": null,
+        "title": "Work block"
+      },
+      "day": 1,
+      "evening": {
+        "description": "Viewpoint at sunset, then fado dinner at Tasca do Chico.",
+        "place_id": "bairro-alto-pt",
+        "title": "Sunset and tasca dinner"
+      },
+      "morning": {
+        "description": "Drop bags, set up a desk in a quiet courtyard room.",
+        "place_id": "principe-real-pt",
+        "title": "Check in and set up"
+      },
+      "place_id": "principe-real-pt",
+      "place_name": "Príncipe Real",
+      "stay": {
+        "name": "Memmo Príncipe Real",
+        "price_per_night_eur": 240,
+        "type": "Boutique hotel",
+        "why": "Quiet courtyard rooms, near Príncipe Real bars."
+      },
+      "theme": "Arrive, settle, easy evening",
+      "transport": {
+        "arrive": "11:00",
+        "carrier": "TAP Air Portugal",
+        "depart": "08:10",
+        "from": "London Heathrow",
+        "mode": "flight",
+        "price_eur": 214,
+        "to": "Lisbon"
+      }
+    },
+    {
+      "afternoon": {
+        "description": "Top-rated café or coworking nearby; break at Santa Luzia viewpoint.",
+        "place_id": "santa-luzia-pt",
+        "title": "Meetings or café work"
+      },
+      "day": 2,
+      "evening": {
+        "description": "Mouraria tastings, then cocktails at Pensão Amor.",
+        "place_id": "mouraria-pt",
+        "title": "Food walk, then Cais do Sodré"
+      },
+      "morning": {
+        "description": "Quiet desk time at the hotel lounge.",
+        "place_id": null,
+        "title": "Deep work"
+      },
+      "place_id": "lisbon-pt",
+      "place_name": "Lisbon",
+      "theme": "Full work day, Cais do Sodré night"
+    },
+    {
+      "afternoon": {
+        "description": "Easy walk, lunch, and transfer to airport by 15:30.",
+        "place_id": "graca-pt",
+        "title": "Graça viewpoint stroll"
+      },
+      "day": 3,
+      "evening": {
+        "description": "Evening TAP flight home from Lisbon airport.",
+        "place_id": null,
+        "title": "Departure"
+      },
+      "morning": {
+        "description": "Final work block, then check out and store bags.",
+        "place_id": null,
+        "title": "Work and checkout"
+      },
+      "place_id": "lisbon-pt",
+      "place_name": "Lisbon",
+      "theme": "Light morning, departure",
+      "transport": {
+        "arrive": "20:35",
+        "carrier": "TAP Air Portugal",
+        "depart": "18:30",
+        "from": "Lisbon",
+        "mode": "flight",
+        "price_eur": 214,
+        "to": "London Heathrow"
+      }
+    }
+  ],
+  "experiences": [
+    {
+      "price_eur": 25,
+      "title": "Fado dinner at Tasca do Chico",
+      "why": "Authentic fado without the tourist markup."
+    },
+    {
+      "place_id": "mouraria-pt",
+      "price_eur": 60,
+      "title": "Mouraria evening food walk",
+      "why": "Replaces dinner; great value solo."
+    },
+    {
+      "price_eur": 30,
+      "title": "Tagus sunset cruise",
+      "why": "Relaxed unwind after work, departs Cais do Sodré."
+    },
+    {
+      "price_eur": 30,
+      "title": "Cais do Sodré bar night",
+      "why": "Pensão Amor cocktails, Musicbox gigs."
+    }
+  ],
+  "flights": [
+    {
+      "arrive": "11:00",
+      "carrier": "TAP Air Portugal",
+      "depart": "08:10",
+      "duration": "2h50m",
+      "from": "London Heathrow",
+      "price_eur": 214,
+      "to": "Lisbon"
+    },
+    {
+      "arrive": "20:35",
+      "carrier": "TAP Air Portugal",
+      "depart": "18:30",
+      "duration": "2h05m",
+      "from": "Lisbon",
+      "price_eur": 214,
+      "to": "London Heathrow"
+    }
+  ],
+  "insider_tips": [
+    {
+      "description": "Rua da Atalaia beers cost half the main strip.",
+      "place_id": "bairro-alto-pt",
+      "title": "Bairro Alto side alleys"
+    },
+    {
+      "description": "Locals sit on the wall around 7pm.",
+      "place_id": null,
+      "title": "Santa Catarina sunset"
+    },
+    {
+      "description": "Dinner 8:30, bars from 11pm, clubs after 2am.",
+      "place_id": null,
+      "title": "Local night rhythm"
+    }
+  ],
+  "next_question": "What are your travel dates and departure city?",
+  "summary": "Three focused work days from a quiet boutique base in Príncipe Real, with bars and fado a short walk away. Comfort-leaning upgrades: nonstop TAP flights with a flexible fare and a top-rated boutique stay.",
+  "title": "Lisbon Work Trip: Desk Days, Lively Nights",
+  "total_estimate_eur": 1330,
+  "travellers": "1 adult (work trip)",
+  "weather_note": "Shoulder season assumed: mild, 16–24°C; pack a light jacket."
+}

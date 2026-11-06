@@ -1,0 +1,159 @@
+{
+  "budget_style": "comfort",
+  "dates": "Mon–Wed (3 days)",
+  "days": [
+    {
+      "afternoon": {
+        "description": "Room ready from 14:00; rest, then desk time.",
+        "place_id": "principe-real-pt",
+        "title": "Check in and work block"
+      },
+      "day": 1,
+      "evening": {
+        "description": "Tasca do Chico, arrive by 19:30, then early night.",
+        "place_id": "bairro-alto-pt",
+        "title": "Early fado dinner"
+      },
+      "morning": {
+        "description": "Drop bags at hotel, breakfast, calm walk up to Santa Luzia.",
+        "place_id": "santa-luzia-pt",
+        "title": "Breakfast and quiet viewpoint"
+      },
+      "place_id": "principe-real-pt",
+      "place_name": "Príncipe Real",
+      "stay": {
+        "name": "Memmo Príncipe Real",
+        "price_per_night_eur": 240,
+        "type": "Boutique hotel",
+        "why": "Quiet courtyard rooms; free bag hold on arrival."
+      },
+      "theme": "Early arrival, slow settle-in",
+      "transport": {
+        "arrive": "07:00",
+        "carrier": "TAP Air Portugal",
+        "depart": "04:10",
+        "from": "London Heathrow",
+        "mode": "flight",
+        "price_eur": 196,
+        "to": "Lisbon"
+      }
+    },
+    {
+      "afternoon": {
+        "description": "Jerónimos, Belém Tower, pastéis; tram 15E back by 17:00.",
+        "place_id": "lisbon-pt",
+        "title": "Free afternoon in Belém"
+      },
+      "day": 2,
+      "evening": {
+        "description": "Mouraria tastings, then cocktails at Pensão Amor.",
+        "place_id": "mouraria-pt",
+        "title": "Food walk, then Cais do Sodré"
+      },
+      "morning": {
+        "description": "Hotel lounge or desk-friendly café before 10am calm.",
+        "place_id": null,
+        "title": "Deep work"
+      },
+      "place_id": "lisbon-pt",
+      "place_name": "Lisbon",
+      "theme": "Work morning, free Belém afternoon"
+    },
+    {
+      "afternoon": {
+        "description": "Easy walk and lunch; airport transfer by 15:30.",
+        "place_id": "graca-pt",
+        "title": "Graça viewpoint stroll"
+      },
+      "day": 3,
+      "evening": {
+        "description": "Evening TAP flight home from Lisbon airport.",
+        "place_id": null,
+        "title": "Departure"
+      },
+      "morning": {
+        "description": "Final work block, then check out and store bags.",
+        "place_id": null,
+        "title": "Work and checkout"
+      },
+      "place_id": "lisbon-pt",
+      "place_name": "Lisbon",
+      "theme": "Light morning, departure",
+      "transport": {
+        "arrive": "20:35",
+        "carrier": "TAP Air Portugal",
+        "depart": "18:30",
+        "from": "Lisbon",
+        "mode": "flight",
+        "price_eur": 214,
+        "to": "London Heathrow"
+      }
+    }
+  ],
+  "experiences": [
+    {
+      "price_eur": 20,
+      "title": "Belém afternoon: Jerónimos and Tower",
+      "why": "Free-afternoon highlight; crowds thin by 17:00."
+    },
+    {
+      "price_eur": 25,
+      "title": "Fado dinner at Tasca do Chico",
+      "why": "Authentic fado, early table suits arrival day."
+    },
+    {
+      "place_id": "mouraria-pt",
+      "price_eur": 60,
+      "title": "Mouraria evening food walk",
+      "why": "Replaces dinner; great value solo."
+    },
+    {
+      "price_eur": 30,
+      "title": "Cais do Sodré bar night",
+      "why": "Pensão Amor cocktails, Musicbox gigs."
+    }
+  ],
+  "flights": [
+    {
+      "arrive": "07:00",
+      "carrier": "TAP Air Portugal",
+      "depart": "04:10",
+      "duration": "2h50m",
+      "from": "London Heathrow",
+      "price_eur": 196,
+      "to": "Lisbon"
+    },
+    {
+      "arrive": "20:35",
+      "carrier": "TAP Air Portugal",
+      "depart": "18:30",
+      "duration": "2h05m",
+      "from": "Lisbon",
+      "price_eur": 214,
+      "to": "London Heathrow"
+    }
+  ],
+  "insider_tips": [
+    {
+      "description": "Hotel stores bags from 07:00; room usually ready 14:00.",
+      "place_id": "principe-real-pt",
+      "title": "Early-arrival bag hold"
+    },
+    {
+      "description": "Padaria Portuguesa, Restauradores: early opening, cheap galão and bifana.",
+      "place_id": null,
+      "title": "Post-flight breakfast"
+    },
+    {
+      "description": "Rua da Atalaia beers cost half the main strip.",
+      "place_id": "bairro-alto-pt",
+      "title": "Bairro Alto side alleys"
+    }
+  ],
+  "next_question": "Would you like a Sunday-night hotel booking so your room is ready at 07:00?",
+  "summary": "Landing at 07:00 means a gentle first morning, with bags held at the hotel until check-in. Day 2 now has a free Belém afternoon between work blocks.",
+  "title": "Lisbon Work Trip v2: Early Landing, Free Afternoon",
+  "total_estimate_eur": 1300,
+  "travellers": "1 adult (work trip)",
+  "weather_note": "Shoulder season assumed: mild, 16–24°C; pack a light jacket."
+}

@@ -1,0 +1,266 @@
+{
+  "budget_style": "balanced",
+  "dates": "Late June, 6 days (5 nights)",
+  "days": [
+    {
+      "afternoon": {
+        "description": "Take the shaded paths up Marjan Hill for views over the islands you will visit, then a shallow swim at Firule rocks.",
+        "place_id": "split-marjan-hr",
+        "title": "Marjan Hill gentle walk"
+      },
+      "day": 1,
+      "evening": {
+        "description": "Eat an early konoba dinner in the old town, stock up on fruit at the market and have an early night.",
+        "place_id": "split-hr",
+        "title": "Early family dinner"
+      },
+      "morning": {
+        "description": "Land at 08:55, take the airport bus or a taxi to the stay, leave your bags and have a slow breakfast near the Riva.",
+        "place_id": "split-hr",
+        "title": "Arrive in Split and drop bags"
+      },
+      "place_id": "split-hr",
+      "place_name": "Split",
+      "stay": {
+        "name": "Two-bedroom apartment near Riva (Varoš)",
+        "price_per_night_eur": 150,
+        "type": "apartment",
+        "why": "Five minutes on foot to the harbour and ferries, with space for three."
+      },
+      "theme": "Easy arrival and harbour stroll",
+      "transport": {
+        "arrive": "08:55",
+        "carrier": "Eurowings",
+        "depart": "07:10",
+        "from": "Frankfurt",
+        "mode": "flight",
+        "price_eur": 310,
+        "to": "Split"
+      }
+    },
+    {
+      "afternoon": {
+        "description": "Check in near Pjaca square, then cool off at the town beaches and walk the harbour.",
+        "place_id": "hvar-hr",
+        "title": "Settle in and swim"
+      },
+      "day": 2,
+      "evening": {
+        "description": "Take a 2-hour small-boat sunset sail at 18:30 (no minimum age, lifejackets provided), then dinner at the harbour.",
+        "place_id": "hvar-hr",
+        "title": "Sunset sail from Hvar"
+      },
+      "morning": {
+        "description": "Buy cherries and figs for the boat, then take the roughly 1-hour catamaran across to Hvar Town.",
+        "place_id": "split-hr",
+        "title": "Pazar market, then catamaran to Hvar"
+      },
+      "place_id": "hvar-hr",
+      "place_name": "Hvar Town",
+      "stay": {
+        "name": "Family apartment near Pjaca square",
+        "price_per_night_eur": 190,
+        "type": "apartment",
+        "why": "Central, with space for three. Check for ground-floor or lift access because the old town has many stairs."
+      },
+      "theme": "Ferry to Hvar and a sunset sail",
+      "transport": {
+        "arrive": "11:00",
+        "carrier": "Catamaran (Krilo / Jadrolinija)",
+        "depart": "10:00",
+        "from": "Split",
+        "mode": "boat",
+        "price_eur": 30,
+        "to": "Hvar"
+      }
+    },
+    {
+      "afternoon": {
+        "description": "Take a short bus or taxi to Stari Grad for a quiet old-town wander beside the ancient field walls.",
+        "place_id": "stari-grad-hr",
+        "title": "Stari Grad and the Greek plain"
+      },
+      "day": 3,
+      "evening": {
+        "description": "Order the catch of the day or peka (about €70-90 for the family), then head back to Hvar early.",
+        "place_id": "stari-grad-hr",
+        "title": "Konoba dinner in Stari Grad"
+      },
+      "morning": {
+        "description": "Leave at 09:00 for a half-day of snorkelling and kayaking in calm coves; kids 8+ can paddle solo and younger ones share a tandem kayak with you.",
+        "place_id": "hvar-pakleni-hr",
+        "title": "Pakleni Islands snorkel and kayak"
+      },
+      "place_id": "hvar-pakleni-hr",
+      "place_name": "Pakleni Islands",
+      "stay": {
+        "name": "Family apartment near Pjaca square",
+        "price_per_night_eur": 190,
+        "type": "apartment",
+        "why": "Same base, so no packing needed."
+      },
+      "theme": "Snorkelling and kayaking in sheltered coves"
+    },
+    {
+      "afternoon": {
+        "description": "Check in by the harbour and take a gentle swim and ice cream stroll along the waterfront.",
+        "place_id": "vis-hr",
+        "title": "Settle into Vis Town"
+      },
+      "day": 4,
+      "evening": {
+        "description": "Take a short taxi to the fishing port of Komiža for an early fish dinner on the quay.",
+        "place_id": "komiza-hr",
+        "title": "Dinner in Komiža"
+      },
+      "morning": {
+        "description": "Have a relaxed breakfast, a final swim, then cross to Vis in the morning while the sea is calm.",
+        "place_id": "hvar-hr",
+        "title": "Last Hvar swim and boat to Vis"
+      },
+      "place_id": "vis-hr",
+      "place_name": "Vis",
+      "stay": {
+        "name": "Harbour-front apartment, Vis Town",
+        "price_per_night_eur": 120,
+        "type": "apartment",
+        "why": "Quiet, walkable to the ferry and the cheapest stop on the route."
+      },
+      "theme": "Island hop to quiet Vis",
+      "transport": {
+        "arrive": "12:00",
+        "carrier": "Catamaran / ferry (check the seasonal schedule, may route via Split)",
+        "depart": "09:30",
+        "from": "Hvar",
+        "mode": "boat",
+        "price_eur": 60,
+        "to": "Vis"
+      }
+    },
+    {
+      "afternoon": {
+        "description": "Spend the afternoon swimming in the shallow turquoise water and having a picnic lunch.",
+        "place_id": "komiza-hr",
+        "title": "Budikovac bay swim"
+      },
+      "day": 5,
+      "evening": {
+        "description": "Have a quiet harbour dinner and pack for tomorrow's early ferry.",
+        "place_id": "vis-hr",
+        "title": "Slow evening on Vis"
+      },
+      "morning": {
+        "description": "Watch the fishing boats unload around 07:30, then take a short boat trip to the Budikovac island bay.",
+        "place_id": "komiza-hr",
+        "title": "Komiža harbour and fish market"
+      },
+      "place_id": "komiza-hr",
+      "place_name": "Komiža",
+      "stay": {
+        "name": "Harbour-front apartment, Vis Town",
+        "price_per_night_eur": 120,
+        "type": "apartment",
+        "why": "Same base, so no packing needed."
+      },
+      "theme": "Fishing-port morning and a Budikovac boat outing"
+    },
+    {
+      "afternoon": {
+        "description": "Have a final swim and lunch at Bačvice, then leave for the airport by 16:30 for the 19:40 flight.",
+        "place_id": "split-hr",
+        "title": "Bačvice beach and airport transfer"
+      },
+      "day": 6,
+      "evening": {
+        "description": "Fly out of Split at 19:40.",
+        "place_id": null,
+        "title": "Flight home"
+      },
+      "morning": {
+        "description": "Take the car ferry (about 3 hours) back to Split, with deck time for the kids.",
+        "place_id": "vis-hr",
+        "title": "Morning ferry Vis to Split"
+      },
+      "place_id": "split-hr",
+      "place_name": "Split",
+      "theme": "Ferry back and departure",
+      "transport": {
+        "arrive": "13:00",
+        "carrier": "Jadrolinija ferry",
+        "depart": "10:00",
+        "from": "Vis",
+        "mode": "boat",
+        "price_eur": 25,
+        "to": "Split"
+      }
+    }
+  ],
+  "experiences": [
+    {
+      "place_id": "hvar-pakleni-hr",
+      "price_eur": 105,
+      "title": "Pakleni Islands snorkel and kayak half-day",
+      "why": "Calm morning water, 09:00-13:00; kids 8+ paddle solo."
+    },
+    {
+      "place_id": "hvar-hr",
+      "price_eur": 90,
+      "title": "Sunset sail from Hvar (2 hours)",
+      "why": "No minimum age, lifejackets provided, 18:30 departure."
+    },
+    {
+      "place_id": "komiza-hr",
+      "price_eur": 70,
+      "title": "Budikovac island boat trip from Komiža",
+      "why": "Cheap half-day with shallow turquoise water, good for kids."
+    }
+  ],
+  "flights": [
+    {
+      "arrive": "08:55",
+      "carrier": "Eurowings",
+      "depart": "07:10",
+      "duration": "1h45",
+      "from": "Frankfurt (FRA)",
+      "price_eur": 310,
+      "to": "Split (SPU)"
+    },
+    {
+      "arrive": "21:30",
+      "carrier": "Eurowings",
+      "depart": "19:40",
+      "duration": "1h50",
+      "from": "Split (SPU)",
+      "price_eur": 310,
+      "to": "Frankfurt (FRA)"
+    }
+  ],
+  "insider_tips": [
+    {
+      "description": "Locals walk the west side for sunset and swim at Kašjuni or Firule, both shallow and kid-friendly.",
+      "place_id": "split-marjan-hr",
+      "title": "Marjan Hill at sunset"
+    },
+    {
+      "description": "It is quieter and cheaper than Hvar Town, with good konobas and flat walks.",
+      "place_id": "stari-grad-hr",
+      "title": "Stari Grad over Hvar Town"
+    },
+    {
+      "description": "Buy sardines or squid at the harbour around 07:30 for about €10-15/kg and grill them on the apartment terrace.",
+      "place_id": "komiza-hr",
+      "title": "Fish from the boats in Komiža"
+    },
+    {
+      "description": "Swim at coves like Stiniva before 9am or after 5pm and book ferries and konobas early in late June.",
+      "place_id": null,
+      "title": "Beat the heat and the crowds"
+    }
+  ],
+  "next_question": "Would you prefer to live aboard a skippered charter boat for the week instead of apartments plus day sails?",
+  "summary": "This is a 6-day island-hopping trip with short boat hops and sheltered swim stops. Late June brings 27-30°C air, 23-24°C sea and a calmer morning sea before the afternoon maistral wind. At mid budget, it uses family apartments with catamaran and ferry hops plus guided boat outings, which suits a solo adult with two kids better than a bareboat charter. A skippered week aboard would be a comfort upgrade at roughly €2,800 or more for the boat alone.",
+  "title": "Family sailing in Croatia: Split, Hvar and Vis",
+  "total_estimate_eur": 2200,
+  "travellers": "1 adult + 2 kids",
+  "weather_note": "Late June: air 27-30°C, sea 23-24°C, calmer mornings and an afternoon maistral wind of 10-18 kn; rain is rare. Ivan midsummer celebrations on 23 June and the Hvar Festival may add evening events."
+}

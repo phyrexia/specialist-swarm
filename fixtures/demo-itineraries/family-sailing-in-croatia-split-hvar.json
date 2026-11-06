@@ -1,0 +1,176 @@
+{
+  "budget_style": "balanced",
+  "dates": "Late June, 5 days",
+  "days": [
+    {
+      "afternoon": {
+        "description": "Gentle seafront stroll, gelato, Diocletian's Palace.",
+        "place_id": "split-hr",
+        "title": "Riva and old town"
+      },
+      "day": 1,
+      "evening": {
+        "description": "Early dinner, quiet night after travel.",
+        "title": "Early konoba dinner"
+      },
+      "morning": {
+        "description": "Land 10:20, transfer to the apartment, rest.",
+        "title": "Arrive and check in"
+      },
+      "place_id": "split-hr",
+      "place_name": "Split",
+      "stay": {
+        "name": "Two-bedroom apartment near Riva",
+        "price_per_night_eur": 170,
+        "type": "apartment",
+        "why": "Kids' bedroom, kitchenette, walk to the ferry."
+      },
+      "theme": "Arrive and settle"
+    },
+    {
+      "afternoon": {
+        "description": "Island swim stops, back around 17:30.",
+        "place_id": "split-kornati-hr",
+        "title": "Sailing and swimming"
+      },
+      "day": 2,
+      "evening": {
+        "description": "Pasta near the apartment, early bed.",
+        "title": "Easy dinner"
+      },
+      "morning": {
+        "description": "08:30 departure; snorkel stops and lunch aboard.",
+        "place_id": "split-kornati-hr",
+        "title": "Kornati catamaran day trip"
+      },
+      "place_id": "split-hr",
+      "place_name": "Split",
+      "theme": "Kornati sailing day"
+    },
+    {
+      "afternoon": {
+        "description": "Fortress views, shaded swim, rest in the heat.",
+        "place_id": "hvar-hr",
+        "title": "Hvar town and harbour"
+      },
+      "day": 3,
+      "evening": {
+        "description": "Early dinner, sunset on the quay.",
+        "title": "Harbour sunset"
+      },
+      "morning": {
+        "description": "1h10 crossing; check in, drop bags.",
+        "title": "Catamaran to Hvar"
+      },
+      "place_id": "hvar-hr",
+      "place_name": "Hvar",
+      "stay": {
+        "name": "Family apartment in Hvar town",
+        "price_per_night_eur": 180,
+        "type": "apartment",
+        "why": "Ground-floor access, easy with luggage and kids."
+      },
+      "theme": "Catamaran to Hvar",
+      "transport": {
+        "carrier": "Catamaran",
+        "from": "Split",
+        "mode": "boat",
+        "price_eur": 50,
+        "to": "Hvar"
+      }
+    },
+    {
+      "afternoon": {
+        "description": "Quiet old town, nap and gelato.",
+        "place_id": "stari-grad-hr",
+        "title": "Stari Grad visit"
+      },
+      "day": 4,
+      "evening": {
+        "description": "Grilled fish and kids' pasta, early night.",
+        "title": "Konoba dinner"
+      },
+      "morning": {
+        "description": "10:00 half-day sail, calm bays and swimming.",
+        "place_id": "hvar-pakleni-hr",
+        "title": "Pakleni Islands sail"
+      },
+      "place_id": "hvar-hr",
+      "place_name": "Hvar",
+      "theme": "Pakleni Islands"
+    },
+    {
+      "afternoon": {
+        "description": "Short shaded walk; leave for airport by 16:30.",
+        "place_id": "split-marjan-hr",
+        "title": "Marjan Hill walk"
+      },
+      "day": 5,
+      "evening": {
+        "description": "Depart 19:40.",
+        "title": "Flight home"
+      },
+      "morning": {
+        "description": "Early crossing back to Split.",
+        "place_id": "split-hr",
+        "title": "Catamaran to Split"
+      },
+      "place_id": "split-hr",
+      "place_name": "Split",
+      "theme": "Return and fly home",
+      "transport": {
+        "carrier": "Catamaran",
+        "from": "Hvar",
+        "mode": "boat",
+        "price_eur": 50,
+        "to": "Split"
+      }
+    }
+  ],
+  "experiences": [
+    {
+      "place_id": "split-kornati-hr",
+      "price_eur": 240,
+      "title": "Kornati catamaran day trip",
+      "why": "Snorkel stops and lunch; kids' fares apply."
+    },
+    {
+      "place_id": "hvar-pakleni-hr",
+      "price_eur": 140,
+      "title": "Pakleni Islands half-day sail",
+      "why": "Calm bays, short and kid-friendly."
+    }
+  ],
+  "flights": [
+    {
+      "arrive": "10:20",
+      "carrier": "Lufthansa",
+      "depart": "08:35",
+      "duration": "1h45",
+      "from": "Frankfurt",
+      "price_eur": 730,
+      "to": "Split"
+    }
+  ],
+  "insider_tips": [
+    {
+      "description": "Quiet fishing port; consider it for a longer stay.",
+      "place_id": "komiza-hr",
+      "title": "Komiža on Vis"
+    },
+    {
+      "description": "Swim early, rest 13:00-17:00, dine around 20:00.",
+      "title": "Beat the heat"
+    },
+    {
+      "description": "Late-June catamarans sell out; bring child life jackets and sea shoes.",
+      "title": "Book ahead"
+    }
+  ],
+  "next_question": "How old are your kids?",
+  "summary": "Five easy days of boat trips and island time in Split and Hvar, with short transfers and early nights for kids. Mid-range family apartments and day sails keep it balanced, with no week-long charter to commit to.",
+  "title": "Family Sailing in Croatia: Split & Hvar",
+  "total_estimate_eur": 2900,
+  "travellers": "1 adult + 2 kids",
+  "weather_note": "Air 27-30°C, sea 22-23°C, afternoon breeze."
+}

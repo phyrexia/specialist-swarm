@@ -11,3 +11,4 @@ __pycache__/
 outputs/
 spikes/ma-latency/.state.json
 .playwright-mcp/
+.atlas_state.json

@@ -1,0 +1,185 @@
+{
+  "budget_style": "comfort",
+  "dates": "Late June, 5 days",
+  "days": [
+    {
+      "afternoon": {
+        "description": "Land 13:00, private transfer to the hotel, pool time.",
+        "place_id": "split-hr",
+        "title": "Arrive and unwind"
+      },
+      "day": 1,
+      "evening": {
+        "description": "Early upscale dinner on the Riva, then rest.",
+        "title": "Seafront dinner"
+      },
+      "morning": {
+        "description": "Relaxed late departure from Frankfurt, lunch on board.",
+        "title": "Business-class flight"
+      },
+      "place_id": "split-hr",
+      "place_name": "Split",
+      "stay": {
+        "name": "Hotel Park Split, family suite",
+        "price_per_night_eur": 290,
+        "type": "4-star hotel",
+        "why": "Sea view, pool, two rooms for the kids."
+      },
+      "theme": "Arrive in comfort"
+    },
+    {
+      "afternoon": {
+        "description": "Swim stops, lunch aboard, back by 17:30.",
+        "place_id": "split-kornati-hr",
+        "title": "Kornati by private speedboat"
+      },
+      "day": 2,
+      "evening": {
+        "description": "Hotel pool, early dinner, early night.",
+        "title": "Pool and dinner"
+      },
+      "morning": {
+        "description": "09:00 departure with skipper; life jackets provided.",
+        "place_id": "split-kornati-hr",
+        "title": "Private Kornati speedboat"
+      },
+      "place_id": "split-hr",
+      "place_name": "Split",
+      "theme": "Private Kornati day"
+    },
+    {
+      "afternoon": {
+        "description": "Check in, beach and pool, kids' club.",
+        "place_id": "hvar-hr",
+        "title": "Resort afternoon"
+      },
+      "day": 3,
+      "evening": {
+        "description": "Sunset walk and early harbour dinner.",
+        "place_id": "hvar-hr",
+        "title": "Harbour dinner"
+      },
+      "morning": {
+        "description": "Private-style morning crossing, about 1h10.",
+        "title": "Catamaran to Hvar"
+      },
+      "place_id": "hvar-hr",
+      "place_name": "Hvar",
+      "stay": {
+        "name": "Amfora Hvar Grand Beach Resort, family suite",
+        "price_per_night_eur": 420,
+        "type": "5-star resort",
+        "why": "Beachfront, pools, kids' club."
+      },
+      "theme": "Move to Hvar",
+      "transport": {
+        "carrier": "Catamaran",
+        "from": "Split",
+        "mode": "boat",
+        "price_eur": 70,
+        "to": "Hvar"
+      }
+    },
+    {
+      "afternoon": {
+        "description": "Quiet old town, gelato, rest by the pool.",
+        "place_id": "stari-grad-hr",
+        "title": "Stari Grad visit"
+      },
+      "day": 4,
+      "evening": {
+        "description": "Relaxed final dinner, early night.",
+        "title": "Farewell dinner"
+      },
+      "morning": {
+        "description": "Morning kayak, then 10:00 private yacht to Pakleni.",
+        "place_id": "hvar-pakleni-hr",
+        "title": "Kayak and Pakleni yacht"
+      },
+      "place_id": "hvar-hr",
+      "place_name": "Hvar",
+      "theme": "Pakleni Islands by yacht"
+    },
+    {
+      "afternoon": {
+        "description": "Early walk, leave for airport by 16:30.",
+        "place_id": "split-marjan-hr",
+        "title": "Marjan Hill stroll"
+      },
+      "day": 5,
+      "evening": {
+        "description": "Depart 19:40.",
+        "title": "Flight home"
+      },
+      "morning": {
+        "description": "Morning crossing, then a shaded walk.",
+        "place_id": "split-hr",
+        "title": "Catamaran to Split"
+      },
+      "place_id": "split-hr",
+      "place_name": "Split",
+      "theme": "Return and fly home",
+      "transport": {
+        "carrier": "Catamaran",
+        "from": "Hvar",
+        "mode": "boat",
+        "price_eur": 70,
+        "to": "Split"
+      }
+    }
+  ],
+  "experiences": [
+    {
+      "place_id": "split-kornati-hr",
+      "price_eur": 700,
+      "title": "Private Kornati speedboat",
+      "why": "Skippered, faster, flexible swim stops."
+    },
+    {
+      "place_id": "hvar-pakleni-hr",
+      "price_eur": 580,
+      "title": "Private Pakleni yacht, half day",
+      "why": "Quiet bays at your own pace."
+    },
+    {
+      "place_id": null,
+      "price_eur": 80,
+      "title": "Guided sea kayak for kids",
+      "why": "Suits ages 8 and up, calm mornings."
+    }
+  ],
+  "flights": [
+    {
+      "arrive": "13:00",
+      "carrier": "Lufthansa Business",
+      "depart": "11:15",
+      "duration": "1h45",
+      "from": "Frankfurt",
+      "price_eur": 2650,
+      "to": "Split"
+    }
+  ],
+  "insider_tips": [
+    {
+      "description": "Go at 7:00 before the heat, then juice on Put Firula.",
+      "place_id": "split-marjan-hr",
+      "title": "Early Marjan"
+    },
+    {
+      "description": "Quieter side of Hvar, ideal for a skippered lunch cruise.",
+      "place_id": "stari-grad-hr",
+      "title": "Stari Grad"
+    },
+    {
+      "description": "Harbour-view fish dinners and a quiet extension on Vis.",
+      "place_id": "komiza-hr",
+      "title": "Komiža"
+    }
+  ],
+  "next_question": "Would you prefer a beachfront resort or central Hvar harbour hotel?",
+  "summary": "Upgraded to business-class flights, 4-5 star family suites and private skippered boats for ages 8 and 11. Late-morning departure, pool time and early dinners keep it easy.",
+  "title": "Comfort Family Sailing: Split & Hvar",
+  "total_estimate_eur": 6450,
+  "travellers": "1 adult + 2 kids (8, 11)",
+  "weather_note": "Air 27-30°C, sea 22-23°C, afternoon breeze."
+}

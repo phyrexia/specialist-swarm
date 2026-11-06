@@ -1,0 +1,4385 @@
+{
+  "run_id": "20261106T140116Z",
+  "sdk_version": "2.6.0",
+  "setup_ms": {
+    "environment": 1774,
+    "two_specialists": 700,
+    "coordinator_incl_probe": 287,
+    "memory_store": 379,
+    "session_1_create": 585,
+    "session_2_create": 530
+  },
+  "coordinator_shape": "multiagent_20261001_full",
+  "session_1_resources": [
+    {
+      "memory_store_id": "memstore_01BrxPDPsT9CSM1PcRu46Ro3",
+      "type": "memory_store",
+      "access": "read_write",
+      "description": "Spike: stable traveller preferences for one demo user.",
+      "instructions": "Save stable traveller preferences to /mnt/memory/travelswarm-spike-user-demo/preferences.md as short markdown; never quote them back to the user.",
+      "mount_path": "/mnt/memory/travelswarm-spike-user-demo",
+      "name": "travelswarm-spike-user-demo"
+    }
+  ],
+  "turn1": {
+    "label": "turn1",
+    "session_id": "sesn_01GQK9jfFSfxpd65gnGeFNvY",
+    "text": "Family of 3, one parent and two kids, want sailing in Croatia in late June, mid budget. Plan quickly.",
+    "events": [
+      {
+        "t_ms": 972,
+        "type": "session.status_running",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:21.076696+00:00"
+      },
+      {
+        "t_ms": 973,
+        "type": "session.thread_status_running",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:01:21.076697+00:00"
+      },
+      {
+        "t_ms": 1044,
+        "type": "user.message",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:21.181975+00:00"
+      },
+      {
+        "t_ms": 1044,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:21.181976+00:00"
+      },
+      {
+        "t_ms": 3411,
+        "type": "agent.tool_use",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:23.633760+00:00"
+      },
+      {
+        "t_ms": 3412,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:23.633763+00:00"
+      },
+      {
+        "t_ms": 3795,
+        "type": "agent.tool_result",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:24.030787+00:00"
+      },
+      {
+        "t_ms": 4042,
+        "type": "session.thread_created",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:01:24.334518+00:00"
+      },
+      {
+        "t_ms": 4042,
+        "type": "agent.thread_message_sent",
+        "actor": "->weather-scout",
+        "processed_at": "2026-11-06 14:01:24.334519+00:00"
+      },
+      {
+        "t_ms": 4319,
+        "type": "session.thread_created",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:01:24.621319+00:00"
+      },
+      {
+        "t_ms": 4319,
+        "type": "agent.thread_message_sent",
+        "actor": "->insider",
+        "processed_at": "2026-11-06 14:01:24.621320+00:00"
+      },
+      {
+        "t_ms": 4355,
+        "type": "session.thread_status_running",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:01:24.621931+00:00"
+      },
+      {
+        "t_ms": 4391,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:24.692796+00:00"
+      },
+      {
+        "t_ms": 4699,
+        "type": "session.thread_status_running",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:01:24.978887+00:00"
+      },
+      {
+        "t_ms": 5459,
+        "type": "session.thread_status_idle",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:01:25.664238+00:00"
+      },
+      {
+        "t_ms": 5617,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:25.758872+00:00"
+      },
+      {
+        "t_ms": 5643,
+        "type": "agent.custom_tool_use",
+        "actor": "thread:insider",
+        "processed_at": "2026-11-06 14:01:25.814071+00:00"
+      },
+      {
+        "t_ms": 6280,
+        "type": "session.thread_status_running",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:01:26.567369+00:00"
+      },
+      {
+        "t_ms": 6542,
+        "type": "session.thread_status_idle",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:01:26.746205+00:00"
+      },
+      {
+        "t_ms": 6577,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:26.832303+00:00"
+      },
+      {
+        "t_ms": 6577,
+        "type": "agent.custom_tool_use",
+        "actor": "thread:weather-scout",
+        "processed_at": "2026-11-06 14:01:26.885803+00:00"
+      },
+      {
+        "t_ms": 7206,
+        "type": "agent.tool_use",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:27.154774+00:00"
+      },
+      {
+        "t_ms": 7206,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:27.154775+00:00"
+      },
+      {
+        "t_ms": 7227,
+        "type": "session.thread_status_running",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:01:27.393681+00:00"
+      },
+      {
+        "t_ms": 7284,
+        "type": "agent.tool_result",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:27.589210+00:00"
+      },
+      {
+        "t_ms": 7415,
+        "type": "user.custom_tool_result",
+        "actor": "thread:insider",
+        "processed_at": "2026-11-06 14:01:27.672373+00:00"
+      },
+      {
+        "t_ms": 7523,
+        "type": "user.custom_tool_result",
+        "actor": "thread:weather-scout",
+        "processed_at": "2026-11-06 14:01:27.756017+00:00"
+      },
+      {
+        "t_ms": 7617,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:27.855035+00:00"
+      },
+      {
+        "t_ms": 8018,
+        "type": "session.thread_status_idle",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:01:28.311053+00:00"
+      },
+      {
+        "t_ms": 8070,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:28.385464+00:00"
+      },
+      {
+        "t_ms": 8790,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:29.050859+00:00"
+      },
+      {
+        "t_ms": 8860,
+        "type": "agent.thread_message_received",
+        "actor": "<-insider",
+        "processed_at": "2026-11-06 14:01:29.176651+00:00"
+      },
+      {
+        "t_ms": 9016,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:29.320198+00:00"
+      },
+      {
+        "t_ms": 9978,
+        "type": "session.thread_status_idle",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:01:30.034664+00:00"
+      },
+      {
+        "t_ms": 9981,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:30.137325+00:00"
+      },
+      {
+        "t_ms": 11137,
+        "type": "agent.thinking",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:31.227000+00:00"
+      },
+      {
+        "t_ms": 11181,
+        "type": "agent.message",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:31.297166+00:00"
+      },
+      {
+        "t_ms": 11181,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:31.297167+00:00"
+      },
+      {
+        "t_ms": 11283,
+        "type": "agent.thread_message_received",
+        "actor": "<-weather-scout",
+        "processed_at": "2026-11-06 14:01:31.416001+00:00"
+      },
+      {
+        "t_ms": 11283,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:31.416002+00:00"
+      },
+      {
+        "t_ms": 14565,
+        "type": "agent.custom_tool_use",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:34.716807+00:00"
+      },
+      {
+        "t_ms": 15355,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:34.716808+00:00"
+      },
+      {
+        "t_ms": 15356,
+        "type": "session.thread_status_idle",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:01:34.816046+00:00"
+      },
+      {
+        "t_ms": 15356,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:34.816047+00:00"
+      },
+      {
+        "t_ms": 15356,
+        "type": "session.status_idle",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:34.816048+00:00"
+      },
+      {
+        "t_ms": 15357,
+        "type": "user.custom_tool_result",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:35.577145+00:00"
+      },
+      {
+        "t_ms": 15637,
+        "type": "session.status_running",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:35.709640+00:00"
+      },
+      {
+        "t_ms": 15638,
+        "type": "session.thread_status_running",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:01:35.709641+00:00"
+      },
+      {
+        "t_ms": 15869,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:36.186305+00:00"
+      },
+      {
+        "t_ms": 17218,
+        "type": "agent.message",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:37.506403+00:00"
+      },
+      {
+        "t_ms": 17219,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:37.506404+00:00"
+      },
+      {
+        "t_ms": 17327,
+        "type": "session.thread_status_idle",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:01:37.633621+00:00"
+      },
+      {
+        "t_ms": 17327,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:37.633622+00:00"
+      },
+      {
+        "t_ms": 17328,
+        "type": "session.status_idle",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:37.633623+00:00"
+      }
+    ],
+    "marks": {
+      "first_event": 972,
+      "first_non_user_event": 972,
+      "first_model_request_start": 1044,
+      "first_memory_tool_use": 3411,
+      "first_thread_created": 4042,
+      "thread_created:weather-scout": 4042,
+      "delegate_to:weather-scout": 4042,
+      "thread_created:insider": 4319,
+      "delegate_to:insider": 4319,
+      "thread_idle:insider": 5459,
+      "custom_tool_use:lookup_fact": 5643,
+      "thread_idle:weather-scout": 6542,
+      "reply_from:insider": 8860,
+      "first_agent_message": 11181,
+      "reply_from:weather-scout": 11283,
+      "custom_tool_use:present_result": 14565,
+      "present_result": 14565,
+      "thread_idle:coordinator": 15356,
+      "first_requires_action": 15356,
+      "end_turn": 17328
+    },
+    "deltas": {
+      "count": 6,
+      "first_ms": 11137
+    },
+    "custom_tool_calls": [
+      {
+        "name": "lookup_fact",
+        "id": "sevt_0138FrpN5DUQuM2fAfGs21kn",
+        "input": {
+          "topic": "non-touristy family sailing spots Croatia late June mid-budget"
+        },
+        "t_ms": 5643,
+        "send_rtt_ms": 596,
+        "thread": "travelswarm-spike-insider"
+      },
+      {
+        "name": "lookup_fact",
+        "id": "sevt_01BK7ET7MMx35wjeipEBSER2",
+        "input": {
+          "topic": "late June weather sailing Dalmatian coast Croatia"
+        },
+        "t_ms": 6577,
+        "send_rtt_ms": 628,
+        "thread": "travelswarm-spike-weather-scout"
+      },
+      {
+        "name": "present_result",
+        "id": "sevt_01Txxp5YRWNRUwZkQJgZTZoN",
+        "input": {
+          "picks": [
+            "Stiniva cove, Vis: go by boat early in the morning, before the day-trip crowds",
+            "Vlaka bay, Pakleni islands (off Hvar): a quiet anchorage with a family-run konoba",
+            "Pack for 27\u201330 \u00b0C days and 19\u201321 \u00b0C nights, with about 2 rainy days likely",
+            "Plan calm-water swims and anchoring in the morning, and sailing in the afternoon maestral"
+          ],
+          "summary": "Late June on the Dalmatian coast is warm and good for sailing. Days reach 27\u201330 \u00b0C, the sea is 23\u201324 \u00b0C, mornings are calm, and the afternoon maestral blows 10\u201315 kn. A mid-budget week from Split could take in Hvar and Vis. Start each day early for calm water and quiet anchorages, and sail in the afternoon breeze."
+        },
+        "t_ms": 14565,
+        "send_rtt_ms": 789,
+        "thread": null
+      }
+    ],
+    "agent_messages": [
+      {
+        "t_ms": 11181,
+        "text": "I have the insider's two spots. I'm still waiting on the weather scout."
+      },
+      {
+        "t_ms": 17218,
+        "text": "Your Croatia sailing plan is ready in the traveller view."
+      }
+    ],
+    "tool_uses": [
+      {
+        "t_ms": 3411,
+        "name": "glob",
+        "input": {
+          "pattern": "/mnt/memory/**/*"
+        },
+        "actor": ""
+      },
+      {
+        "t_ms": 7206,
+        "name": "write",
+        "input": {
+          "content": "# Traveller preferences\n- Party: single parent + 2 kids (family of 3)\n- Interests: sailing; destination interest Croatia\n- Budget style: mid\n- Typical timing: late June\n",
+          "file_path": "/mnt/memory/travelswarm-spike-user-demo/preferences.md"
+        },
+        "actor": ""
+      }
+    ],
+    "usage_events": [
+      {
+        "t_ms": 5617,
+        "usage": {
+          "active_seconds": 5.002,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 262
+          },
+          "cache_read_input_tokens": 20817,
+          "input_tokens": 8,
+          "list_cost": {
+            "amount": "0",
+            "currency": "USD"
+          },
+          "output_tokens": 378,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 6577,
+        "usage": {
+          "active_seconds": 6.078,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 262
+          },
+          "cache_read_input_tokens": 20817,
+          "input_tokens": 8,
+          "list_cost": {
+            "amount": "0",
+            "currency": "USD"
+          },
+          "output_tokens": 378,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 8070,
+        "usage": {
+          "active_seconds": 7.631,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 1466
+          },
+          "cache_read_input_tokens": 59645,
+          "input_tokens": 18,
+          "list_cost": {
+            "amount": "1",
+            "currency": "USD"
+          },
+          "output_tokens": 964,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 9981,
+        "usage": {
+          "active_seconds": 9.375,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 2112
+          },
+          "cache_read_input_tokens": 90545,
+          "input_tokens": 24,
+          "list_cost": {
+            "amount": "1",
+            "currency": "USD"
+          },
+          "output_tokens": 1247,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 15356,
+        "usage": {
+          "active_seconds": 14.03,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 2638
+          },
+          "cache_read_input_tokens": 116828,
+          "input_tokens": 32,
+          "list_cost": {
+            "amount": "2",
+            "currency": "USD"
+          },
+          "output_tokens": 1628,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 17327,
+        "usage": {
+          "active_seconds": 16.124,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 3008
+          },
+          "cache_read_input_tokens": 130329,
+          "input_tokens": 34,
+          "list_cost": {
+            "amount": "2",
+            "currency": "USD"
+          },
+          "output_tokens": 1651,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      }
+    ],
+    "idle_events": [
+      {
+        "t_ms": 15356,
+        "stop_reason": {
+          "event_ids": [
+            "sevt_01Txxp5YRWNRUwZkQJgZTZoN"
+          ],
+          "type": "requires_action"
+        }
+      },
+      {
+        "t_ms": 17328,
+        "stop_reason": {
+          "type": "end_turn"
+        }
+      }
+    ],
+    "errors": [],
+    "reconnects": 0,
+    "event_deltas": true,
+    "send_wall_utc": "2026-11-06T14:01:20.407063+00:00",
+    "send_rtt_ms": 561,
+    "present_result_input": {
+      "picks": [
+        "Stiniva cove, Vis: go by boat early in the morning, before the day-trip crowds",
+        "Vlaka bay, Pakleni islands (off Hvar): a quiet anchorage with a family-run konoba",
+        "Pack for 27\u201330 \u00b0C days and 19\u201321 \u00b0C nights, with about 2 rainy days likely",
+        "Plan calm-water swims and anchoring in the morning, and sailing in the afternoon maestral"
+      ],
+      "summary": "Late June on the Dalmatian coast is warm and good for sailing. Days reach 27\u201330 \u00b0C, the sea is 23\u201324 \u00b0C, mornings are calm, and the afternoon maestral blows 10\u201315 kn. A mid-budget week from Split could take in Hvar and Vis. Start each day early for calm water and quiet anchorages, and sail in the afternoon breeze."
+    },
+    "wall_ms": 17328
+  },
+  "turn1_stats": {
+    "session": {
+      "status": "idle",
+      "usage": {
+        "active_seconds": 16.228,
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 3008
+        },
+        "cache_read_input_tokens": 130329,
+        "input_tokens": 34,
+        "list_cost": {
+          "amount": "2",
+          "currency": "USD"
+        },
+        "output_tokens": 1651,
+        "server_tool_use": {
+          "web_fetch_requests": 0,
+          "web_search_requests": 0
+        }
+      },
+      "stats": {
+        "active_seconds": 22.646,
+        "duration_seconds": 18.068157293
+      },
+      "budget": {
+        "max_list_cost": {
+          "amount": "300",
+          "currency": "USD"
+        },
+        "type": "limit"
+      },
+      "resources": [
+        {
+          "memory_store_id": "memstore_01BrxPDPsT9CSM1PcRu46Ro3",
+          "type": "memory_store",
+          "access": "read_write",
+          "description": "Spike: stable traveller preferences for one demo user.",
+          "instructions": "Save stable traveller preferences to /mnt/memory/travelswarm-spike-user-demo/preferences.md as short markdown; never quote them back to the user.",
+          "mount_path": "/mnt/memory/travelswarm-spike-user-demo",
+          "name": "travelswarm-spike-user-demo"
+        }
+      ]
+    },
+    "threads": [
+      {
+        "id": "sthr_01DgTmeSgxhzviToBizuBx3d",
+        "agent": "travelswarm-spike-coordinator",
+        "status": "idle",
+        "parent_thread_id": null,
+        "stats": {
+          "active_seconds": 15.439,
+          "duration_seconds": 18.32887449,
+          "startup_seconds": 0.0
+        },
+        "usage": {
+          "active_seconds": 15.439,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 1710
+          },
+          "cache_read_input_tokens": 76887,
+          "input_tokens": 18,
+          "list_cost": {
+            "amount": "2",
+            "currency": "USD"
+          },
+          "output_tokens": 896,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        },
+        "timeline": [
+          {
+            "type": "session.status_running",
+            "server_ms_since_send": 669
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 669
+          },
+          {
+            "type": "user.message",
+            "server_ms_since_send": 774
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 774
+          },
+          {
+            "type": "agent.tool_use",
+            "server_ms_since_send": 3226,
+            "name": "glob"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 3226
+          },
+          {
+            "type": "agent.tool_result",
+            "server_ms_since_send": 3623
+          },
+          {
+            "type": "session.thread_created",
+            "server_ms_since_send": 3927
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": 3927
+          },
+          {
+            "type": "session.thread_created",
+            "server_ms_since_send": 4214
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": 4214
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 4214
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 4285
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 4571
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 5257
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 5351
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 5407,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 6160
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 6339
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 6425
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 6478,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "agent.tool_use",
+            "server_ms_since_send": 6747,
+            "name": "write"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 6747
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 6986
+          },
+          {
+            "type": "agent.tool_result",
+            "server_ms_since_send": 7182
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 7265
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 7348
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 7447
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 7903
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 7978
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 8643
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": 8769
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 8913
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 9627
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 9730
+          },
+          {
+            "type": "agent.thinking",
+            "server_ms_since_send": 10836
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 10890
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 10890
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": 11008
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 11008
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 14309,
+            "name": "present_result"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 14309
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 14408
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 14408
+          },
+          {
+            "type": "session.status_idle",
+            "server_ms_since_send": 14408
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 15170
+          },
+          {
+            "type": "session.status_running",
+            "server_ms_since_send": 15302
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 15302
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 15779
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 17099
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 17099
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 17226
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 17226
+          },
+          {
+            "type": "session.status_idle",
+            "server_ms_since_send": 17226
+          }
+        ]
+      },
+      {
+        "id": "sthr_01VXeV3RYQrvRWicNsYaCFfp",
+        "agent": "travelswarm-spike-weather-scout",
+        "status": "idle",
+        "parent_thread_id": "sthr_01DgTmeSgxhzviToBizuBx3d",
+        "stats": {
+          "active_seconds": 4.769,
+          "duration_seconds": 13.948421741,
+          "startup_seconds": 0.0
+        },
+        "usage": {
+          "active_seconds": 4.769,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 697
+          },
+          "cache_read_input_tokens": 26791,
+          "input_tokens": 8,
+          "list_cost": {
+            "amount": "0",
+            "currency": "USD"
+          },
+          "output_tokens": 428,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        },
+        "timeline": [
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 4214
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": 4383
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 4383
+          },
+          {
+            "type": "agent.thinking",
+            "server_ms_since_send": 6118
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 6292,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 6292
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 6339
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 6908
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 6986
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 7154
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 8681
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": 8815
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 8866
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 9581
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 9581
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 9627
+          }
+        ]
+      },
+      {
+        "id": "sthr_01NegsQa4CSsdC9W2qk6aent",
+        "agent": "travelswarm-spike-insider",
+        "status": "idle",
+        "parent_thread_id": "sthr_01DgTmeSgxhzviToBizuBx3d",
+        "stats": {
+          "active_seconds": 2.4379999999999997,
+          "duration_seconds": 13.643435055,
+          "startup_seconds": 0.0
+        },
+        "usage": {
+          "active_seconds": 2.4379999999999997,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 601
+          },
+          "cache_read_input_tokens": 26651,
+          "input_tokens": 8,
+          "list_cost": {
+            "amount": "0",
+            "currency": "USD"
+          },
+          "output_tokens": 327,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        },
+        "timeline": [
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 4571
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": 4736
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 4736
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 5203,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 5203
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 5257
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 6094
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 6160
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 6298
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 7121
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": 7269
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 7334
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 7853
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 7853
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 7903
+          }
+        ]
+      }
+    ]
+  },
+  "turn2": {
+    "label": "turn2",
+    "session_id": "sesn_01GQK9jfFSfxpd65gnGeFNvY",
+    "text": "Make it more comfortable, budget is less of a concern",
+    "events": [
+      {
+        "t_ms": 757,
+        "type": "session.status_running",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:40.054672+00:00"
+      },
+      {
+        "t_ms": 757,
+        "type": "session.thread_status_running",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:01:40.054673+00:00"
+      },
+      {
+        "t_ms": 805,
+        "type": "user.message",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:40.128933+00:00"
+      },
+      {
+        "t_ms": 805,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:40.128934+00:00"
+      },
+      {
+        "t_ms": 2617,
+        "type": "agent.thinking",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:41.962000+00:00"
+      },
+      {
+        "t_ms": 4519,
+        "type": "agent.tool_use",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:43.769814+00:00"
+      },
+      {
+        "t_ms": 4519,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:43.769817+00:00"
+      },
+      {
+        "t_ms": 5608,
+        "type": "agent.tool_result",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:44.929986+00:00"
+      },
+      {
+        "t_ms": 5864,
+        "type": "session.thread_created",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:01:45.161349+00:00"
+      },
+      {
+        "t_ms": 5864,
+        "type": "agent.thread_message_sent",
+        "actor": "->weather-scout",
+        "processed_at": "2026-11-06 14:01:45.161350+00:00"
+      },
+      {
+        "t_ms": 6067,
+        "type": "session.thread_created",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:01:45.407344+00:00"
+      },
+      {
+        "t_ms": 6104,
+        "type": "agent.thread_message_sent",
+        "actor": "->insider",
+        "processed_at": "2026-11-06 14:01:45.407345+00:00"
+      },
+      {
+        "t_ms": 6150,
+        "type": "session.thread_status_running",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:01:45.454979+00:00"
+      },
+      {
+        "t_ms": 6150,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:45.477782+00:00"
+      },
+      {
+        "t_ms": 6424,
+        "type": "session.thread_status_running",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:01:45.721222+00:00"
+      },
+      {
+        "t_ms": 7063,
+        "type": "session.thread_status_idle",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:01:46.220500+00:00"
+      },
+      {
+        "t_ms": 7085,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:46.307348+00:00"
+      },
+      {
+        "t_ms": 7124,
+        "type": "agent.custom_tool_use",
+        "actor": "thread:weather-scout",
+        "processed_at": "2026-11-06 14:01:46.427669+00:00"
+      },
+      {
+        "t_ms": 7644,
+        "type": "session.thread_status_idle",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:01:46.552902+00:00"
+      },
+      {
+        "t_ms": 7644,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:46.648863+00:00"
+      },
+      {
+        "t_ms": 7644,
+        "type": "agent.custom_tool_use",
+        "actor": "thread:insider",
+        "processed_at": "2026-11-06 14:01:46.712641+00:00"
+      },
+      {
+        "t_ms": 8257,
+        "type": "session.thread_status_running",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:01:47.029292+00:00"
+      },
+      {
+        "t_ms": 8325,
+        "type": "session.thread_status_running",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:01:47.467198+00:00"
+      },
+      {
+        "t_ms": 8325,
+        "type": "agent.message",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:47.525887+00:00"
+      },
+      {
+        "t_ms": 8325,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:47.525888+00:00"
+      },
+      {
+        "t_ms": 8531,
+        "type": "user.custom_tool_result",
+        "actor": "thread:weather-scout",
+        "processed_at": "2026-11-06 14:01:47.628917+00:00"
+      },
+      {
+        "t_ms": 8615,
+        "type": "user.custom_tool_result",
+        "actor": "thread:insider",
+        "processed_at": "2026-11-06 14:01:47.730353+00:00"
+      },
+      {
+        "t_ms": 8749,
+        "type": "session.thread_status_idle",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:01:47.800485+00:00"
+      },
+      {
+        "t_ms": 9454,
+        "type": "session.thread_status_running",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:01:48.609684+00:00"
+      },
+      {
+        "t_ms": 9456,
+        "type": "agent.thread_message_received",
+        "actor": "<-weather-scout",
+        "processed_at": "2026-11-06 14:01:48.663878+00:00"
+      },
+      {
+        "t_ms": 9456,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:48.663879+00:00"
+      },
+      {
+        "t_ms": 10275,
+        "type": "session.thread_status_idle",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:01:49.264330+00:00"
+      },
+      {
+        "t_ms": 10430,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:49.348094+00:00"
+      },
+      {
+        "t_ms": 10829,
+        "type": "session.thread_status_idle",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:01:50.070612+00:00"
+      },
+      {
+        "t_ms": 10829,
+        "type": "agent.message",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:50.113138+00:00"
+      },
+      {
+        "t_ms": 10829,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:50.113139+00:00"
+      },
+      {
+        "t_ms": 10937,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:50.161695+00:00"
+      },
+      {
+        "t_ms": 11072,
+        "type": "agent.thread_message_received",
+        "actor": "<-insider",
+        "processed_at": "2026-11-06 14:01:50.231008+00:00"
+      },
+      {
+        "t_ms": 11073,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:50.231009+00:00"
+      },
+      {
+        "t_ms": 13346,
+        "type": "agent.thinking",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:52.664000+00:00"
+      },
+      {
+        "t_ms": 16526,
+        "type": "agent.custom_tool_use",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:55.732113+00:00"
+      },
+      {
+        "t_ms": 17080,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:55.732114+00:00"
+      },
+      {
+        "t_ms": 17080,
+        "type": "session.thread_status_idle",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:01:55.843316+00:00"
+      },
+      {
+        "t_ms": 17080,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:55.843317+00:00"
+      },
+      {
+        "t_ms": 17080,
+        "type": "session.status_idle",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:55.843318+00:00"
+      },
+      {
+        "t_ms": 17130,
+        "type": "user.custom_tool_result",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:56.368494+00:00"
+      },
+      {
+        "t_ms": 17238,
+        "type": "session.status_running",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:56.446201+00:00"
+      },
+      {
+        "t_ms": 17282,
+        "type": "session.thread_status_running",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:01:56.446202+00:00"
+      },
+      {
+        "t_ms": 17341,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:56.565042+00:00"
+      },
+      {
+        "t_ms": 18864,
+        "type": "agent.message",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:58.189565+00:00"
+      },
+      {
+        "t_ms": 18865,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:58.189566+00:00"
+      },
+      {
+        "t_ms": 19152,
+        "type": "session.thread_status_idle",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:01:58.463514+00:00"
+      },
+      {
+        "t_ms": 19153,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:58.463515+00:00"
+      },
+      {
+        "t_ms": 19153,
+        "type": "session.status_idle",
+        "actor": "",
+        "processed_at": "2026-11-06 14:01:58.463516+00:00"
+      }
+    ],
+    "marks": {
+      "first_event": 757,
+      "first_non_user_event": 757,
+      "first_model_request_start": 805,
+      "first_memory_tool_use": 4519,
+      "first_thread_created": 5864,
+      "thread_created:weather-scout": 5864,
+      "delegate_to:weather-scout": 5864,
+      "thread_created:insider": 6067,
+      "delegate_to:insider": 6104,
+      "thread_idle:weather-scout": 7063,
+      "custom_tool_use:lookup_fact": 7124,
+      "thread_idle:insider": 7644,
+      "first_agent_message": 8325,
+      "thread_idle:coordinator": 8749,
+      "reply_from:weather-scout": 9456,
+      "reply_from:insider": 11072,
+      "custom_tool_use:present_result": 16526,
+      "present_result": 16526,
+      "first_requires_action": 17080,
+      "end_turn": 19153
+    },
+    "deltas": {
+      "count": 18,
+      "first_ms": 8260
+    },
+    "custom_tool_calls": [
+      {
+        "name": "lookup_fact",
+        "id": "sevt_0121TAVEvSeRGQNrdHGyshbJ",
+        "input": {
+          "topic": "late June weather Dalmatian coast Croatia sailing"
+        },
+        "t_ms": 7124,
+        "send_rtt_ms": 519,
+        "thread": "travelswarm-spike-weather-scout"
+      },
+      {
+        "name": "lookup_fact",
+        "id": "sevt_01EmV9ZwYM7CHAXLZSQNSzjz",
+        "input": {
+          "topic": "non-touristy comfortable higher-end spots Croatia sailing family late June"
+        },
+        "t_ms": 7644,
+        "send_rtt_ms": 612,
+        "thread": "travelswarm-spike-insider"
+      },
+      {
+        "name": "present_result",
+        "id": "sevt_011Q2WJG19bsMmLRHuiE7UaG",
+        "input": {
+          "picks": [
+            "Skippered catamaran charter from Split, with a skipper (and possibly a hostess) so the parent isn't running the boat alone. This is my own suggestion and unresearched.",
+            "Stiniva cove, Vis: go by boat early in the morning, before the day-trip crowds (unverified)",
+            "Vlaka bay, Pakleni islands off Hvar: a quiet anchorage with a family-run konoba (unverified)",
+            "Moor in marinas on some nights for showers and shore dinners, and anchor in coves on others.",
+            "Plan swims and anchoring in the calm mornings, and sail in the afternoon maestral. Pack for 27\u201330 \u00b0C days and about 2 rainy days (unverified)."
+          ],
+          "summary": "For more comfort, I'd suggest a skippered catamaran charter out of Split. A skipper means the parent can relax, and a catamaran gives a steadier ride and more deck space for the kids. Late-June weather looks good: roughly 27\u201330 \u00b0C days, 23\u201324 \u00b0C sea, calm mornings and a 10\u201315 kn afternoon maestral. The weather figures and the two spots came back labelled simulated, so check them and current availability and pricing before booking. The specialists' suggestions didn't change when I asked for more comfort. The charter advice is my own general suggestion and wasn't researched."
+        },
+        "t_ms": 16526,
+        "send_rtt_ms": 553,
+        "thread": null
+      }
+    ],
+    "agent_messages": [
+      {
+        "t_ms": 8325,
+        "text": "I've asked both specialists to redo their parts with comfort as the priority, and I'm waiting on their replies."
+      },
+      {
+        "t_ms": 10829,
+        "text": "Weather scout is back. Its figures are labelled simulated, so I'll treat them as unverified. I'm still waiting on the insider."
+      },
+      {
+        "t_ms": 18864,
+        "text": "Your updated, comfort-focused plan is in the traveller view. The weather figures and the two spots came back labelled simulated, so check them before you book."
+      }
+    ],
+    "tool_uses": [
+      {
+        "t_ms": 4519,
+        "name": "write",
+        "input": {
+          "content": "# Traveller preferences\n- Party: single parent + 2 kids (family of 3)\n- Interests: sailing; destination interest Croatia\n- Budget style: comfort-first, budget less of a concern (previously mid)\n- Typical timing: late June\n",
+          "file_path": "/mnt/memory/travelswarm-spike-user-demo/preferences.md"
+        },
+        "actor": ""
+      }
+    ],
+    "usage_events": [
+      {
+        "t_ms": 7085,
+        "usage": {
+          "active_seconds": 22.751,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 3050
+          },
+          "cache_read_input_tokens": 144200,
+          "input_tokens": 38,
+          "list_cost": {
+            "amount": "3",
+            "currency": "USD"
+          },
+          "output_tokens": 2160,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 7644,
+        "usage": {
+          "active_seconds": 23.091,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 3584
+          },
+          "cache_read_input_tokens": 161528,
+          "input_tokens": 46,
+          "list_cost": {
+            "amount": "3",
+            "currency": "USD"
+          },
+          "output_tokens": 2304,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 10430,
+        "usage": {
+          "active_seconds": 25.79,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 4973
+          },
+          "cache_read_input_tokens": 202410,
+          "input_tokens": 54,
+          "list_cost": {
+            "amount": "3",
+            "currency": "USD"
+          },
+          "output_tokens": 2849,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 10937,
+        "usage": {
+          "active_seconds": 26.603,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 4973
+          },
+          "cache_read_input_tokens": 202410,
+          "input_tokens": 54,
+          "list_cost": {
+            "amount": "3",
+            "currency": "USD"
+          },
+          "output_tokens": 2849,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 17080,
+        "usage": {
+          "active_seconds": 32.248,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 5648
+          },
+          "cache_read_input_tokens": 241242,
+          "input_tokens": 64,
+          "list_cost": {
+            "amount": "4",
+            "currency": "USD"
+          },
+          "output_tokens": 3553,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 19153,
+        "usage": {
+          "active_seconds": 34.508,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 6252
+          },
+          "cache_read_input_tokens": 256459,
+          "input_tokens": 66,
+          "list_cost": {
+            "amount": "5",
+            "currency": "USD"
+          },
+          "output_tokens": 3602,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      }
+    ],
+    "idle_events": [
+      {
+        "t_ms": 17080,
+        "stop_reason": {
+          "event_ids": [
+            "sevt_011Q2WJG19bsMmLRHuiE7UaG"
+          ],
+          "type": "requires_action"
+        }
+      },
+      {
+        "t_ms": 19153,
+        "stop_reason": {
+          "type": "end_turn"
+        }
+      }
+    ],
+    "errors": [],
+    "reconnects": 0,
+    "event_deltas": true,
+    "send_wall_utc": "2026-11-06T14:01:39.426825+00:00",
+    "send_rtt_ms": 427,
+    "present_result_input": {
+      "picks": [
+        "Skippered catamaran charter from Split, with a skipper (and possibly a hostess) so the parent isn't running the boat alone. This is my own suggestion and unresearched.",
+        "Stiniva cove, Vis: go by boat early in the morning, before the day-trip crowds (unverified)",
+        "Vlaka bay, Pakleni islands off Hvar: a quiet anchorage with a family-run konoba (unverified)",
+        "Moor in marinas on some nights for showers and shore dinners, and anchor in coves on others.",
+        "Plan swims and anchoring in the calm mornings, and sail in the afternoon maestral. Pack for 27\u201330 \u00b0C days and about 2 rainy days (unverified)."
+      ],
+      "summary": "For more comfort, I'd suggest a skippered catamaran charter out of Split. A skipper means the parent can relax, and a catamaran gives a steadier ride and more deck space for the kids. Late-June weather looks good: roughly 27\u201330 \u00b0C days, 23\u201324 \u00b0C sea, calm mornings and a 10\u201315 kn afternoon maestral. The weather figures and the two spots came back labelled simulated, so check them and current availability and pricing before booking. The specialists' suggestions didn't change when I asked for more comfort. The charter advice is my own general suggestion and wasn't researched."
+    },
+    "wall_ms": 19154
+  },
+  "turn2_stats": {
+    "session": {
+      "status": "idle",
+      "usage": {
+        "active_seconds": 34.592,
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 6252
+        },
+        "cache_read_input_tokens": 256459,
+        "input_tokens": 66,
+        "list_cost": {
+          "amount": "5",
+          "currency": "USD"
+        },
+        "output_tokens": 3602,
+        "server_tool_use": {
+          "web_fetch_requests": 0,
+          "web_search_requests": 0
+        }
+      },
+      "stats": {
+        "active_seconds": 45.934,
+        "duration_seconds": 38.92793851
+      },
+      "budget": {
+        "max_list_cost": {
+          "amount": "300",
+          "currency": "USD"
+        },
+        "type": "limit"
+      },
+      "resources": [
+        {
+          "memory_store_id": "memstore_01BrxPDPsT9CSM1PcRu46Ro3",
+          "type": "memory_store",
+          "access": "read_write",
+          "description": "Spike: stable traveller preferences for one demo user.",
+          "instructions": "Save stable traveller preferences to /mnt/memory/travelswarm-spike-user-demo/preferences.md as short markdown; never quote them back to the user.",
+          "mount_path": "/mnt/memory/travelswarm-spike-user-demo",
+          "name": "travelswarm-spike-user-demo"
+        }
+      ]
+    },
+    "threads": [
+      {
+        "id": "sthr_01DgTmeSgxhzviToBizuBx3d",
+        "agent": "travelswarm-spike-coordinator",
+        "status": "idle",
+        "parent_thread_id": null,
+        "stats": {
+          "active_seconds": 32.241,
+          "duration_seconds": 39.147621081,
+          "startup_seconds": 0.0
+        },
+        "usage": {
+          "active_seconds": 32.241,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 3660
+          },
+          "cache_read_input_tokens": 149621,
+          "input_tokens": 34,
+          "list_cost": {
+            "amount": "5",
+            "currency": "USD"
+          },
+          "output_tokens": 2115,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        },
+        "timeline": [
+          {
+            "type": "session.status_running",
+            "server_ms_since_send": -18350
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": -18350
+          },
+          {
+            "type": "user.message",
+            "server_ms_since_send": -18244
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": -18244
+          },
+          {
+            "type": "agent.tool_use",
+            "server_ms_since_send": -15793,
+            "name": "glob"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": -15793
+          },
+          {
+            "type": "agent.tool_result",
+            "server_ms_since_send": -15396
+          },
+          {
+            "type": "session.thread_created",
+            "server_ms_since_send": -15092
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": -15092
+          },
+          {
+            "type": "session.thread_created",
+            "server_ms_since_send": -14805
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": -14805
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": -14804
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": -14734
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": -14447
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": -13762
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": -13667
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": -13612,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": -12859
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": -12680
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": -12594
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": -12541,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "agent.tool_use",
+            "server_ms_since_send": -12272,
+            "name": "write"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": -12272
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": -12033
+          },
+          {
+            "type": "agent.tool_result",
+            "server_ms_since_send": -11837
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": -11754
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": -11670
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": -11571
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": -11115
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": -11041
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": -10375
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": -10250
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": -10106
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": -9392
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": -9289
+          },
+          {
+            "type": "agent.thinking",
+            "server_ms_since_send": -8183
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": -8129
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": -8129
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": -8010
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": -8010
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": -4710,
+            "name": "present_result"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": -4710
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": -4610
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": -4610
+          },
+          {
+            "type": "session.status_idle",
+            "server_ms_since_send": -4610
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": -3849
+          },
+          {
+            "type": "session.status_running",
+            "server_ms_since_send": -3717
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": -3717
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": -3240
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": -1920
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": -1920
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": -1793
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": -1793
+          },
+          {
+            "type": "session.status_idle",
+            "server_ms_since_send": -1793
+          },
+          {
+            "type": "session.status_running",
+            "server_ms_since_send": 627
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 627
+          },
+          {
+            "type": "user.message",
+            "server_ms_since_send": 702
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 702
+          },
+          {
+            "type": "agent.thinking",
+            "server_ms_since_send": 2548
+          },
+          {
+            "type": "agent.tool_use",
+            "server_ms_since_send": 4342,
+            "name": "write"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 4342
+          },
+          {
+            "type": "agent.tool_result",
+            "server_ms_since_send": 5503
+          },
+          {
+            "type": "session.thread_created",
+            "server_ms_since_send": 5734
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": 5734
+          },
+          {
+            "type": "session.thread_created",
+            "server_ms_since_send": 5980
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": 5980
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 6028
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 6050
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 6294
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 6793
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 6880
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 7000,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 7126
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 7222
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 7285,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 7602
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 8040
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 8099
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 8099
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 8202
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 8303
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 8373
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 9182
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": 9237
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 9237
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 9837
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 9921
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 10643
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 10686
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 10686
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 10734
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": 10804
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 10804
+          },
+          {
+            "type": "agent.thinking",
+            "server_ms_since_send": 13245
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 16305,
+            "name": "present_result"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 16305
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 16416
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 16416
+          },
+          {
+            "type": "session.status_idle",
+            "server_ms_since_send": 16416
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 16941
+          },
+          {
+            "type": "session.status_running",
+            "server_ms_since_send": 17019
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 17019
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 17138
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 18762
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 18762
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 19036
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 19036
+          },
+          {
+            "type": "session.status_idle",
+            "server_ms_since_send": 19036
+          }
+        ]
+      },
+      {
+        "id": "sthr_01VXeV3RYQrvRWicNsYaCFfp",
+        "agent": "travelswarm-spike-weather-scout",
+        "status": "idle",
+        "parent_thread_id": "sthr_01DgTmeSgxhzviToBizuBx3d",
+        "stats": {
+          "active_seconds": 4.769,
+          "duration_seconds": 34.767169021,
+          "startup_seconds": 0.0
+        },
+        "usage": {
+          "active_seconds": 4.769,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 697
+          },
+          "cache_read_input_tokens": 26791,
+          "input_tokens": 8,
+          "list_cost": {
+            "amount": "0",
+            "currency": "USD"
+          },
+          "output_tokens": 428,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        },
+        "timeline": [
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": -14804
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": -14636
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": -14636
+          },
+          {
+            "type": "agent.thinking",
+            "server_ms_since_send": -12901
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": -12727,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": -12727
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": -12680
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": -12111
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": -12033
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": -11865
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": -10338
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": -10204
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": -10152
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": -9438
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": -9438
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": -9392
+          }
+        ]
+      },
+      {
+        "id": "sthr_01NegsQa4CSsdC9W2qk6aent",
+        "agent": "travelswarm-spike-insider",
+        "status": "idle",
+        "parent_thread_id": "sthr_01DgTmeSgxhzviToBizuBx3d",
+        "stats": {
+          "active_seconds": 2.4379999999999997,
+          "duration_seconds": 34.462183841,
+          "startup_seconds": 0.0
+        },
+        "usage": {
+          "active_seconds": 2.4379999999999997,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 601
+          },
+          "cache_read_input_tokens": 26651,
+          "input_tokens": 8,
+          "list_cost": {
+            "amount": "0",
+            "currency": "USD"
+          },
+          "output_tokens": 327,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        },
+        "timeline": [
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": -14447
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": -14282
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": -14282
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": -13816,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": -13816
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": -13762
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": -12925
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": -12859
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": -12721
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": -11898
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": -11750
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": -11685
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": -11166
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": -11166
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": -11115
+          }
+        ]
+      },
+      {
+        "id": "sthr_0147x1MvRrqEaV65VjBRuabp",
+        "agent": "travelswarm-spike-weather-scout",
+        "status": "idle",
+        "parent_thread_id": "sthr_01DgTmeSgxhzviToBizuBx3d",
+        "stats": {
+          "active_seconds": 3.034,
+          "duration_seconds": 13.915081541,
+          "startup_seconds": 0.0
+        },
+        "usage": {
+          "active_seconds": 3.034,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 634
+          },
+          "cache_read_input_tokens": 26704,
+          "input_tokens": 8,
+          "list_cost": {
+            "amount": "0",
+            "currency": "USD"
+          },
+          "output_tokens": 376,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        },
+        "timeline": [
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 6028
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": 6216
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 6216
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 6708,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 6708
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 6793
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 7532
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 7602
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 7776
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 8697
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": 8937
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 8992
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 9775
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 9775
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 9837
+          }
+        ]
+      },
+      {
+        "id": "sthr_01G6bxSia7uDohno2uchsBj1",
+        "agent": "travelswarm-spike-insider",
+        "status": "idle",
+        "parent_thread_id": "sthr_01DgTmeSgxhzviToBizuBx3d",
+        "stats": {
+          "active_seconds": 3.452,
+          "duration_seconds": 13.677745401,
+          "startup_seconds": 0.0
+        },
+        "usage": {
+          "active_seconds": 3.452,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 660
+          },
+          "cache_read_input_tokens": 26692,
+          "input_tokens": 8,
+          "list_cost": {
+            "amount": "0",
+            "currency": "USD"
+          },
+          "output_tokens": 356,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        },
+        "timeline": [
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 6294
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": 6442
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 6442
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 7077,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 7077
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 7126
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 7976
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 8040
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 8205
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 9433
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": 9599
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 9686
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 10590
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 10590
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 10643
+          }
+        ]
+      }
+    ]
+  },
+  "session_1_history": [
+    {
+      "type": "session.status_running",
+      "processed_at": "2026-11-06 14:01:21.076696+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_running",
+      "processed_at": "2026-11-06 14:01:21.076697+00:00",
+      "actor": "coordinator"
+    },
+    {
+      "type": "user.message",
+      "processed_at": "2026-11-06 14:01:21.181975+00:00",
+      "actor": ""
+    },
+    {
+      "type": "span.model_request_start",
+      "processed_at": "2026-11-06 14:01:21.181976+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.tool_use",
+      "processed_at": "2026-11-06 14:01:23.633760+00:00",
+      "actor": ""
+    },
+    {
+      "type": "span.model_request_end",
+      "processed_at": "2026-11-06 14:01:23.633763+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.tool_result",
+      "processed_at": "2026-11-06 14:01:24.030787+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_created",
+      "processed_at": "2026-11-06 14:01:24.334518+00:00",
+      "actor": "weather-scout"
+    },
+    {
+      "type": "agent.thread_message_sent",
+      "processed_at": "2026-11-06 14:01:24.334519+00:00",
+      "actor": "->weather-scout"
+    },
+    {
+      "type": "session.thread_created",
+      "processed_at": "2026-11-06 14:01:24.621319+00:00",
+      "actor": "insider"
+    },
+    {
+      "type": "agent.thread_message_sent",
+      "processed_at": "2026-11-06 14:01:24.621320+00:00",
+      "actor": "->insider"
+    },
+    {
+      "type": "session.thread_status_running",
+      "processed_at": "2026-11-06 14:01:24.621931+00:00",
+      "actor": "weather-scout"
+    },
+    {
+      "type": "span.model_request_start",
+      "processed_at": "2026-11-06 14:01:24.692796+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_running",
+      "processed_at": "2026-11-06 14:01:24.978887+00:00",
+      "actor": "insider"
+    },
+    {
+      "type": "session.thread_status_idle",
+      "processed_at": "2026-11-06 14:01:25.664238+00:00",
+      "actor": "insider"
+    },
+    {
+      "type": "session.usage",
+      "processed_at": "2026-11-06 14:01:25.758872+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.custom_tool_use",
+      "processed_at": "2026-11-06 14:01:25.814071+00:00",
+      "actor": "thread:sthr_01NegsQa4CSsdC9W2qk6aent"
+    },
+    {
+      "type": "session.thread_status_running",
+      "processed_at": "2026-11-06 14:01:26.567369+00:00",
+      "actor": "insider"
+    },
+    {
+      "type": "session.thread_status_idle",
+      "processed_at": "2026-11-06 14:01:26.746205+00:00",
+      "actor": "weather-scout"
+    },
+    {
+      "type": "session.usage",
+      "processed_at": "2026-11-06 14:01:26.832303+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.custom_tool_use",
+      "processed_at": "2026-11-06 14:01:26.885803+00:00",
+      "actor": "thread:sthr_01VXeV3RYQrvRWicNsYaCFfp"
+    },
+    {
+      "type": "agent.tool_use",
+      "processed_at": "2026-11-06 14:01:27.154774+00:00",
+      "actor": ""
+    },
+    {
+      "type": "span.model_request_end",
+      "processed_at": "2026-11-06 14:01:27.154775+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_running",
+      "processed_at": "2026-11-06 14:01:27.393681+00:00",
+      "actor": "weather-scout"
+    },
+    {
+      "type": "agent.tool_result",
+      "processed_at": "2026-11-06 14:01:27.589210+00:00",
+      "actor": ""
+    },
+    {
+      "type": "user.custom_tool_result",
+      "processed_at": "2026-11-06 14:01:27.672373+00:00",
+      "actor": "thread:sthr_01NegsQa4CSsdC9W2qk6aent"
+    },
+    {
+      "type": "user.custom_tool_result",
+      "processed_at": "2026-11-06 14:01:27.756017+00:00",
+      "actor": "thread:sthr_01VXeV3RYQrvRWicNsYaCFfp"
+    },
+    {
+      "type": "span.model_request_start",
+      "processed_at": "2026-11-06 14:01:27.855035+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_idle",
+      "processed_at": "2026-11-06 14:01:28.311053+00:00",
+      "actor": "insider"
+    },
+    {
+      "type": "session.usage",
+      "processed_at": "2026-11-06 14:01:28.385464+00:00",
+      "actor": ""
+    },
+    {
+      "type": "span.model_request_end",
+      "processed_at": "2026-11-06 14:01:29.050859+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.thread_message_received",
+      "processed_at": "2026-11-06 14:01:29.176651+00:00",
+      "actor": "<-insider"
+    },
+    {
+      "type": "span.model_request_start",
+      "processed_at": "2026-11-06 14:01:29.320198+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_idle",
+      "processed_at": "2026-11-06 14:01:30.034664+00:00",
+      "actor": "weather-scout"
+    },
+    {
+      "type": "session.usage",
+      "processed_at": "2026-11-06 14:01:30.137325+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.thinking",
+      "processed_at": "2026-11-06 14:01:31.243414+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.message",
+      "processed_at": "2026-11-06 14:01:31.297166+00:00",
+      "actor": ""
+    },
+    {
+      "type": "span.model_request_end",
+      "processed_at": "2026-11-06 14:01:31.297167+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.thread_message_received",
+      "processed_at": "2026-11-06 14:01:31.416001+00:00",
+      "actor": "<-weather-scout"
+    },
+    {
+      "type": "span.model_request_start",
+      "processed_at": "2026-11-06 14:01:31.416002+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.custom_tool_use",
+      "processed_at": "2026-11-06 14:01:34.716807+00:00",
+      "actor": ""
+    },
+    {
+      "type": "span.model_request_end",
+      "processed_at": "2026-11-06 14:01:34.716808+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_idle",
+      "processed_at": "2026-11-06 14:01:34.816046+00:00",
+      "actor": "coordinator"
+    },
+    {
+      "type": "session.usage",
+      "processed_at": "2026-11-06 14:01:34.816047+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.status_idle",
+      "processed_at": "2026-11-06 14:01:34.816048+00:00",
+      "actor": ""
+    },
+    {
+      "type": "user.custom_tool_result",
+      "processed_at": "2026-11-06 14:01:35.577145+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.status_running",
+      "processed_at": "2026-11-06 14:01:35.709640+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_running",
+      "processed_at": "2026-11-06 14:01:35.709641+00:00",
+      "actor": "coordinator"
+    },
+    {
+      "type": "span.model_request_start",
+      "processed_at": "2026-11-06 14:01:36.186305+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.message",
+      "processed_at": "2026-11-06 14:01:37.506403+00:00",
+      "actor": ""
+    },
+    {
+      "type": "span.model_request_end",
+      "processed_at": "2026-11-06 14:01:37.506404+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_idle",
+      "processed_at": "2026-11-06 14:01:37.633621+00:00",
+      "actor": "coordinator"
+    },
+    {
+      "type": "session.usage",
+      "processed_at": "2026-11-06 14:01:37.633622+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.status_idle",
+      "processed_at": "2026-11-06 14:01:37.633623+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.status_running",
+      "processed_at": "2026-11-06 14:01:40.054672+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_running",
+      "processed_at": "2026-11-06 14:01:40.054673+00:00",
+      "actor": "coordinator"
+    },
+    {
+      "type": "user.message",
+      "processed_at": "2026-11-06 14:01:40.128933+00:00",
+      "actor": ""
+    },
+    {
+      "type": "span.model_request_start",
+      "processed_at": "2026-11-06 14:01:40.128934+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.thinking",
+      "processed_at": "2026-11-06 14:01:41.974965+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.tool_use",
+      "processed_at": "2026-11-06 14:01:43.769814+00:00",
+      "actor": ""
+    },
+    {
+      "type": "span.model_request_end",
+      "processed_at": "2026-11-06 14:01:43.769817+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.tool_result",
+      "processed_at": "2026-11-06 14:01:44.929986+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_created",
+      "processed_at": "2026-11-06 14:01:45.161349+00:00",
+      "actor": "weather-scout"
+    },
+    {
+      "type": "agent.thread_message_sent",
+      "processed_at": "2026-11-06 14:01:45.161350+00:00",
+      "actor": "->weather-scout"
+    },
+    {
+      "type": "session.thread_created",
+      "processed_at": "2026-11-06 14:01:45.407344+00:00",
+      "actor": "insider"
+    },
+    {
+      "type": "agent.thread_message_sent",
+      "processed_at": "2026-11-06 14:01:45.407345+00:00",
+      "actor": "->insider"
+    },
+    {
+      "type": "session.thread_status_running",
+      "processed_at": "2026-11-06 14:01:45.454979+00:00",
+      "actor": "weather-scout"
+    },
+    {
+      "type": "span.model_request_start",
+      "processed_at": "2026-11-06 14:01:45.477782+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_running",
+      "processed_at": "2026-11-06 14:01:45.721222+00:00",
+      "actor": "insider"
+    },
+    {
+      "type": "session.thread_status_idle",
+      "processed_at": "2026-11-06 14:01:46.220500+00:00",
+      "actor": "weather-scout"
+    },
+    {
+      "type": "session.usage",
+      "processed_at": "2026-11-06 14:01:46.307348+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.custom_tool_use",
+      "processed_at": "2026-11-06 14:01:46.427669+00:00",
+      "actor": "thread:sthr_0147x1MvRrqEaV65VjBRuabp"
+    },
+    {
+      "type": "session.thread_status_idle",
+      "processed_at": "2026-11-06 14:01:46.552902+00:00",
+      "actor": "insider"
+    },
+    {
+      "type": "session.usage",
+      "processed_at": "2026-11-06 14:01:46.648863+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.custom_tool_use",
+      "processed_at": "2026-11-06 14:01:46.712641+00:00",
+      "actor": "thread:sthr_01G6bxSia7uDohno2uchsBj1"
+    },
+    {
+      "type": "session.thread_status_running",
+      "processed_at": "2026-11-06 14:01:47.029292+00:00",
+      "actor": "weather-scout"
+    },
+    {
+      "type": "session.thread_status_running",
+      "processed_at": "2026-11-06 14:01:47.467198+00:00",
+      "actor": "insider"
+    },
+    {
+      "type": "agent.message",
+      "processed_at": "2026-11-06 14:01:47.525887+00:00",
+      "actor": ""
+    },
+    {
+      "type": "span.model_request_end",
+      "processed_at": "2026-11-06 14:01:47.525888+00:00",
+      "actor": ""
+    },
+    {
+      "type": "user.custom_tool_result",
+      "processed_at": "2026-11-06 14:01:47.628917+00:00",
+      "actor": "thread:sthr_0147x1MvRrqEaV65VjBRuabp"
+    },
+    {
+      "type": "user.custom_tool_result",
+      "processed_at": "2026-11-06 14:01:47.730353+00:00",
+      "actor": "thread:sthr_01G6bxSia7uDohno2uchsBj1"
+    },
+    {
+      "type": "session.thread_status_idle",
+      "processed_at": "2026-11-06 14:01:47.800485+00:00",
+      "actor": "coordinator"
+    },
+    {
+      "type": "session.thread_status_running",
+      "processed_at": "2026-11-06 14:01:48.609684+00:00",
+      "actor": "coordinator"
+    },
+    {
+      "type": "agent.thread_message_received",
+      "processed_at": "2026-11-06 14:01:48.663878+00:00",
+      "actor": "<-weather-scout"
+    },
+    {
+      "type": "span.model_request_start",
+      "processed_at": "2026-11-06 14:01:48.663879+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_idle",
+      "processed_at": "2026-11-06 14:01:49.264330+00:00",
+      "actor": "weather-scout"
+    },
+    {
+      "type": "session.usage",
+      "processed_at": "2026-11-06 14:01:49.348094+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_idle",
+      "processed_at": "2026-11-06 14:01:50.070612+00:00",
+      "actor": "insider"
+    },
+    {
+      "type": "agent.message",
+      "processed_at": "2026-11-06 14:01:50.113138+00:00",
+      "actor": ""
+    },
+    {
+      "type": "span.model_request_end",
+      "processed_at": "2026-11-06 14:01:50.113139+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.usage",
+      "processed_at": "2026-11-06 14:01:50.161695+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.thread_message_received",
+      "processed_at": "2026-11-06 14:01:50.231008+00:00",
+      "actor": "<-insider"
+    },
+    {
+      "type": "span.model_request_start",
+      "processed_at": "2026-11-06 14:01:50.231009+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.thinking",
+      "processed_at": "2026-11-06 14:01:52.672759+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.custom_tool_use",
+      "processed_at": "2026-11-06 14:01:55.732113+00:00",
+      "actor": ""
+    },
+    {
+      "type": "span.model_request_end",
+      "processed_at": "2026-11-06 14:01:55.732114+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_idle",
+      "processed_at": "2026-11-06 14:01:55.843316+00:00",
+      "actor": "coordinator"
+    },
+    {
+      "type": "session.usage",
+      "processed_at": "2026-11-06 14:01:55.843317+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.status_idle",
+      "processed_at": "2026-11-06 14:01:55.843318+00:00",
+      "actor": ""
+    },
+    {
+      "type": "user.custom_tool_result",
+      "processed_at": "2026-11-06 14:01:56.368494+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.status_running",
+      "processed_at": "2026-11-06 14:01:56.446201+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_running",
+      "processed_at": "2026-11-06 14:01:56.446202+00:00",
+      "actor": "coordinator"
+    },
+    {
+      "type": "span.model_request_start",
+      "processed_at": "2026-11-06 14:01:56.565042+00:00",
+      "actor": ""
+    },
+    {
+      "type": "agent.message",
+      "processed_at": "2026-11-06 14:01:58.189565+00:00",
+      "actor": ""
+    },
+    {
+      "type": "span.model_request_end",
+      "processed_at": "2026-11-06 14:01:58.189566+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.thread_status_idle",
+      "processed_at": "2026-11-06 14:01:58.463514+00:00",
+      "actor": "coordinator"
+    },
+    {
+      "type": "session.usage",
+      "processed_at": "2026-11-06 14:01:58.463515+00:00",
+      "actor": ""
+    },
+    {
+      "type": "session.status_idle",
+      "processed_at": "2026-11-06 14:01:58.463516+00:00",
+      "actor": ""
+    }
+  ],
+  "memories_after_session_1": [
+    {
+      "type": "memory",
+      "id": "mem_01S9WLJG6TWu8yrfgxpbDk5Q",
+      "path": "/preferences.md",
+      "content": "# Traveller preferences\n- Party: single parent + 2 kids (family of 3)\n- Interests: sailing; destination interest Croatia\n- Budget style: comfort-first, budget less of a concern (previously mid)\n- Typical timing: late June\n",
+      "content_size_bytes": 222,
+      "created_at": "2026-11-06T14:01:27.510938Z",
+      "updated_at": "2026-11-06T14:01:44.847675Z"
+    }
+  ],
+  "session2_turn1": {
+    "label": "session2_turn1",
+    "session_id": "sesn_011TDict4Xn4uhmieDrjZVxA",
+    "text": "Where should I go next summer?",
+    "events": [
+      {
+        "t_ms": 733,
+        "type": "session.status_running",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:02.815329+00:00"
+      },
+      {
+        "t_ms": 733,
+        "type": "session.thread_status_running",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:02:02.815330+00:00"
+      },
+      {
+        "t_ms": 763,
+        "type": "user.message",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:02.880421+00:00"
+      },
+      {
+        "t_ms": 787,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:02.880422+00:00"
+      },
+      {
+        "t_ms": 3029,
+        "type": "agent.tool_use",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:05.125002+00:00"
+      },
+      {
+        "t_ms": 3029,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:05.125003+00:00"
+      },
+      {
+        "t_ms": 3391,
+        "type": "agent.tool_result",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:05.486463+00:00"
+      },
+      {
+        "t_ms": 3477,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:05.550619+00:00"
+      },
+      {
+        "t_ms": 5849,
+        "type": "agent.tool_use",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:07.772414+00:00"
+      },
+      {
+        "t_ms": 5850,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:07.772415+00:00"
+      },
+      {
+        "t_ms": 6384,
+        "type": "agent.tool_result",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:08.459499+00:00"
+      },
+      {
+        "t_ms": 6406,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:08.512106+00:00"
+      },
+      {
+        "t_ms": 7983,
+        "type": "agent.thinking",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:09.817000+00:00"
+      },
+      {
+        "t_ms": 9014,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:11.118991+00:00"
+      },
+      {
+        "t_ms": 9265,
+        "type": "session.thread_created",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:02:11.358981+00:00"
+      },
+      {
+        "t_ms": 9265,
+        "type": "agent.thread_message_sent",
+        "actor": "->weather-scout",
+        "processed_at": "2026-11-06 14:02:11.358982+00:00"
+      },
+      {
+        "t_ms": 9502,
+        "type": "session.thread_created",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:02:11.607959+00:00"
+      },
+      {
+        "t_ms": 9502,
+        "type": "agent.thread_message_sent",
+        "actor": "->insider",
+        "processed_at": "2026-11-06 14:02:11.607960+00:00"
+      },
+      {
+        "t_ms": 9596,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:11.701036+00:00"
+      },
+      {
+        "t_ms": 9727,
+        "type": "session.thread_status_running",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:02:11.782969+00:00"
+      },
+      {
+        "t_ms": 10109,
+        "type": "session.thread_status_running",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:02:12.185512+00:00"
+      },
+      {
+        "t_ms": 10520,
+        "type": "session.thread_status_idle",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:02:12.574123+00:00"
+      },
+      {
+        "t_ms": 10520,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:12.642565+00:00"
+      },
+      {
+        "t_ms": 10643,
+        "type": "agent.custom_tool_use",
+        "actor": "thread:weather-scout",
+        "processed_at": "2026-11-06 14:02:12.757336+00:00"
+      },
+      {
+        "t_ms": 11195,
+        "type": "session.thread_status_running",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:02:13.278919+00:00"
+      },
+      {
+        "t_ms": 11565,
+        "type": "agent.message",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:13.614285+00:00"
+      },
+      {
+        "t_ms": 11565,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:13.614286+00:00"
+      },
+      {
+        "t_ms": 11615,
+        "type": "user.custom_tool_result",
+        "actor": "thread:weather-scout",
+        "processed_at": "2026-11-06 14:02:13.713681+00:00"
+      },
+      {
+        "t_ms": 11663,
+        "type": "session.thread_status_idle",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:02:13.768056+00:00"
+      },
+      {
+        "t_ms": 11731,
+        "type": "session.thread_status_idle",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:02:13.828913+00:00"
+      },
+      {
+        "t_ms": 11785,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:13.901705+00:00"
+      },
+      {
+        "t_ms": 11907,
+        "type": "agent.custom_tool_use",
+        "actor": "thread:insider",
+        "processed_at": "2026-11-06 14:02:14.015232+00:00"
+      },
+      {
+        "t_ms": 12317,
+        "type": "session.thread_status_running",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:02:14.387935+00:00"
+      },
+      {
+        "t_ms": 12392,
+        "type": "agent.thread_message_received",
+        "actor": "<-weather-scout",
+        "processed_at": "2026-11-06 14:02:14.449286+00:00"
+      },
+      {
+        "t_ms": 12394,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:14.449287+00:00"
+      },
+      {
+        "t_ms": 12469,
+        "type": "session.thread_status_running",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:02:14.561108+00:00"
+      },
+      {
+        "t_ms": 12976,
+        "type": "session.thread_status_idle",
+        "actor": "weather-scout",
+        "processed_at": "2026-11-06 14:02:15.062242+00:00"
+      },
+      {
+        "t_ms": 13042,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:15.153914+00:00"
+      },
+      {
+        "t_ms": 14425,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:16.495722+00:00"
+      },
+      {
+        "t_ms": 14554,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:16.663598+00:00"
+      },
+      {
+        "t_ms": 15915,
+        "type": "agent.message",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:17.798710+00:00"
+      },
+      {
+        "t_ms": 15916,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:17.798711+00:00"
+      },
+      {
+        "t_ms": 15985,
+        "type": "user.custom_tool_result",
+        "actor": "thread:insider",
+        "processed_at": "2026-11-06 14:02:17.958929+00:00"
+      },
+      {
+        "t_ms": 16160,
+        "type": "agent.thread_message_received",
+        "actor": "<-insider",
+        "processed_at": "2026-11-06 14:02:18.110515+00:00"
+      },
+      {
+        "t_ms": 16160,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:18.110516+00:00"
+      },
+      {
+        "t_ms": 16622,
+        "type": "session.thread_status_idle",
+        "actor": "insider",
+        "processed_at": "2026-11-06 14:02:18.703715+00:00"
+      },
+      {
+        "t_ms": 16686,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:18.790495+00:00"
+      },
+      {
+        "t_ms": 20169,
+        "type": "agent.custom_tool_use",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:22.229862+00:00"
+      },
+      {
+        "t_ms": 20795,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:22.229863+00:00"
+      },
+      {
+        "t_ms": 20795,
+        "type": "session.thread_status_idle",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:02:22.377017+00:00"
+      },
+      {
+        "t_ms": 20795,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:22.377018+00:00"
+      },
+      {
+        "t_ms": 20796,
+        "type": "session.status_idle",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:22.377019+00:00"
+      },
+      {
+        "t_ms": 20796,
+        "type": "user.custom_tool_result",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:22.719530+00:00"
+      },
+      {
+        "t_ms": 20844,
+        "type": "session.status_running",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:22.796332+00:00"
+      },
+      {
+        "t_ms": 20845,
+        "type": "session.thread_status_running",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:02:22.796333+00:00"
+      },
+      {
+        "t_ms": 20848,
+        "type": "span.model_request_start",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:22.865568+00:00"
+      },
+      {
+        "t_ms": 22150,
+        "type": "agent.message",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:24.248126+00:00"
+      },
+      {
+        "t_ms": 22151,
+        "type": "span.model_request_end",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:24.248127+00:00"
+      },
+      {
+        "t_ms": 22278,
+        "type": "session.thread_status_idle",
+        "actor": "coordinator",
+        "processed_at": "2026-11-06 14:02:24.397207+00:00"
+      },
+      {
+        "t_ms": 22287,
+        "type": "session.usage",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:24.397208+00:00"
+      },
+      {
+        "t_ms": 22287,
+        "type": "session.status_idle",
+        "actor": "",
+        "processed_at": "2026-11-06 14:02:24.397209+00:00"
+      }
+    ],
+    "marks": {
+      "first_event": 733,
+      "first_non_user_event": 733,
+      "first_model_request_start": 787,
+      "first_memory_tool_use": 3029,
+      "first_thread_created": 9265,
+      "thread_created:weather-scout": 9265,
+      "delegate_to:weather-scout": 9265,
+      "thread_created:insider": 9502,
+      "delegate_to:insider": 9502,
+      "thread_idle:weather-scout": 10520,
+      "custom_tool_use:lookup_fact": 10643,
+      "first_agent_message": 11565,
+      "thread_idle:coordinator": 11663,
+      "thread_idle:insider": 11731,
+      "reply_from:weather-scout": 12392,
+      "reply_from:insider": 16160,
+      "custom_tool_use:present_result": 20169,
+      "present_result": 20169,
+      "first_requires_action": 20796,
+      "end_turn": 22287
+    },
+    "deltas": {
+      "count": 9,
+      "first_ms": 11446
+    },
+    "custom_tool_calls": [
+      {
+        "name": "lookup_fact",
+        "id": "sevt_01C6sCd9pbGaKPvWW2k8uZFf",
+        "input": {
+          "topic": "June weather Dalmatian coast Croatia Split Hvar"
+        },
+        "t_ms": 10644,
+        "send_rtt_ms": 456,
+        "thread": "travelswarm-spike-weather-scout"
+      },
+      {
+        "name": "lookup_fact",
+        "id": "sevt_01C7vxw2Rt182gWF31HQ45in",
+        "input": {
+          "topic": "non-touristy family sailing spots Dalmatian coast Croatia"
+        },
+        "t_ms": 11907,
+        "send_rtt_ms": 409,
+        "thread": "travelswarm-spike-insider"
+      },
+      {
+        "name": "present_result",
+        "id": "sevt_01MvMYvxVDjYrxtPYkXYMuKr",
+        "input": {
+          "picks": [
+            "Sail a Split\u2013Hvar\u2013Vis island loop, with calm mornings and a breeze in the afternoon",
+            "Stiniva Cove, Vis: a pebble cove best reached by boat early, before the day-trip crowds",
+            "Vlaka Bay, Pakleni Islands (off Hvar): a quiet anchorage with a family-run konoba, easy to reach under sail",
+            "Late June timing: warm sea and about 2 rainy days in the month (unverified)"
+          ],
+          "summary": "Next summer, head to Croatia's Dalmatian coast for a family sailing trip. June is typically warm, with air around 27\u201330 \u00b0C and sea around 23\u201324 \u00b0C. The afternoon maestral wind is a gentle 10\u201315 kn, which suits sailing with kids. The weather figures came from a simulated, unverified source, so check them before you book."
+        },
+        "t_ms": 20169,
+        "send_rtt_ms": 625,
+        "thread": null
+      }
+    ],
+    "agent_messages": [
+      {
+        "t_ms": 11565,
+        "text": "Both specialists are working on it."
+      },
+      {
+        "t_ms": 15915,
+        "text": "Still waiting on the insider."
+      },
+      {
+        "t_ms": 22150,
+        "text": "Your Croatia sailing plan is on screen now."
+      }
+    ],
+    "tool_uses": [
+      {
+        "t_ms": 3029,
+        "name": "glob",
+        "input": {
+          "pattern": "/mnt/memory/**/*"
+        },
+        "actor": ""
+      },
+      {
+        "t_ms": 5849,
+        "name": "read",
+        "input": {
+          "file_path": "/mnt/memory/travelswarm-spike-user-demo/preferences.md"
+        },
+        "actor": ""
+      }
+    ],
+    "usage_events": [
+      {
+        "t_ms": 10520,
+        "usage": {
+          "active_seconds": 10.138,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 171
+          },
+          "cache_read_input_tokens": 36577,
+          "input_tokens": 8,
+          "list_cost": {
+            "amount": "1",
+            "currency": "USD"
+          },
+          "output_tokens": 411,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 11785,
+        "usage": {
+          "active_seconds": 11.397,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 992
+          },
+          "cache_read_input_tokens": 57643,
+          "input_tokens": 14,
+          "list_cost": {
+            "amount": "1",
+            "currency": "USD"
+          },
+          "output_tokens": 494,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 13042,
+        "usage": {
+          "active_seconds": 12.64,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 1432
+          },
+          "cache_read_input_tokens": 75223,
+          "input_tokens": 20,
+          "list_cost": {
+            "amount": "1",
+            "currency": "USD"
+          },
+          "output_tokens": 746,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 16686,
+        "usage": {
+          "active_seconds": 16.282,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 2317
+          },
+          "cache_read_input_tokens": 128429,
+          "input_tokens": 32,
+          "list_cost": {
+            "amount": "2",
+            "currency": "USD"
+          },
+          "output_tokens": 1088,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 20795,
+        "usage": {
+          "active_seconds": 19.802,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 2473
+          },
+          "cache_read_input_tokens": 141761,
+          "input_tokens": 36,
+          "list_cost": {
+            "amount": "2",
+            "currency": "USD"
+          },
+          "output_tokens": 1428,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      },
+      {
+        "t_ms": 22287,
+        "usage": {
+          "active_seconds": 21.591,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 2839
+          },
+          "cache_read_input_tokens": 155249,
+          "input_tokens": 38,
+          "list_cost": {
+            "amount": "2",
+            "currency": "USD"
+          },
+          "output_tokens": 1447,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        }
+      }
+    ],
+    "idle_events": [
+      {
+        "t_ms": 20796,
+        "stop_reason": {
+          "event_ids": [
+            "sevt_01MvMYvxVDjYrxtPYkXYMuKr"
+          ],
+          "type": "requires_action"
+        }
+      },
+      {
+        "t_ms": 22287,
+        "stop_reason": {
+          "type": "end_turn"
+        }
+      }
+    ],
+    "errors": [],
+    "reconnects": 0,
+    "event_deltas": true,
+    "send_wall_utc": "2026-11-06T14:02:02.201923+00:00",
+    "send_rtt_ms": 426,
+    "present_result_input": {
+      "picks": [
+        "Sail a Split\u2013Hvar\u2013Vis island loop, with calm mornings and a breeze in the afternoon",
+        "Stiniva Cove, Vis: a pebble cove best reached by boat early, before the day-trip crowds",
+        "Vlaka Bay, Pakleni Islands (off Hvar): a quiet anchorage with a family-run konoba, easy to reach under sail",
+        "Late June timing: warm sea and about 2 rainy days in the month (unverified)"
+      ],
+      "summary": "Next summer, head to Croatia's Dalmatian coast for a family sailing trip. June is typically warm, with air around 27\u201330 \u00b0C and sea around 23\u201324 \u00b0C. The afternoon maestral wind is a gentle 10\u201315 kn, which suits sailing with kids. The weather figures came from a simulated, unverified source, so check them before you book."
+    },
+    "wall_ms": 22287
+  },
+  "session2_stats": {
+    "session": {
+      "status": "idle",
+      "usage": {
+        "active_seconds": 21.699,
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 2839
+        },
+        "cache_read_input_tokens": 155249,
+        "input_tokens": 38,
+        "list_cost": {
+          "amount": "2",
+          "currency": "USD"
+        },
+        "output_tokens": 1447,
+        "server_tool_use": {
+          "web_fetch_requests": 0,
+          "web_search_requests": 0
+        }
+      },
+      "stats": {
+        "active_seconds": 28.628,
+        "duration_seconds": 22.983079679
+      },
+      "budget": {
+        "max_list_cost": {
+          "amount": "300",
+          "currency": "USD"
+        },
+        "type": "limit"
+      },
+      "resources": [
+        {
+          "memory_store_id": "memstore_01BrxPDPsT9CSM1PcRu46Ro3",
+          "type": "memory_store",
+          "access": "read_write",
+          "description": "Spike: stable traveller preferences for one demo user.",
+          "instructions": "Save stable traveller preferences to /mnt/memory/travelswarm-spike-user-demo/preferences.md as short markdown; never quote them back to the user.",
+          "mount_path": "/mnt/memory/travelswarm-spike-user-demo",
+          "name": "travelswarm-spike-user-demo"
+        }
+      ]
+    },
+    "threads": [
+      {
+        "id": "sthr_01LmtFMn38z7bbrsZJV9notN",
+        "agent": "travelswarm-spike-coordinator",
+        "status": "idle",
+        "parent_thread_id": null,
+        "stats": {
+          "active_seconds": 20.308,
+          "duration_seconds": 23.236322692,
+          "startup_seconds": 0.0
+        },
+        "usage": {
+          "active_seconds": 20.308,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 1631
+          },
+          "cache_read_input_tokens": 101905,
+          "input_tokens": 22,
+          "list_cost": {
+            "amount": "2",
+            "currency": "USD"
+          },
+          "output_tokens": 821,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        },
+        "timeline": [
+          {
+            "type": "session.status_running",
+            "server_ms_since_send": 613
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 613
+          },
+          {
+            "type": "user.message",
+            "server_ms_since_send": 678
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 678
+          },
+          {
+            "type": "agent.tool_use",
+            "server_ms_since_send": 2923,
+            "name": "glob"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 2923
+          },
+          {
+            "type": "agent.tool_result",
+            "server_ms_since_send": 3284
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 3348
+          },
+          {
+            "type": "agent.tool_use",
+            "server_ms_since_send": 5570,
+            "name": "read"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 5570
+          },
+          {
+            "type": "agent.tool_result",
+            "server_ms_since_send": 6257
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 6310
+          },
+          {
+            "type": "agent.thinking",
+            "server_ms_since_send": 7624
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 8917
+          },
+          {
+            "type": "session.thread_created",
+            "server_ms_since_send": 9157
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": 9157
+          },
+          {
+            "type": "session.thread_created",
+            "server_ms_since_send": 9406
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": 9406
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 9499
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 9581
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 9983
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 10372
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 10440
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 10555,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 11076
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 11412
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 11412
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 11511
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 11566
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 11626
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 11699
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 11813,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 12186
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": 12247
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 12247
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 12359
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 12860
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 12951
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 14293
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 14461
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 15596
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 15596
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 15757
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": 15908
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 15908
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 16501
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 16588
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 20027,
+            "name": "present_result"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 20027
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 20175
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 20175
+          },
+          {
+            "type": "session.status_idle",
+            "server_ms_since_send": 20175
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 20517
+          },
+          {
+            "type": "session.status_running",
+            "server_ms_since_send": 20594
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 20594
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 20663
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 22046
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 22046
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 22195
+          },
+          {
+            "type": "session.usage",
+            "server_ms_since_send": 22195
+          },
+          {
+            "type": "session.status_idle",
+            "server_ms_since_send": 22195
+          }
+        ]
+      },
+      {
+        "id": "sthr_01Xgzvf3NkemFbmKeKutCQu5",
+        "agent": "travelswarm-spike-weather-scout",
+        "status": "idle",
+        "parent_thread_id": "sthr_01LmtFMn38z7bbrsZJV9notN",
+        "stats": {
+          "active_seconds": 2.5580000000000003,
+          "duration_seconds": 13.660768713,
+          "startup_seconds": 0.0
+        },
+        "usage": {
+          "active_seconds": 2.5580000000000003,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 631
+          },
+          "cache_read_input_tokens": 26704,
+          "input_tokens": 8,
+          "list_cost": {
+            "amount": "0",
+            "currency": "USD"
+          },
+          "output_tokens": 315,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        },
+        "timeline": [
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 9581
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": 9826
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 9826
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 10316,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 10316
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 10372
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 11003
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 11076
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 11240
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 11984
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": 12156
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 12276
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 12811
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 12811
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 12860
+          }
+        ]
+      },
+      {
+        "id": "sthr_01TQ2yQYm5KnQwcesSrK1XQJ",
+        "agent": "travelswarm-spike-insider",
+        "status": "idle",
+        "parent_thread_id": "sthr_01LmtFMn38z7bbrsZJV9notN",
+        "stats": {
+          "active_seconds": 5.7620000000000005,
+          "duration_seconds": 13.407378177,
+          "startup_seconds": 0.0
+        },
+        "usage": {
+          "active_seconds": 5.7620000000000005,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 577
+          },
+          "cache_read_input_tokens": 26640,
+          "input_tokens": 8,
+          "list_cost": {
+            "amount": "0",
+            "currency": "USD"
+          },
+          "output_tokens": 311,
+          "server_tool_use": {
+            "web_fetch_requests": 0,
+            "web_search_requests": 0
+          }
+        },
+        "timeline": [
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 9983
+          },
+          {
+            "type": "agent.thread_message_received",
+            "server_ms_since_send": 10183
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 10183
+          },
+          {
+            "type": "agent.custom_tool_use",
+            "server_ms_since_send": 11575,
+            "name": "lookup_fact"
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 11575
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 11626
+          },
+          {
+            "type": "user.custom_tool_result",
+            "server_ms_since_send": 12182
+          },
+          {
+            "type": "session.thread_status_running",
+            "server_ms_since_send": 12359
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 12601
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 14575
+          },
+          {
+            "type": "agent.thread_message_sent",
+            "server_ms_since_send": 14756
+          },
+          {
+            "type": "span.model_request_start",
+            "server_ms_since_send": 14804
+          },
+          {
+            "type": "agent.message",
+            "server_ms_since_send": 16425
+          },
+          {
+            "type": "span.model_request_end",
+            "server_ms_since_send": 16425
+          },
+          {
+            "type": "session.thread_status_idle",
+            "server_ms_since_send": 16501
+          }
+        ]
+      }
+    ]
+  },
+  "memories_after_session_2": [
+    {
+      "type": "memory",
+      "id": "mem_01S9WLJG6TWu8yrfgxpbDk5Q",
+      "path": "/preferences.md",
+      "content": "# Traveller preferences\n- Party: single parent + 2 kids (family of 3)\n- Interests: sailing; destination interest Croatia\n- Budget style: comfort-first, budget less of a concern (previously mid)\n- Typical timing: late June\n",
+      "content_size_bytes": 222,
+      "created_at": "2026-11-06T14:01:27.510938Z",
+      "updated_at": "2026-11-06T14:01:44.847675Z"
+    }
+  ],
+  "shapes": {
+    "coordinator_multiagent_sent": {
+      "type": "multiagent_20261001",
+      "subagents": {
+        "type": "enabled",
+        "predefined_agents": [
+          {
+            "type": "agent",
+            "id": "agent_016j5roPiFwHAdj9yoPc78bf"
+          },
+          {
+            "type": "agent",
+            "id": "agent_01SEXbk4Zo6kr4Yb2Zfe7Y4Z"
+          }
+        ],
+        "inline_agents": {
+          "type": "disabled"
+        }
+      },
+      "workflows": {
+        "type": "disabled"
+      }
+    },
+    "coordinator_multiagent_stored": {
+      "advisor": {
+        "type": "disabled"
+      },
+      "subagents": {
+        "inline_agents": {
+          "type": "disabled"
+        },
+        "predefined_agents": [
+          {
+            "id": "agent_016j5roPiFwHAdj9yoPc78bf",
+            "type": "agent",
+            "version": 1
+          },
+          {
+            "id": "agent_01SEXbk4Zo6kr4Yb2Zfe7Y4Z",
+            "type": "agent",
+            "version": 1
+          }
+        ],
+        "type": "enabled"
+      },
+      "type": "multiagent_20261001",
+      "workflows": {
+        "type": "disabled"
+      }
+    },
+    "coordinator_shape_label": "multiagent_20261001_full",
+    "session_create": {
+      "agent": "<coordinator id>",
+      "environment_id": "<env id>",
+      "budget": {
+        "type": "limit",
+        "max_list_cost": {
+          "amount": "300",
+          "currency": "USD"
+        }
+      },
+      "resources": [
+        {
+          "type": "memory_store",
+          "memory_store_id": "<memstore id>",
+          "access": "read_write",
+          "instructions": "Save stable traveller preferences to /mnt/memory/travelswarm-spike-user-demo/preferences.md as short markdown; never quote them back to the user."
+        }
+      ]
+    },
+    "session_create_headers": "anthropic-beta: managed-agents-2026-04-01 (SDK default)",
+    "custom_tool_result_shape": {
+      "type": "user.custom_tool_result",
+      "custom_tool_use_id": "<agent.custom_tool_use event id>",
+      "content": [
+        {
+          "type": "text",
+          "text": "SIMULATED FACT: Little-known spots: (1) Stiniva cove on Vis, best reached by boat early morning; (2) Pakleni islands' Vlaka bay off Hvar, quiet anchorage with a family konoba."
+        }
+      ]
+    }
+  },
+  "errors": [],
+  "created": {
+    "session": [
+      "sesn_01GQK9jfFSfxpd65gnGeFNvY",
+      "sesn_011TDict4Xn4uhmieDrjZVxA"
+    ],
+    "agent": [
+      "agent_016j5roPiFwHAdj9yoPc78bf",
+      "agent_01SEXbk4Zo6kr4Yb2Zfe7Y4Z",
+      "agent_015wbS2jbhkfNUtKXnreCRHR"
+    ],
+    "memory_store": [
+      "memstore_01BrxPDPsT9CSM1PcRu46Ro3"
+    ],
+    "environment": [
+      "env_01354JaXVjVmnqM459H6ZJM6"
+    ]
+  },
+  "reused": {},
+  "cleanup": {
+    "ok": [
+      "session sesn_01GQK9jfFSfxpd65gnGeFNvY delete",
+      "session sesn_011TDict4Xn4uhmieDrjZVxA delete",
+      "agent agent_015wbS2jbhkfNUtKXnreCRHR archive",
+      "agent agent_01SEXbk4Zo6kr4Yb2Zfe7Y4Z archive",
+      "agent agent_016j5roPiFwHAdj9yoPc78bf archive",
+      "memory_store memstore_01BrxPDPsT9CSM1PcRu46Ro3 delete",
+      "environment env_01354JaXVjVmnqM459H6ZJM6 delete"
+    ],
+    "failed": []
+  }
+}

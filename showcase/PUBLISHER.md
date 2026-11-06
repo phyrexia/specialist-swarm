@@ -7,7 +7,7 @@
 |---|---|---|---|
 | M1 | Team card with LinkedIn QR codes, plus progress #1 stat tiles | concept + spike done | posted |
 | M2 | Architecture: coordinator, specialists, memory, voice | after the ADR lands in `docs/adrs/` | queued |
-| M3 | First itinerary on screen (real UI screenshot) | first end-to-end render | queued |
+| M3 | First itinerary on screen (real UI screenshot) | first end-to-end render | posted |
 | M4 | Voice conversation clip (MP4 ≤20 s) | voice loop working | queued |
 | M5 | Final demo still and clip | demo rehearsal | queued |
 Engagement posts between milestones are queued in `CALENDAR.md`.

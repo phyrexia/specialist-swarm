@@ -10,5 +10,17 @@
     "caption": "Progress #1: the Experience Atlas swarm is alive — itinerary in ~15 s, remembers you across trips · League of AI",
     "milestone": "M1",
     "uploaded_at": "2026-11-06T14:15:51Z"
+  },
+  {
+    "file": "showcase/m3-live-swarm-running.png",
+    "caption": "LIVE: Experience Atlas — 'Tokyo and maybe an island' → the Trip Architect briefs 5 specialist Claude agents in parallel · League of AI — Gabriel González Pineda & Leonardo Eleuteri",
+    "milestone": "M3",
+    "uploaded_at": "2026-11-06T14:22:10Z"
+  },
+  {
+    "file": "showcase/m3-live-itinerary.png",
+    "caption": "41 seconds, $0.08: six Claude agents built 'Tokyo & Naoshima Art Island, 10 days' — and it remembered we travel with two kids · League of AI",
+    "milestone": "M3",
+    "uploaded_at": "2026-11-06T14:22:10Z"
   }
 ]

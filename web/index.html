@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Experience Atlas · Your AI travel companion</title>
+  <link rel="icon" href="/assets/brand/experience-atlas/experience-atlas-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="/web/styles.css" />
+</head>
+<body>
+<div class="app">
+  <!-- HERO HEADER -->
+  <header class="hero">
+    <div class="brand">
+      <img class="brand-logo" src="/assets/brand/experience-atlas/experience-atlas-icon.png" alt="Experience Atlas logo" />
+      <div>
+        <h1 class="brand-name">Experience Atlas</h1>
+        <p class="brand-tag">Your AI travel companion</p>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-claim"><span class="dot-live"></span> Six Claude agents · one Trip Architect · real places</div>
+      <button id="newTripBtn" class="ghost-btn" type="button">✦ New trip</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- LEFT: CONVERSATION -->
+    <section class="left panel">
+      <div class="panel-head">
+        <div class="panel-title"><span class="title-glyph">💬</span> Concierge</div>
+        <button id="ttsBtn" class="icon-btn" type="button" title="Spoken replies">🔈</button>
+      </div>
+
+      <div id="chat" class="chat" aria-live="polite">
+        <div class="msg assistant intro">
+          <div class="bubble">Hi, I'm <b>Atlas</b>. Tell me what you'd love to <i>do</i>, who's coming and roughly when, and my specialists will build your trip live.</div>
+        </div>
+      </div>
+
+      <div class="chips" id="chips">
+        <button class="chip" type="button">Sailing in Europe with my two kids in late June, mid budget</button>
+        <button class="chip" type="button">Tokyo and maybe an island, 10 days in April</button>
+        <button class="chip" type="button">Work trip to Lisbon for 3 days — good reviews, nightlife nearby</button>
+      </div>
+
+      <div class="voice-dock" id="voiceDock">
+        <button id="micBtn" class="mic" type="button" aria-label="Toggle voice">
+          <span class="ring r1"></span><span class="ring r2"></span><span class="ring r3"></span>
+          <svg class="mic-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z"/></svg>
+        </button>
+        <div class="transcript" id="transcript">
+          <div class="transcript-label" id="voiceLabel">Tap to talk</div>
+          <div class="transcript-text" id="transcriptText">Speak naturally — Atlas listens, you can interrupt anytime.</div>
+        </div>
+      </div>
+
+      <form id="composer" class="composer" autocomplete="off">
+        <input id="input" type="text" placeholder="Where to? Who's going? What do you want to do?" />
+        <button id="sendBtn" class="send" type="submit" aria-label="Send">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z"/></svg>
+        </button>
+      </form>
+    </section>
+
+    <!-- RIGHT: STAGE -->
+    <section class="stage empty" id="stage">
+      <div class="row row-top">
+        <!-- SWARM -->
+        <div class="panel swarm" id="swarm">
+          <div class="panel-head">
+            <div class="panel-title"><span class="title-glyph">✦</span> The Swarm <span class="sub">Managed Agents</span></div>
+            <div class="swarm-meta">
+              <span id="costChip" class="cost-chip hidden"></span>
+              <span id="swarmPill" class="pill idle">Idle</span>
+            </div>
+          </div>
+          <div class="swarm-stage" id="swarmStage">
+            <svg id="swarmSvg" class="swarm-svg"></svg>
+            <div id="orbs"></div>
+          </div>
+          <div class="swarm-status">
+            <div class="elapsed"><span id="swarmElapsed">0.0</span><small>s</small></div>
+            <div class="status-msg" id="swarmMsg">Waiting for your first wish…</div>
+          </div>
+          <div class="ticker" id="ticker"></div>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="panel summary" id="summary">
+          <div class="empty-hero">
+            <img src="/assets/brand/experience-atlas/experience-atlas-hero.png" alt="" />
+            <div class="empty-copy">
+              <div class="eyebrow">Your trip canvas</div>
+              <h2>Tell Atlas a wish.<br/>Watch five specialists build it.</h2>
+              <p>Flights, stays, experiences and the places only locals know, composed into one living itinerary.</p>
+            </div>
+          </div>
+          <div class="summary-body" id="summaryBody"></div>
+        </div>
+      </div>
+
+      <div class="row-days">
+        <div class="section-head"><h3>Day by day</h3><span class="hint">scroll →</span></div>
+        <div class="days" id="days"></div>
+      </div>
+
+      <div class="row row-mid">
+        <div class="panel map-panel">
+          <div class="panel-head"><div class="panel-title"><span class="title-glyph">🗺️</span> Route</div><span class="sub" id="mapSub"></span></div>
+          <div id="map"></div>
+        </div>
+        <div class="col-stack">
+          <div class="panel">
+            <div class="panel-head"><div class="panel-title"><span class="title-glyph">✈️</span> Flights</div></div>
+            <div id="flights" class="flights"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><div class="panel-title"><span class="title-glyph">⛵</span> Experiences</div></div>
+            <div id="experiences" class="experiences"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel insider-panel">
+        <div class="panel-head"><div class="panel-title gold"><span class="title-glyph">🔑</span> Local insider</div><span class="sub">what the guidebooks miss</span></div>
+        <div id="insider" class="insider"></div>
+      </div>
+
+      <footer class="foot">Experience Atlas · by League of AI — Gabriel González Pineda &amp; Leonardo Eleuteri</footer>
+    </section>
+  </main>
+</div>
+
+<!-- BOOKING MODAL -->
+<div class="modal-back hidden" id="modal">
+  <div class="modal panel">
+    <button class="modal-x" id="modalX" type="button" aria-label="Close">×</button>
+    <div class="modal-check">✓</div>
+    <div class="eyebrow">Booking confirmed</div>
+    <div class="conf-code" id="confCode">EA-0000</div>
+    <div class="conf-items" id="confItems"></div>
+    <div class="conf-total"><span>Total</span><b id="confTotal">€0</b></div>
+    <div class="conf-note">Simulated booking · no payment taken</div>
+  </div>
+</div>
+
+<div id="toasts" class="toasts"></div>
+<canvas id="confetti" class="confetti"></canvas>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="/web/voice.js"></script>
+<script src="/web/app.js"></script>
+</body>
+</html>

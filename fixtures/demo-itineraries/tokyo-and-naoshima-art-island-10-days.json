@@ -1,0 +1,340 @@
+{
+  "budget_style": "comfort",
+  "dates": "10 days in April",
+  "days": [
+    {
+      "afternoon": {
+        "description": "Short walk, early lunch, nap.",
+        "place_id": null,
+        "title": "Easy Shinjuku stroll"
+      },
+      "day": 1,
+      "evening": {
+        "description": "Early, casual yakitori alley dinner.",
+        "place_id": "tokyo-omoide-jp",
+        "title": "Omoide Yokocho dinner"
+      },
+      "morning": {
+        "description": "Transfer to hotel, drop bags, rest.",
+        "title": "Arrive Haneda 07:30"
+      },
+      "place_id": "tokyo-jp",
+      "place_name": "Tokyo",
+      "stay": {
+        "name": "Hotel Gracery Shinjuku",
+        "price_per_night_eur": 220,
+        "type": "Family quad room"
+      },
+      "theme": "Soft landing"
+    },
+    {
+      "afternoon": {
+        "description": "Quiet shrine, then pandas and animals.",
+        "place_id": "nezu-jp",
+        "title": "Nezu Shrine and Ueno Zoo"
+      },
+      "day": 2,
+      "evening": {
+        "description": "Dusk skyline from the water.",
+        "place_id": null,
+        "title": "Sumida River cruise"
+      },
+      "morning": {
+        "description": "Cat alleys and street snacks.",
+        "place_id": "yanaka-ginza-jp",
+        "title": "Yanaka Ginza snacks"
+      },
+      "place_id": "yanaka-jp",
+      "place_name": "Yanaka",
+      "stay": {
+        "name": "Hotel Gracery Shinjuku",
+        "price_per_night_eur": 220,
+        "type": "Family quad room"
+      },
+      "theme": "Old Tokyo"
+    },
+    {
+      "afternoon": {
+        "description": "Kids make fake-food souvenirs.",
+        "place_id": null,
+        "title": "Kappabashi food-model workshop"
+      },
+      "day": 3,
+      "evening": {
+        "description": "Ramen near the hotel, early night.",
+        "place_id": null,
+        "title": "Early family dinner"
+      },
+      "morning": {
+        "description": "Book the 9:00 slot; allow two hours.",
+        "place_id": null,
+        "title": "teamLab Planets"
+      },
+      "place_id": "tokyo-jp",
+      "place_name": "Tokyo",
+      "stay": {
+        "name": "Hotel Gracery Shinjuku",
+        "price_per_night_eur": 220,
+        "type": "Family quad room"
+      },
+      "theme": "Digital art and fun"
+    },
+    {
+      "afternoon": {
+        "description": "Vintage shops, bakeries, relaxed lunch.",
+        "place_id": "shimokitazawa-walk-jp",
+        "title": "Shimokitazawa backstreets"
+      },
+      "day": 4,
+      "evening": {
+        "description": "Lucky cat temple at golden hour.",
+        "place_id": "gotokuji-jp",
+        "title": "Gotokuji temple"
+      },
+      "morning": {
+        "description": "Pre-booked tickets; half-day visit.",
+        "place_id": null,
+        "title": "Ghibli Museum, Mitaka"
+      },
+      "place_id": "shimokitazawa-jp",
+      "place_name": "Shimokitazawa",
+      "stay": {
+        "name": "Hotel Gracery Shinjuku",
+        "price_per_night_eur": 220,
+        "type": "Family quad room"
+      },
+      "theme": "Local neighbourhoods"
+    },
+    {
+      "afternoon": {
+        "description": "Shopping or repeat a favourite.",
+        "place_id": null,
+        "title": "Free time"
+      },
+      "day": 5,
+      "evening": {
+        "description": "Prepare for the morning flight.",
+        "place_id": null,
+        "title": "Pack and early night"
+      },
+      "morning": {
+        "description": "Cobbled alleys, crepes, quiet cafes.",
+        "place_id": "kagurazaka-jp",
+        "title": "Kagurazaka lanes"
+      },
+      "place_id": "kagurazaka-jp",
+      "place_name": "Kagurazaka",
+      "stay": {
+        "name": "Hotel Gracery Shinjuku",
+        "price_per_night_eur": 220,
+        "type": "Family quad room"
+      },
+      "theme": "Flexible day"
+    },
+    {
+      "afternoon": {
+        "description": "Rent bikes, explore Honmura lanes and beach.",
+        "place_id": null,
+        "title": "Family bike ride"
+      },
+      "day": 6,
+      "evening": {
+        "description": "Early dinner; book ahead.",
+        "place_id": null,
+        "title": "Dinner at the resort"
+      },
+      "morning": {
+        "description": "Takamatsu to Naoshima ferry, check in.",
+        "place_id": null,
+        "title": "Fly then ferry"
+      },
+      "place_id": "naoshima-jp",
+      "place_name": "Naoshima",
+      "stay": {
+        "name": "Benesse House Park",
+        "price_per_night_eur": 390,
+        "type": "Family room"
+      },
+      "theme": "Island arrival",
+      "transport": {
+        "arrive": "09:20",
+        "carrier": "ANA",
+        "depart": "08:00",
+        "from": "Tokyo Haneda",
+        "mode": "flight",
+        "price_eur": 560,
+        "to": "Takamatsu"
+      }
+    },
+    {
+      "afternoon": {
+        "description": "Photos, then play at Ishihama beach.",
+        "place_id": null,
+        "title": "Kusama Pumpkin and beach"
+      },
+      "day": 7,
+      "evening": {
+        "description": "Stroll, early dinner, rest.",
+        "place_id": null,
+        "title": "Quiet island evening"
+      },
+      "morning": {
+        "description": "Arrive early before day-trippers.",
+        "place_id": "naoshima-chichu-jp",
+        "title": "Chichu Art Museum"
+      },
+      "place_id": "naoshima-jp",
+      "place_name": "Naoshima",
+      "stay": {
+        "name": "Benesse House Park",
+        "price_per_night_eur": 390,
+        "type": "Family room"
+      },
+      "theme": "Art by bike"
+    },
+    {
+      "afternoon": {
+        "description": "Calm, spacious, kid-friendly space.",
+        "place_id": null,
+        "title": "Teshima Art Museum"
+      },
+      "day": 8,
+      "evening": {
+        "description": "Ferry back, relaxed dinner.",
+        "place_id": null,
+        "title": "Return to Naoshima"
+      },
+      "morning": {
+        "description": "Short boat ride to rice terraces.",
+        "place_id": "teshima-jp",
+        "title": "Ferry to Teshima"
+      },
+      "place_id": "teshima-jp",
+      "place_name": "Teshima",
+      "stay": {
+        "name": "Benesse House Park",
+        "price_per_night_eur": 390,
+        "type": "Family room"
+      },
+      "theme": "Boat day trip"
+    },
+    {
+      "afternoon": {
+        "description": "Easy afternoon near the hotel.",
+        "place_id": null,
+        "title": "Check in and rest"
+      },
+      "day": 9,
+      "evening": {
+        "description": "Sushi train dinner for the kids.",
+        "place_id": null,
+        "title": "Farewell dinner"
+      },
+      "morning": {
+        "description": "Morning ferry to Takamatsu airport.",
+        "place_id": null,
+        "title": "Ferry and flight"
+      },
+      "place_id": "tokyo-jp",
+      "place_name": "Tokyo",
+      "stay": {
+        "name": "Hotel Gracery Shinjuku",
+        "price_per_night_eur": 220,
+        "type": "Family quad room"
+      },
+      "theme": "Back to Tokyo",
+      "transport": {
+        "arrive": "13:20",
+        "carrier": "ANA",
+        "depart": "12:00",
+        "from": "Takamatsu",
+        "mode": "flight",
+        "price_eur": 560,
+        "to": "Tokyo Haneda"
+      }
+    },
+    {
+      "afternoon": {
+        "description": "Afternoon departure from Haneda.",
+        "place_id": null,
+        "title": "Flight home"
+      },
+      "day": 10,
+      "morning": {
+        "description": "Shop nearby, then head to Haneda.",
+        "place_id": null,
+        "title": "Last souvenirs"
+      },
+      "place_id": "tokyo-jp",
+      "place_name": "Tokyo",
+      "theme": "Departure"
+    }
+  ],
+  "experiences": [
+    {
+      "place_id": null,
+      "price_eur": 96,
+      "title": "teamLab Planets",
+      "why": "Immersive art kids love; morning slot."
+    },
+    {
+      "place_id": null,
+      "price_eur": 60,
+      "title": "Sumida River cruise",
+      "why": "Short, easy, great at dusk."
+    },
+    {
+      "place_id": null,
+      "price_eur": 34,
+      "title": "Ghibli Museum",
+      "why": "Book early; sells out monthly."
+    },
+    {
+      "place_id": "naoshima-chichu-jp",
+      "price_eur": 60,
+      "title": "Naoshima bike rental",
+      "why": "Best way to see the island."
+    }
+  ],
+  "flights": [
+    {
+      "arrive": "07:30 +1",
+      "carrier": "ANA",
+      "depart": "11:45",
+      "duration": "13h",
+      "from": "Frankfurt",
+      "price_eur": 4600,
+      "to": "Tokyo Haneda"
+    },
+    {
+      "carrier": "ANA",
+      "duration": "13h",
+      "from": "Tokyo Haneda",
+      "price_eur": 4600,
+      "to": "Frankfurt"
+    }
+  ],
+  "insider_tips": [
+    {
+      "description": "Day-trippers crowd museums midday; go early.",
+      "place_id": "naoshima-jp",
+      "title": "Naoshima early or late"
+    },
+    {
+      "description": "Quiet lanes and cats before the crowds.",
+      "place_id": "yanaka-jp",
+      "title": "Yanaka mornings"
+    },
+    {
+      "description": "Quieter island, rice terraces, short ride.",
+      "place_id": "teshima-jp",
+      "title": "Teshima ferry"
+    }
+  ],
+  "next_question": "Which airport are you flying from? I assumed Frankfurt.",
+  "summary": "Six Tokyo nights, then three on Naoshima for bikes, ferries and open-air art. Comfort upgrades: ANA nonstop flights, family rooms, and Benesse House Park on the island.",
+  "title": "Tokyo and Naoshima Art Island, 10 Days",
+  "total_estimate_eur": 13400,
+  "travellers": "2 adults, 2 kids (8 and 11)",
+  "weather_note": "Tokyo 10-20°C with some rain. Naoshima sea about 17°C, so bring layers."
+}

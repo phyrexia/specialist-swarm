@@ -34,7 +34,9 @@ for _mount, _dir in (("/web", WEB), ("/assets", ROOT / "assets"), ("/fixtures", 
     app.mount(_mount, StaticFiles(directory=_dir), name=_mount.strip("/"))
 
 CONVERSATIONS: dict[str, swarm.Conversation] = {}
+SKETCHES: dict[str, dict[str, Any]] = {}  # conversation id -> v0 (prebuilt or sketch), bookable until v1
 _conv_lock = threading.Lock()
+SKETCH_TIMEOUT_S = 25
 
 
 @app.on_event("startup")
@@ -112,6 +114,14 @@ async def api_chat(body: ChatIn) -> StreamingResponse:
     if not text:
         raise HTTPException(status_code=400, detail="text is required")
     conv = _get_conv(body.conversation_id)
+    first_turn = conv.version == 0 and not conv.history
+    # v0 on the first turn: a quick-start chip gets its prebuilt plan at 0 s (and the swarm refines it);
+    # free text gets the Haiku sketch a few seconds in.
+    prebuilt = swarm.prebuilt_for(text) if first_turn else None
+    if prebuilt:
+        prebuilt["next_question"] = ""
+        conv.base_plan = prebuilt
+        SKETCHES[conv.id] = prebuilt
     loop = asyncio.get_running_loop()
     queue: asyncio.Queue[dict[str, Any] | None] = asyncio.Queue()
 
@@ -135,6 +145,26 @@ async def api_chat(body: ChatIn) -> StreamingResponse:
         conv.history.append({"role": "user", "content": text})
         conv.history.append({"role": "assistant", "content": full})
 
+    async def run_sketch() -> None:
+        # v0: an instant Haiku sketch, first turn only, dropped if the swarm's v1 got there first.
+        try:
+            itin = await asyncio.wait_for(
+                concierge.sketch_itinerary(text, swarm.catalog_text(), {p["id"] for p in swarm.places()}),
+                timeout=SKETCH_TIMEOUT_S,
+            )
+        except asyncio.CancelledError:
+            raise
+        except Exception as e:  # noqa: BLE001 - the sketch is a nice-to-have
+            print(f"[sketch] skipped: {type(e).__name__}: {str(e)[:300]}", flush=True)
+            return
+        if not itin:
+            return
+        if conv.version != 0:
+            print("[sketch] dropped: the swarm version arrived first", flush=True)
+            return
+        SKETCHES[conv.id] = itin
+        queue.put_nowait({"type": "itinerary", "version": 0, "sketch": True, "itinerary": itin})
+
     def run_swarm() -> None:
         if not conv.lock.acquire(timeout=300):
             emit({"type": "error", "message": "A previous turn is still running."})
@@ -146,11 +176,18 @@ async def api_chat(body: ChatIn) -> StreamingResponse:
 
     async def gen():
         yield _sse({"type": "conversation", "conversation_id": conv.id})
+        if prebuilt:
+            yield _sse({"type": "itinerary", "version": 0, "prebuilt": True, "itinerary": prebuilt})
+        sk_task = asyncio.create_task(run_sketch()) if first_turn and not prebuilt else None
         c_task = asyncio.create_task(run_concierge())
         s_task = asyncio.create_task(asyncio.to_thread(run_swarm))
 
         async def closer() -> None:
             await asyncio.gather(c_task, s_task, return_exceptions=True)
+            # The turn never waits for the sketch: once the swarm is done, v0 is moot.
+            if sk_task and not sk_task.done():
+                sk_task.cancel()
+                await asyncio.gather(sk_task, return_exceptions=True)
             await queue.put(None)
 
         close_task = asyncio.create_task(closer())
@@ -167,6 +204,8 @@ async def api_chat(body: ChatIn) -> StreamingResponse:
                 yield _sse({"type": "turn.done"})
         finally:
             close_task.cancel() if not close_task.done() else None
+            if sk_task and not sk_task.done():
+                sk_task.cancel()
 
     return StreamingResponse(
         gen(), media_type="text/event-stream",
@@ -176,8 +215,9 @@ async def api_chat(body: ChatIn) -> StreamingResponse:
 
 @app.post("/api/book")
 async def api_book(body: BookIn) -> dict[str, Any]:
-    conv = CONVERSATIONS.get(body.conversation_id or "")
-    itin = conv.latest_itinerary if conv else None
+    cid = body.conversation_id or ""
+    conv = CONVERSATIONS.get(cid)
+    itin = (conv.latest_itinerary if conv else None) or SKETCHES.get(cid)
     if not itin:
         raise HTTPException(status_code=404, detail="no itinerary to book yet")
     return build_booking(itin)

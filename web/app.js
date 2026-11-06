@@ -17,7 +17,7 @@
   const COORD = AGENTS[0].key;
 
   const state = {
-    conversationId: null, busy: false, queue: [], version: 0, itinerary: null,
+    conversationId: null, busy: false, queue: [], version: 0, itinerary: null, sketch: false,
     places: new Map(), media: new Map(), fixture: null,
     t0: null, timer: null, ttsOn: false, mockTurn: 0, voiceInited: false,
     map: null, mapLayer: null, particles: [], geo: null, assistantEl: null,
@@ -190,14 +190,16 @@
       case 'swarm.status': swarmStatus(ev); break;
       case 'agent.spawned': agentSpawned(ev.agent); break;
       case 'agent.activity': agentActivity(ev); break;
-      case 'itinerary': renderItinerary(ev.itinerary, ev.version); break;
+      case 'itinerary': renderItinerary(ev.itinerary, ev.version, ev.prebuilt === true ? 'prebuilt' : ev.sketch === true ? 'sketch' : null); break;
       case 'usage':
         if (typeof ev.cost_usd === 'number') { const c = $('#costChip'); c.textContent = '$' + ev.cost_usd.toFixed(3); c.classList.remove('hidden'); }
         break;
       case 'turn.done':
         if (!$('#swarm').classList.contains('done') && state.t0) swarmStatus({ status: 'done', message: '' });
+        endSketch();
         break;
       case 'error':
+        endSketch();
         toast(ev.message || 'Something went wrong');
         swarmStatus({ status: 'error', message: ev.message || 'error' });
         break;
@@ -480,26 +482,43 @@
   const MODE = { flight: '✈️', ferry: '⛴️', train: '🚆', boat: '⛵', car: '🚗', walk: '🚶' };
   const BUDGET = { budget: 'Budget', balanced: 'Balanced', comfort: 'Comfort', luxury: 'Luxury' };
 
-  function renderItinerary(it, version) {
+  // v0 is a draft: a prebuilt plan for a quick-start chip (instant) or a Haiku sketch for free text.
+  // v1+ come from the swarm. A draft never replaces a swarm version.
+  const DRAFT = {
+    prebuilt: { label: 'instant plan', note: 'the swarm is tailoring it to you…', chat: 'Instant plan v0 is on screen — the swarm is tailoring it to you' },
+    sketch: { label: 'sketch by Atlas', note: 'the swarm is pricing &amp; refining…', chat: 'Sketch v0 is ready — the swarm is pricing & refining it' },
+  };
+  function renderItinerary(it, version, draftKind = null) {
     if (!it || typeof it !== 'object') return;
-    const isNew = (version || 0) !== state.version;
-    const prevVersion = state.version;
-    state.version = version || state.version + 1;
+    const draft = DRAFT[draftKind] || null;
+    const sketch = !!draft;
+    if (sketch && state.itinerary && !state.sketch) return;
+    const v = Number.isInteger(version) ? version : state.version + 1;
+    const prevVersion = state.itinerary ? state.version : null;
+    const isNew = prevVersion === null || v !== prevVersion || state.sketch !== sketch;
+    state.version = v;
     state.itinerary = it;
+    state.sketch = sketch;
     const stage = $('#stage');
     const firstTime = stage.classList.contains('empty');
     stage.classList.remove('empty');
+    stage.classList.toggle('sketching', sketch);
+    const nextQ = sketch ? '' : it.next_question;
+    const verLabel = sketch ? `v${v} · ${draft.label}` : `v${v} · priced by 6 agents`;
 
     // Summary
     const sb = $('#summaryBody');
+    sb.classList.toggle('is-v0', sketch);
     sb.innerHTML = `
       <div class="sum-top">
-        <div class="version ${isNew ? 'flip' : ''}"><div class="version-inner">v${esc(state.version)}</div></div>
+        <div class="version version-badge ${isNew ? 'flip' : ''} ${sketch ? 'is-v0' : ''}"><div class="version-inner">v${esc(v)}</div></div>
         <div>
-          ${prevVersion && isNew ? '<span class="sum-new">NEW VERSION</span>' : ''}
+          <span class="ver-label ${sketch ? 'is-v0' : ''}">${esc(verLabel)}</span>
+          ${prevVersion !== null && isNew && !sketch ? '<span class="sum-new">NEW VERSION</span>' : ''}
           <h2 class="sum-title">${esc(it.title || 'Your trip')}</h2>
         </div>
       </div>
+      ${sketch ? `<div class="v0-shimmer" id="v0Shimmer"><span class="v0-shimmer-dot"></span><span class="v0-shimmer-text">${draft.note}</span></div>` : ''}
       <p class="sum-summary">${esc(it.summary || '')}</p>
       <div class="meta">
         ${it.dates ? `<span>📅 <b>${esc(it.dates)}</b></span>` : ''}
@@ -508,24 +527,36 @@
         ${Array.isArray(it.days) ? `<span>🗓️ ${it.days.length} days</span>` : ''}
       </div>
       ${it.weather_note ? `<div class="weather"><span>🌤️</span><span>${esc(it.weather_note)}</span></div>` : ''}
-      ${it.next_question ? `<div class="next-q" id="nextQ"><div class="eyebrow">Atlas asks</div><div class="next-q-text">${esc(it.next_question)}</div></div>` : ''}
+      ${nextQ ? `<div class="next-q" id="nextQ"><div class="eyebrow">Atlas asks</div><div class="next-q-text">${esc(nextQ)}</div></div>` : ''}
       <div class="sum-bottom">
-        <div><div class="total-label">Estimated total</div><div class="total">${esc(fmtEur(it.total_estimate_eur) || '—')}</div></div>
+        <div><div class="total-label">${sketch ? 'First estimate' : 'Estimated total'}</div><div class="total">${esc(fmtEur(it.total_estimate_eur) || '—')}</div></div>
         <button class="book-btn" id="bookBtn" type="button">Book everything →</button>
       </div>`;
     sb.classList.remove('reveal'); void sb.offsetWidth; sb.classList.add('reveal');
     $('#bookBtn').addEventListener('click', book);
     const nq = $('#nextQ');
-    if (nq) nq.addEventListener('click', () => { const i = $('#input'); i.focus(); i.placeholder = 'Answer: ' + it.next_question; });
+    if (nq) nq.addEventListener('click', () => { const i = $('#input'); i.focus(); i.placeholder = 'Answer: ' + nextQ; });
 
-    if (isNew) addMsg('system', `✦ Itinerary v${state.version} is ready${prevVersion ? ' — refined from v' + prevVersion : ''}`);
-    if (it.next_question && isNew) addMsg('assistant', it.next_question, 'question');
+    if (isNew) {
+      addMsg('system', sketch
+        ? `✦ ${draft.chat}`
+        : `✦ Itinerary v${v} is ready${prevVersion !== null ? ' — refined from v' + prevVersion : ''}`);
+    }
+    if (nextQ && isNew) addMsg('assistant', nextQ, 'question');
 
     renderDays(it.days || []);
     renderFlights(it.flights || []);
     renderExperiences(it.experiences || []);
     renderInsider(it.insider_tips || []);
     setTimeout(() => renderMap(it), firstTime ? 120 : 0);
+  }
+
+  // The turn ended with only the sketch on screen (swarm failed): stop promising a refinement.
+  function endSketch() {
+    if (!state.sketch) return;
+    $('#stage').classList.remove('sketching');
+    const n = $('#v0Shimmer');
+    if (n) { n.classList.add('ended'); n.querySelector('.v0-shimmer-text').textContent = 'the swarm could not refine it this time'; }
   }
 
   function renderDays(days) {
@@ -746,7 +777,8 @@
 
   /* ================= NEW TRIP ================= */
   function newTrip() {
-    state.conversationId = null; state.version = 0; state.itinerary = null; state.queue = [];
+    state.conversationId = null; state.version = 0; state.itinerary = null; state.sketch = false; state.queue = [];
+    $('#stage').classList.remove('sketching'); $('#summaryBody').classList.remove('is-v0');
     chat.innerHTML = '';
     addMsg('assistant', 'Fresh canvas. Where would you like to go next?');
     $('#stage').classList.add('empty');
@@ -830,11 +862,35 @@
     }
     return it;
   }
+  function mockSketch() {
+    const it = mockItinerary(1);
+    it.title = 'Croatian Islands, Sail & Swim';
+    it.summary = 'A first sketch: Split, Hvar and Vis with short hops and calm mornings for the kids.';
+    it.total_estimate_eur = 3200;
+    it.days.forEach((d) => SLOT.forEach(([k]) => { if (d[k]) d[k].description = d[k].description.split(/[,.]/)[0]; }));
+    it.experiences = it.experiences.slice(0, 2);
+    it.insider_tips = it.insider_tips.slice(0, 2);
+    it.next_question = '';
+    return it;
+  }
+  const norm = (t) => String(t || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  async function mockPrebuilt(text) {
+    try {
+      const map = await fetch('/fixtures/demo-itineraries/prebuilt.json').then((r) => (r.ok ? r.json() : {}));
+      const file = Object.entries(map).find(([k]) => norm(k) === norm(text));
+      if (!file) return null;
+      const it = await fetch('/fixtures/demo-itineraries/' + encodeURIComponent(file[1])).then((r) => (r.ok ? r.json() : null));
+      if (it) it.next_question = '';
+      return it;
+    } catch { return null; }
+  }
   async function emit(ev, ms = 0) { if (ms) await sleep(ms); handleEvent(ev); }
   async function mockTurn(text) {
     state.mockTurn += 1;
     const turn = state.mockTurn;
     await emit({ type: 'conversation', conversation_id: 'mock-conv-1' }, 120);
+    const pre = turn === 1 ? await mockPrebuilt(text) : null;
+    if (pre) await emit({ type: 'itinerary', version: 0, prebuilt: true, itinerary: pre });
     await emit({ type: 'swarm.status', status: 'starting', message: 'Trip Architect is briefing the specialists' }, 150);
     const reply = turn === 1
       ? 'Sailing with the kids at the end of June — lovely. I’m sketching a week around Split, Hvar and Vis with short hops and calm mornings.'
@@ -843,6 +899,7 @@
     await emit({ type: 'concierge.done', text: reply });
     await emit({ type: 'speak', text: reply });
     await emit({ type: 'agent.activity', agent: 'Trip Architect', kind: 'delegated', text: turn === 1 ? 'Briefing 5 specialists in parallel' : 'Re-briefing Stays and Experiences' }, 300);
+    if (turn === 1 && !pre) await emit({ type: 'itinerary', version: 0, sketch: true, itinerary: mockSketch() }, 900);
     const all = ['Explorer', 'Flights', 'Stays', 'Experiences', 'Local Insider'];
     const team = turn === 1 ? all : ['Stays', 'Experiences', 'Local Insider'];
     for (const a of team) await emit({ type: 'agent.spawned', agent: a, thread_id: 'th_' + a.slice(0, 3) }, 220);

@@ -28,7 +28,8 @@ This is a scope cut of ADR-001 (`docs/adrs/001-travel-swarm-architecture.md`) so
 - `{"type":"swarm.status","status":"starting|running|done|error","message"}`
 - `{"type":"agent.spawned","agent":"Explorer|Flights|Stays|Experiences|Local Insider","thread_id"}`
 - `{"type":"agent.activity","agent","kind":"delegated|working|replied|tool","text"}`: short previews, ≤140 chars.
-- `{"type":"itinerary","version":n,"itinerary":{...schema below...}}`
+- `{"type":"itinerary","version":0,"prebuilt":true|"sketch":true,"itinerary":{...}}`: instant v0 on the FIRST turn. The 3 quick-start chips map to saved real swarm itineraries in `fixtures/demo-itineraries/prebuilt.json` and arrive at about 0.02 s. Free text gets a Haiku sketch at about 5 s. A v0 has no `next_question`.
+- `{"type":"itinerary","version":n,"itinerary":{...schema below...}}`: swarm versions v1, v2 and so on (v1 ≈ 30 s)
 - `{"type":"usage","cost_usd":n}` (optional)
 - `{"type":"turn.done"}` / `{"type":"error","message"}`
 

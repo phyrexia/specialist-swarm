@@ -8,6 +8,7 @@ from typing import Any, AsyncIterator
 
 from anthropic import AsyncAnthropic
 
+from app import preferences
 from app.swarm import ITINERARY_SCHEMA
 
 MODEL = "claude-haiku-5-5"
@@ -33,11 +34,17 @@ def client() -> AsyncAnthropic:
     return _client
 
 
+def _with_prefs(system: str) -> str:
+    """Append the traveller's curated preference chips as a data block."""
+    block = preferences.brief_block()
+    return f"{system}\n\n{block}" if block else system
+
+
 async def stream_reply(history: list[dict[str, Any]], text: str) -> AsyncIterator[str]:
     """Yield text deltas. `history` is prior [{role, content}] turns (strings)."""
     messages = [*history[-8:], {"role": "user", "content": text}]
     async with client().messages.stream(
-        model=MODEL, max_tokens=160, system=SYSTEM, messages=messages,
+        model=MODEL, max_tokens=160, system=_with_prefs(SYSTEM), messages=messages,
     ) as stream:
         async for delta in stream.text_stream:
             yield delta
@@ -93,7 +100,7 @@ async def sketch_itinerary(text: str, catalog: str, valid_ids: set[str]) -> dict
         max_tokens=4096,
         thinking={"type": "disabled"},
         output_config={"effort": "low"},
-        system=SKETCH_SYSTEM,
+        system=_with_prefs(SKETCH_SYSTEM),
         tools=[SKETCH_TOOL],
         tool_choice={"type": "tool", "name": SKETCH_TOOL["name"]},
         messages=[{

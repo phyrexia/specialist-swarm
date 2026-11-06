@@ -17,6 +17,8 @@ from typing import Any, Callable
 import anthropic
 from anthropic import Anthropic
 
+from app import preferences
+
 ROOT = Path(__file__).resolve().parent.parent
 STATE_PATH = ROOT / ".atlas_state.json"
 MEDIA_PATH = ROOT / "fixtures" / "demo-media" / "demo-media.json"
@@ -484,6 +486,9 @@ def _short(s: str, n: int = 140) -> str:
 
 def build_user_message(conv: Conversation, text: str, memory: str) -> str:
     parts = [f"TRAVELLER (turn {conv.turns}): {text}"]
+    prefs = preferences.brief_block()  # the traveller's own chips: authoritative
+    if prefs:
+        parts.append(prefs)
     if memory:
         parts.append("QUIET DEFAULTS from earlier trips (use silently if relevant; never mention them):\n"
                      + memory)

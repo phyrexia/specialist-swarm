@@ -1,0 +1,95 @@
+/* Experience Atlas — "My preferences" card (mounted into #swarm by preferences.js).
+   Light theme only. Palette: teal #0F766E, coral #E8664A, ink #1C1F26, grey #6B7280, hairline #ECE7DF. */
+
+.prefs-card {
+  --p-teal: #0F766E;
+  --p-teal-tint: #EFF7F5;
+  --p-teal-line: #CBE4E0;
+  --p-coral: #E8664A;
+  --p-ink: #1C1F26;
+  --p-grey: #6B7280;
+  --p-hair: #ECE7DF;
+  position: relative;
+  z-index: 1; /* above the panel's ::before glow */
+  flex: none;
+  margin: 6px 20px 18px;
+  padding: 14px 16px 14px;
+  background: #FFFFFF;
+  border: 1px solid var(--p-hair);
+  border-radius: 14px;
+  color: var(--p-ink);
+  font-family: 'Manrope', 'Avenir Next', system-ui, sans-serif;
+}
+
+.prefs-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.prefs-title {
+  margin: 0; display: flex; align-items: baseline; gap: 8px;
+  font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 600;
+  font-size: 25px; line-height: 1; letter-spacing: .2px; color: var(--p-ink);
+}
+.prefs-heart { font-family: 'Manrope', system-ui, sans-serif; font-style: normal; font-size: 16px; line-height: 1; color: var(--p-coral); transform: translateY(-1px); }
+.prefs-sub {
+  font-size: 13px; font-weight: 600; text-transform: lowercase; font-variant: small-caps;
+  letter-spacing: .12em; color: var(--p-grey); white-space: nowrap;
+}
+
+.prefs-empty { display: none; margin: 0 0 8px; font-size: 13.5px; line-height: 1.45; color: var(--p-grey); }
+.prefs-card.is-empty .prefs-empty { display: block; }
+
+.prefs-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+.prefs-chip {
+  display: inline-flex; align-items: center; gap: 2px; max-width: 100%;
+  padding: 4px 4px 4px 12px; border-radius: 999px;
+  background: var(--p-teal-tint); border: 1px solid var(--p-teal-line);
+  color: var(--p-teal); font-size: 14px; font-weight: 600; line-height: 1.25;
+  transition: opacity .24s ease, transform .24s ease;
+}
+.prefs-chip-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.prefs-x {
+  flex: none; display: inline-grid; place-items: center; width: 22px; height: 22px; padding: 0;
+  border: 0; border-radius: 50%; background: transparent; color: var(--p-teal);
+  font-size: 16px; line-height: 1; opacity: .65; cursor: pointer;
+  transition: opacity .15s ease, background-color .15s ease;
+}
+.prefs-x:hover { opacity: 1; background: rgba(15, 118, 110, .10); }
+.prefs-x:focus-visible { opacity: 1; outline: 2px solid var(--p-teal); outline-offset: 1px; }
+
+/* new chips (learned or added) fade in softly; nothing ever flashes */
+.prefs-chip.is-new { animation: prefs-in .7s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes prefs-in { from { opacity: 0; transform: translateY(3px) scale(.97); } to { opacity: 1; transform: none; } }
+.prefs-chip.is-leaving { opacity: 0; transform: scale(.96); pointer-events: none; }
+
+.prefs-add-slot { margin-left: auto; display: flex; align-items: center; }
+.prefs-card.is-empty .prefs-add-slot { margin-left: 0; }
+.prefs-add {
+  padding: 5px 4px; border: 0; background: transparent; cursor: pointer;
+  font: inherit; font-size: 14px; font-weight: 600; color: var(--p-grey);
+  border-radius: 8px; transition: color .15s ease;
+}
+.prefs-add:hover { color: var(--p-teal); }
+.prefs-add:focus-visible { outline: 2px solid var(--p-teal); outline-offset: 2px; color: var(--p-teal); }
+
+.prefs-form { margin: 0; }
+.prefs-input {
+  width: 200px; padding: 5px 12px; border-radius: 999px;
+  border: 1px solid var(--p-hair); background: #FFFFFF; color: var(--p-ink);
+  font: inherit; font-size: 14px; font-weight: 500;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.prefs-input::placeholder { color: #9CA3AF; }
+.prefs-input:focus { outline: none; border-color: var(--p-teal); box-shadow: 0 0 0 3px rgba(15, 118, 110, .12); }
+.prefs-input:disabled { opacity: .6; }
+
+.prefs-hint { margin: 8px 0 0; font-size: 12.5px; color: var(--p-grey); }
+.prefs-hint:empty { display: none; }
+
+@media (max-width: 720px) {
+  .prefs-card { margin: 4px 12px 14px; padding: 12px 14px; }
+  .prefs-add-slot { flex-basis: 100%; margin-left: 0; }
+  .prefs-form, .prefs-input { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prefs-chip, .prefs-chip.is-new { animation: none; transition: none; }
+}

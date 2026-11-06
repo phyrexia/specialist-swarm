@@ -14,7 +14,7 @@ from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from app import concierge, swarm
+from app import concierge, preferences, swarm
 from app.book import build_booking
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -50,6 +50,7 @@ async def _warm() -> None:
             print(f"[server] swarm provisioning failed: {type(e).__name__}: {str(e)[:300]}", flush=True)
 
     threading.Thread(target=_go, daemon=True).start()
+    preferences.start_seed()  # chips from the memory store when .atlas_prefs.json does not exist yet
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -95,6 +96,10 @@ class BookIn(BaseModel):
     conversation_id: str | None = None
 
 
+class PreferenceIn(BaseModel):
+    text: str
+
+
 def _sse(ev: dict[str, Any]) -> bytes:
     return f"data: {json.dumps(ev, ensure_ascii=False)}\n\n".encode()
 
@@ -114,6 +119,7 @@ async def api_chat(body: ChatIn) -> StreamingResponse:
     if not text:
         raise HTTPException(status_code=400, detail="text is required")
     conv = _get_conv(body.conversation_id)
+    preferences.learn_in_background(text)  # fire-and-forget Haiku call; never delays this turn
     first_turn = conv.version == 0 and not conv.history
     # v0 on the first turn: a quick-start chip gets its prebuilt plan at 0 s (and the swarm refines it);
     # free text gets the Haiku sketch a few seconds in.
@@ -221,3 +227,28 @@ async def api_book(body: BookIn) -> dict[str, Any]:
     if not itin:
         raise HTTPException(status_code=404, detail="no itinerary to book yet")
     return build_booking(itin)
+
+
+# --------------------------------------------------------------------------- "My preferences" card
+
+@app.get("/api/preferences")
+async def api_preferences() -> dict[str, Any]:
+    return {"items": preferences.items()}
+
+
+@app.post("/api/preferences")
+async def api_preferences_add(body: PreferenceIn) -> dict[str, Any]:
+    try:
+        item = preferences.add_user(body.text)
+    except preferences.PrefsFull as e:
+        raise HTTPException(status_code=409, detail=str(e)) from e
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e)) from e
+    return {"item": item, "items": preferences.items()}
+
+
+@app.delete("/api/preferences/{item_id}")
+async def api_preferences_remove(item_id: str) -> dict[str, Any]:
+    if not preferences.remove(item_id):
+        raise HTTPException(status_code=404, detail="unknown preference")
+    return {"items": preferences.items()}

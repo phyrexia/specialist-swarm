@@ -12,6 +12,8 @@ outputs/
 spikes/ma-latency/.state.json
 .playwright-mcp/
 .atlas_state.json
+.atlas_prefs.json
+.atlas_prefs.tmp
 
 # demo run artifacts (prebuilt fixtures are tracked explicitly)
 fixtures/demo-itineraries/*-latest.json

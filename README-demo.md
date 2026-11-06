@@ -57,3 +57,6 @@ For a second turn, reuse the `conversation_id`; the itinerary comes back as v2. 
 | Turn 2 (same session, threads reused) | 1.3 s | ≈9 s | 31.0 s | 37 s |
 
 The coordinator runs with `effort: low`. Sonnet 5.5 rejects `speed: fast`, so it runs at standard speed.
+
+## Preferences
+`GET/POST /api/preferences`, `DELETE /api/preferences/{id}`: the traveller-controlled "My preferences" chips. See `docs/demo-contract.md`.

@@ -6,20 +6,22 @@
   const params = new URLSearchParams(location.search);
   const MOCK = params.get('mock') === '1';
 
+  // `key` is the backend agent name (SSE contract); `label` and `role` are what the traveller sees.
   const AGENTS = [
-    { key: 'Trip Architect', glyph: '🧭', model: 'Sonnet 5.5', color: '#C89B50' },
-    { key: 'Explorer', glyph: '🗺️', model: 'Haiku 5.5', color: '#7FB3E6' },
-    { key: 'Flights', glyph: '✈️', model: 'Haiku 5.5', color: '#9FD8F5' },
-    { key: 'Stays', glyph: '🏡', model: 'Haiku 5.5', color: '#D68C4C' },
-    { key: 'Experiences', glyph: '⛵', model: 'Haiku 5.5', color: '#5FD0B5' },
-    { key: 'Local Insider', glyph: '🔑', model: 'Haiku 5.5', color: '#F6E6C0' },
+    { key: 'Trip Architect', label: 'Your Trip Planner', role: 'brings it all together', glyph: '🧭', color: '#1E2A44' },
+    { key: 'Explorer', label: 'Destination Expert', role: 'seasons & weather', glyph: '🗺️', color: '#0F766E' },
+    { key: 'Flights', label: 'Flight Specialist', role: 'routes & fares', glyph: '✈️', color: '#3B82C4' },
+    { key: 'Stays', label: 'Stays Curator', role: 'rooms that fit you', glyph: '🏡', color: '#C2603E' },
+    { key: 'Experiences', label: 'Experience Curator', role: 'things worth doing', glyph: '⛵', color: '#E8664A' },
+    { key: 'Local Insider', label: 'Local Insider', role: 'off the beaten path', glyph: '🔑', color: '#B8925A' },
   ];
   const COORD = AGENTS[0].key;
+  const LABEL = Object.fromEntries(AGENTS.map((a) => [a.key, a.label]));
 
   const state = {
     conversationId: null, busy: false, queue: [], version: 0, itinerary: null, sketch: false,
     places: new Map(), media: new Map(), fixture: null,
-    t0: null, timer: null, ttsOn: false, mockTurn: 0, voiceInited: false,
+    t0: null, cost: null, ttsOn: false, mockTurn: 0, voiceInited: false,
     map: null, mapLayer: null, particles: [], geo: null, assistantEl: null,
   };
 
@@ -140,7 +142,7 @@
   }
   async function runTurn(text) {
     state.busy = true;
-    beginTurnSwarm();
+    beginTurnSwarm(text);
     try {
       if (MOCK) await mockTurn(text);
       else {
@@ -168,7 +170,7 @@
       swarmStatus({ status: 'error', message: 'Connection lost — try again' });
     } finally {
       finishAssistant();
-      if (state.t0 && !$('#swarm').classList.contains('done')) stopTimer();
+      if (state.t0 && !$('#swarm').classList.contains('done')) logElapsed('turn ended');
       state.busy = false;
       const next = state.queue.shift();
       if (next) { next.el.classList.remove('queued'); runTurn(next.text); }
@@ -190,9 +192,14 @@
       case 'swarm.status': swarmStatus(ev); break;
       case 'agent.spawned': agentSpawned(ev.agent); break;
       case 'agent.activity': agentActivity(ev); break;
-      case 'itinerary': renderItinerary(ev.itinerary, ev.version, ev.prebuilt === true ? 'prebuilt' : ev.sketch === true ? 'sketch' : null); break;
+      case 'itinerary': {
+        const draft = ev.prebuilt === true ? 'prebuilt' : ev.sketch === true ? 'sketch' : null;
+        renderItinerary(ev.itinerary, ev.version, draft);
+        consultItinerary(draft, ev.itinerary);
+        break;
+      }
       case 'usage':
-        if (typeof ev.cost_usd === 'number') { const c = $('#costChip'); c.textContent = '$' + ev.cost_usd.toFixed(3); c.classList.remove('hidden'); }
+        if (typeof ev.cost_usd === 'number' && isFinite(ev.cost_usd)) { state.cost = ev.cost_usd; if ($('#swarm').classList.contains('done')) showCost(); }
         break;
       case 'turn.done':
         if (!$('#swarm').classList.contains('done') && state.t0) swarmStatus({ status: 'done', message: '' });
@@ -294,13 +301,13 @@
       const el = document.createElement('div');
       el.className = 'orb' + (i === 0 ? ' coord' : '');
       el.innerHTML = `<div class="orb-bubble"></div><div class="orb-core" style="--c:${a.color}">${a.glyph}<span class="orb-badge">✓</span></div>
-        <div class="orb-name">${esc(a.key)}</div><div class="orb-model">${esc(a.model)}</div>`;
+        <div class="orb-name">${esc(a.label)}</div><div class="orb-model orb-role">${esc(a.role)}</div>`;
       orbsEl.appendChild(el);
       const rec = { a, el, x: 0, y: 0, lit: false, base: null, beam: null, flow: null, timer: null, bubbleTimer: null };
       if (i > 0) {
         rec.base = document.createElementNS(SVGNS, 'line'); rec.base.setAttribute('class', 'beam-base');
         rec.beam = document.createElementNS(SVGNS, 'line'); rec.beam.setAttribute('class', 'beam'); rec.beam.setAttribute('stroke', a.color); rec.beam.style.color = a.color;
-        rec.flow = document.createElementNS(SVGNS, 'line'); rec.flow.setAttribute('class', 'beam-flow'); rec.flow.setAttribute('stroke', '#FFF6DE');
+        rec.flow = document.createElementNS(SVGNS, 'line'); rec.flow.setAttribute('class', 'beam-flow'); rec.flow.setAttribute('stroke', a.color);
         svg.append(rec.base, rec.beam, rec.flow);
       }
       orbMap.set(a.key, rec);
@@ -393,64 +400,51 @@
     });
     requestAnimationFrame(tickParticles);
   }
-  function addTick(agent, kind, text) {
-    const key = agentKey(agent);
-    const a = AGENTS.find((x) => x.key === key);
-    const el = document.createElement('div');
-    el.className = 'tick';
-    el.innerHTML = `<span class="tick-agent" style="color:${a.color}">${esc(a.glyph)} ${esc(key)}</span>${kind ? `<span class="tick-kind ${esc(kind)}">${esc(kind)}</span>` : ''}<span class="tick-text"></span>`;
-    el.querySelector('.tick-text').textContent = text || '';
-    const tk = $('#ticker');
-    tk.prepend(el);
-    while (tk.children.length > 24) tk.lastChild.remove();
-  }
-  function startTimer() {
-    if (state.timer) return;
-    state.t0 = performance.now();
-    const out = $('#swarmElapsed');
-    state.timer = setInterval(() => { out.textContent = ((performance.now() - state.t0) / 1000).toFixed(1); }, 100);
-  }
-  function stopTimer() {
-    clearInterval(state.timer); state.timer = null;
-    if (state.t0) $('#swarmElapsed').textContent = ((performance.now() - state.t0) / 1000).toFixed(1);
+  // Timing stays in the console for debugging: the UI never shows seconds.
+  function markStart() { if (!state.t0) state.t0 = performance.now(); }
+  function logElapsed(label) {
+    if (state.t0) console.debug(`[atlas] ${label}: ${((performance.now() - state.t0) / 1000).toFixed(1)}s`);
   }
   function setPill(cls, label) { const p = $('#swarmPill'); p.className = 'pill ' + cls; p.textContent = label; }
-  function beginTurnSwarm() {
+  function teamAtWork() {
+    markStart();
+    $('#swarm').classList.add('running');
+    lightOrb(COORD);
+    orbMap.get(COORD).el.classList.add('running');
+  }
+  function beginTurnSwarm(text) {
     const sw = $('#swarm');
     sw.classList.remove('done');
     orbMap.forEach((rec) => { rec.el.classList.remove('replied'); if (rec.el.classList.contains('lit') && rec.beam) { rec.el.classList.remove('lit'); rec.el.classList.add('standby'); rec.beam.classList.remove('lit'); rec.flow.classList.remove('lit'); } });
-    if ($('#ticker').children.length) { const s = document.createElement('div'); s.className = 'tick sep'; s.textContent = '· new turn ·'; $('#ticker').prepend(s); }
-    clearInterval(state.timer); state.timer = null; state.t0 = null;
-    $('#swarmElapsed').textContent = '0.0';
-    $('#swarmMsg').textContent = 'Atlas is listening…';
+    state.t0 = null;
+    hideCost();
     setPill('starting', 'Thinking');
+    consultBeginTurn(text);
   }
+  // Backend status messages are never shown (they carry timings); the copy here is ours.
   function swarmStatus(ev) {
     const sw = $('#swarm');
     const coord = orbMap.get(COORD).el;
-    const msg = ev.message || '';
-    if (msg) $('#swarmMsg').textContent = msg;
+    const replay = ev.message === 'replay';
     switch (ev.status) {
       case 'starting':
-        startTimer(); sw.classList.add('running'); lightOrb(COORD); coord.classList.add('running');
-        setPill('starting', 'Starting');
-        if (!msg) $('#swarmMsg').textContent = 'Trip Architect is briefing the specialists…';
-        break;
       case 'running':
-        startTimer(); sw.classList.add('running'); lightOrb(COORD); coord.classList.add('running');
-        setPill(msg === 'replay' ? 'replay' : 'running', msg === 'replay' ? 'Replay' : 'Running');
-        if (!msg) $('#swarmMsg').textContent = 'Specialists working in parallel…';
+        teamAtWork();
+        if (replay) { setPill('replay', 'Saved plan'); consultLine(COORD, 'is bringing back a saved plan for you'); }
+        else setPill(ev.status, ev.status === 'starting' ? 'Briefing' : 'Working');
         break;
-      case 'done': {
-        stopTimer(); sw.classList.remove('running'); sw.classList.add('done'); coord.classList.remove('running');
-        setPill(msg === 'replay' ? 'replay' : 'done', msg === 'replay' ? 'Replay' : 'Done');
-        const secs = $('#swarmElapsed').textContent;
-        $('#swarmMsg').textContent = (msg && msg !== 'replay' ? msg + ' · ' : '') + `composed in ${secs}s by ${countLit()} agents`;
+      case 'done':
+        logElapsed('turn composed' + (ev.message ? ` (${ev.message})` : ''));
+        sw.classList.remove('running'); sw.classList.add('done'); coord.classList.remove('running');
+        setPill(replay ? 'replay' : 'done', replay ? 'Saved plan' : 'Ready');
+        consultPhase('ready');
+        showCost();
         break;
-      }
       case 'error':
-        stopTimer(); sw.classList.remove('running'); coord.classList.remove('running');
-        setPill('error', 'Error');
+        logElapsed('turn interrupted');
+        sw.classList.remove('running'); coord.classList.remove('running');
+        setPill('error', 'Interrupted');
+        consultPhase('error');
         break;
       default: break;
     }
@@ -458,23 +452,332 @@
   const countLit = () => [...orbMap.values()].filter((r) => r.el.classList.contains('lit') || r.el.classList.contains('standby')).length;
   function agentSpawned(agent) {
     const key = agentKey(agent);
-    if (!state.timer) { startTimer(); $('#swarm').classList.add('running'); lightOrb(COORD); orbMap.get(COORD).el.classList.add('running'); setPill('running', 'Running'); }
+    if (!state.t0) { teamAtWork(); setPill('running', 'Working'); }
     lightOrb(key);
     burst(key, 6, true);
-    addTick(key, 'spawned', 'joined the swarm');
   }
   function agentActivity(ev) {
     const key = agentKey(ev.agent);
     const kind = ev.kind || '';
-    pulseOrb(key, ev.text);
+    pulseOrb(key, unpriced(ev.text));
     if (key === COORD) {
-      if (ev.text) $('#swarmMsg').textContent = ev.text;
       if (kind === 'delegated') AGENTS.slice(1).forEach((a) => burst(a.key, 4, true));
     } else {
       burst(key, kind === 'replied' ? 10 : 4, kind === 'delegated');
       if (kind === 'replied') orbMap.get(key).el.classList.add('replied');
     }
-    addTick(key, kind, ev.text);
+    consultActivity(key, kind, ev.text || '');
+  }
+
+  /* ================= CONSULTING YOUR SPECIALISTS =================
+     A calm narration built from real events: one italic line (.consult-line), five dots that fill
+     as specialists reply (.specialist-dots) and a notebook of their findings (.field-note cards).
+     Reveals are queued and released one every 600–900 ms; a final itinerary flushes them in ~1.5 s. */
+  const SPECIALISTS = AGENTS.slice(1).map((a) => a.key);
+  const SLUG = { 'Trip Architect': 'architect', Explorer: 'explorer', Flights: 'flights', Stays: 'stays', Experiences: 'experiences', 'Local Insider': 'insider' };
+  const IDLE_LINE = 'Waiting for your first wish…';
+  const NOTES_EMPTY = 'What each specialist finds for you will gather here, like notes from trusted sources.';
+  const NOTES_MAX = 8;
+  const LINE_MAX = 78; // characters, so a line never needs more than two rows
+  // [with a place, without one]. The place always comes from the event text or the trip so far.
+  const WORKING = {
+    'Trip Architect': ['is shaping your plan around {p}', 'is briefing your specialists'],
+    Explorer: ['is reading up on {p}', 'is reading up on the season and the route'],
+    Flights: ['is comparing routes into {p}', 'is comparing routes and fares'],
+    Stays: ['is looking at rooms in {p}', 'is looking at places to stay'],
+    Experiences: ['is finding things to do around {p}', 'is finding things worth doing'],
+    'Local Insider': ['is asking around in {p}', 'is asking around for local favourites'],
+  };
+  const REPLIED = {
+    Explorer: ['has reported back on {p}', 'has reported back on the route'],
+    Flights: ['has found a way into {p}', 'has found a way there'],
+    Stays: ['has a place in mind in {p}', 'has a place in mind'],
+    Experiences: ['has found something to do in {p}', 'has found something worth doing'],
+    'Local Insider': ['has a tip from {p}', 'has heard about a local favourite'],
+  };
+  const PHASE_RANK = { idle: 0, consulting: 1, composing: 2, ready: 3, error: 3 };
+  const NUM_WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+  const GENERIC = /^(working|thinking|on it|busy)\W*$/i;
+  const NOT_GERUND = new Set(['morning', 'evening', 'spring', 'thing', 'nothing', 'something', 'everything', 'anything', 'king', 'ring', 'wing', 'string', 'ceiling', 'building', 'wedding', 'during', 'beijing', 'nanjing', 'kunming', 'sterling', 'viking', 'darling', 'pudding', 'dumpling', 'bring', 'swing', 'sling', 'pending']);
+  const STOP_TAIL = /\s+(and|or|with|for|to|the|a|an|of|in|on|at|from|via|by|so|that|which|but|is|are)$/i;
+  const consult = {
+    box: null, line: null, dots: null, list: null, count: null,
+    q: [], timer: null, last: 0, flushing: false,
+    phase: 'idle', queued: 'idle',
+    replied: new Set(), spoke: new Set(), agentPlaces: new Map(), turnPlaces: [],
+    notes: 0, sources: new Set(),
+  };
+  const speaker = (key) => (key === COORD ? LABEL[key] : 'Your ' + LABEL[key]);
+  const words = (n) => NUM_WORDS[n] || String(n);
+  const escRx = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  function buildConsult() {
+    consult.box = $('#consult');
+    consult.line = $('#consultLine');
+    consult.dots = $('#specialistDots');
+    consult.list = $('#notesList');
+    consult.count = $('#notesCount');
+    consult.dots.innerHTML = SPECIALISTS.map((k) => `<span class="specialist-dot" data-agent="${SLUG[k]}" title="${esc(LABEL[k])}"></span>`).join('');
+    consult.list.innerHTML = `<p class="notes-empty">${esc(NOTES_EMPTY)}</p>`;
+  }
+
+  /* ---- reading the event text ---- */
+  function clean(t) {
+    return String(t || '')
+      .replace(/\*\*|__|`/g, '')
+      .replace(/\s*\[[^\]]*\]/g, '')                                      // catalog ids
+      .replace(/\s*\(([^)]*)\)/g, (m, inner) => (inner.length <= 6 ? m : '')) // asides, but keep (SPU)
+      .replace(/\s*\([^)]*$/, '')                                         // an aside cut by the preview
+      .replace(/\s+/g, ' ')
+      .replace(/^[\s\-–•*]+/, '')
+      .trim();
+  }
+  // Prices belong to the closing section only: drop the clauses that quote one.
+  function unpriced(t) {
+    return String(t || '')
+      .replace(/(^|[,;:]\s*)[^,;:.]*?(?:€|\bEUR\b|\$)\s?\d[^,;.]*/g, (m, lead) => (lead.trim() === ':' ? ': ' : lead.trim() ? '' : ''))
+      .replace(/\s*:\s*(?=[.…]|$)/g, '')
+      .replace(/,\s*(?=[.…]|$)/g, '')
+      .replace(/\s+([,.;])/g, '$1')
+      .replace(/\.\s*\./g, '.')
+      .replace(/^[\s,;:.]+/, '')
+      .trim();
+  }
+  let placeRx = null;
+  function placesIn(text) {
+    if (!placeRx && state.places.size) {
+      const names = [...state.places.values()]
+        .filter((p) => /city|island|neighborhood|insider/.test(p.kind || '') && p.name && p.name.length <= 22)
+        .map((p) => p.name).sort((a, b) => b.length - a.length);
+      if (names.length) placeRx = new RegExp(`(^|[^\\p{L}])(${names.map(escRx).join('|')})(?![\\p{L}])`, 'gu');
+    }
+    if (!placeRx || !text) return [];
+    const out = [];
+    placeRx.lastIndex = 0;
+    for (let m = placeRx.exec(text); m; m = placeRx.exec(text)) if (!out.includes(m[2])) out.push(m[2]);
+    return out;
+  }
+  function firstSentence(s) {
+    return s.split(/(?<=[.!?])\s+(?=[A-Z0-9"“])/)[0].replace(/[.!?;:,\s]+$/, '');
+  }
+  function trimTo(s, n) {
+    if (s.length <= n) return s;
+    const cut = s.slice(0, n + 1);
+    const soft = Math.max(...[', ', ': ', '; ', ' — ', ' – ', ' - ', ' and ', ' with ', ' because '].map((b) => cut.lastIndexOf(b)));
+    let out = soft >= n * 0.45 ? cut.slice(0, soft) : cut.slice(0, Math.max(cut.lastIndexOf(' '), 1));
+    for (let prev = ''; prev !== out;) { prev = out; out = out.replace(/[\s,;:—–\-+→&]+$/, '').replace(STOP_TAIL, ''); }
+    return out;
+  }
+  // "Comparing routes into Split: …" -> "comparing routes into Split"
+  function gerundGist(plain, budget) {
+    const s = plain.replace(/(…|\.\.\.)$/, '').replace(/^(still|now|also|just|currently)\s+/i, '');
+    const m = s.match(/^([A-Za-z]+ing)\b/);
+    if (!m || m[1].length < 5 || NOT_GERUND.has(m[1].toLowerCase())) return '';
+    const g = trimTo(firstSentence(s), Math.max(24, budget));
+    return g.charAt(0).toLowerCase() + g.slice(1);
+  }
+  function phrase([withPlace, without], places, key) {
+    const ps = (places || []).slice(0, key === 'Flights' || key === 'Local Insider' ? 1 : 2);
+    return ps.length ? withPlace.replace('{p}', ps.join(' and ')) : without;
+  }
+  // A specialist reply (≤140-char preview) -> one or two lines worth keeping as a field note.
+  function noteSummary(key, text) {
+    const raw = String(text || '').trim();
+    const cut = /(…|\.\.\.)$/.test(raw);
+    let s = unpriced(clean(raw).replace(/(…|\.\.\.)$/, '').trim());
+    let atEnd = true;
+    s = s.replace(new RegExp(`^(${escRx(key)}|${escRx(LABEL[key])})\\s*[,:—–-]\\s*`, 'i'), '');
+    const item = s.match(/^[^:]{0,100}:\s*[-–•*]\s+(.+)$/);          // "Header: - first item …"
+    if (item) s = item[1];
+    const best = s.match(/\b(?:best (?:option|pick|bet)|top pick|recommended|my pick)\s*:\s*(.{16,})$/i);
+    if (best) s = best[1];
+    const inline = s.split(/\s[-–•]\s/);                                 // keep one list item
+    if (inline.length > 1) {
+      if (/:\s*$/.test(inline[0])) { s = inline[1]; atEnd = inline.length === 2; } // "… Local picks: - X"
+      else { s = inline[0]; atEnd = false; }
+    }
+    const parts = s.split(/(?<=[.!?])\s+/);
+    const kept = parts.filter((p) => !/simulated|catalog/i.test(p));
+    if (kept.length && kept.length < parts.length) { if (!kept.includes(parts[parts.length - 1])) atEnd = false; s = kept.join(' '); }
+    let ell = false;
+    if (cut && atEnd) {
+      // The preview was cut mid-thought: end on the last full sentence, clause or word.
+      const dangling = s.match(/^(.*\S):\s*[^:.]{0,14}$/);              // "… Best option: Luf"
+      if (dangling) s = dangling[1];
+      const stop = Math.max(s.lastIndexOf('. '), s.lastIndexOf('! '), s.lastIndexOf('? '));
+      const tail = stop >= 0 ? s.slice(stop + 2) : s;
+      if (stop >= 30 && tail.length < 20) s = s.slice(0, stop + 1);
+      else if (dangling) ell = true;
+      else {
+        const comma = tail.lastIndexOf(', ');
+        const head = stop >= 0 ? s.slice(0, stop + 2) : '';
+        s = head + (comma >= 24 ? tail.slice(0, comma) : tail.slice(0, Math.max(tail.lastIndexOf(' '), 0)));
+        ell = true;
+      }
+    }
+    if (s.length > 160) { s = trimTo(s, 160); ell = true; }
+    if (ell) for (let prev = ''; prev !== s;) { prev = s; s = s.replace(/[\s,;:—–\-+→&]+$/, '').replace(STOP_TAIL, ''); }
+    s = s.replace(/[\s,;:]+$/, '');
+    if (!s) return 'Shared a finding with your Trip Planner.';
+    return (s.charAt(0).toUpperCase() + s.slice(1) + (ell ? '…' : '')).replace(/[.,;:]+…$/, '…');
+  }
+
+  /* ---- queue & pacing ---- */
+  function pump(reset) {
+    if (reset && consult.timer) { clearTimeout(consult.timer); consult.timer = null; }
+    if (consult.timer || !consult.q.length) return;
+    const gap = consult.flushing ? Math.max(150, Math.min(600, 1500 / consult.q.length)) : 600 + Math.random() * 300;
+    consult.timer = setTimeout(() => {
+      consult.timer = null;
+      consult.last = performance.now();
+      const it = consult.q.shift();
+      if (it) reveal(it);
+      pump();
+    }, Math.max(0, consult.last + gap - performance.now()));
+  }
+  // `verb` is "is reading …" / "has a tip …"; the speaker is prefixed here.
+  function consultLine(key, verb, weak = false) {
+    if (PHASE_RANK[consult.queued] >= 2 || !verb) return;
+    if (weak && consult.spoke.has(key)) return;
+    consult.spoke.add(key);
+    const line = `${speaker(key)} ${verb}`;
+    const pending = consult.q.find((it) => it.type === 'line' && it.key === key);
+    if (pending) { pending.line = line; return; }
+    const lines = consult.q.filter((it) => it.type === 'line');
+    if (lines.length >= 3) consult.q.splice(consult.q.indexOf(lines[0]), 1);
+    consult.q.push({ type: 'line', key, line });
+    pump();
+  }
+  function consultPhase(phase) {
+    if (phase === consult.queued || (phase !== 'error' && PHASE_RANK[phase] <= PHASE_RANK[consult.queued])) return;
+    consult.queued = phase;
+    consult.q = consult.q.filter((it) => it.type !== 'line');
+    if (phase !== 'composing') consult.flushing = true;
+    consult.q.push({ type: 'phase', phase });
+    pump(consult.flushing);
+  }
+  function consultActivity(key, kind, text) {
+    const plain = unpriced(clean(text));
+    const budget = LINE_MAX - speaker(key).length - 5;
+    if (key === COORD) {
+      if (/present_itinerary/i.test(text)) { consultPhase('composing'); return; }
+      if (kind === 'tool') {
+        if (/memory|preferences/i.test(text)) consultLine(COORD, /^read\b/i.test(text) ? 'is recalling what you like…' : 'is noting your preferences…');
+        return;
+      }
+      const g = gerundGist(plain, budget);
+      if (g) consultLine(COORD, `is ${g}…`);
+      return;
+    }
+    const places = placesIn(plain);
+    if (kind === 'replied') {
+      consult.q.push({ type: 'note', key, summary: noteSummary(key, text), line: `${speaker(key)} ${phrase(REPLIED[key], places.length ? places : consult.agentPlaces.get(key), key)}` });
+      consult.replied.add(key);
+      pump();
+      if (SPECIALISTS.every((k) => consult.replied.has(k))) consultPhase('composing');
+      return;
+    }
+    if (places.length) consult.agentPlaces.set(key, places);
+    const generic = GENERIC.test(plain);
+    const g = generic ? '' : gerundGist(plain, budget);
+    consultLine(key, g ? `is ${g}…` : `${phrase(WORKING[key], consult.agentPlaces.get(key) || consult.turnPlaces, key)}…`, generic);
+  }
+  function consultItinerary(draftKind, it) {
+    const ps = placesIn(((it && it.days) || []).map((d) => d.place_name || '').join(' · '));
+    if (ps.length) consult.turnPlaces = ps;
+    if (draftKind) return;
+    consult.flushing = true;
+    consultPhase('composing');
+    pump(true);
+  }
+
+  /* ---- reveals ---- */
+  function setLine(text) {
+    const box = consult.line;
+    const cur = box.querySelector('.consult-text:not(.is-leaving)');
+    if (cur && cur.textContent === text) return;
+    box.querySelectorAll('.is-leaving').forEach((e) => e.remove());
+    const next = document.createElement('span');
+    next.className = 'consult-text is-entering';
+    next.textContent = text;
+    box.appendChild(next);
+    if (cur) { cur.classList.add('is-leaving'); setTimeout(() => cur.remove(), 450); }
+    void next.offsetWidth;
+    next.classList.remove('is-entering');
+  }
+  function syncDotsLabel() {
+    const done = SPECIALISTS.filter((k) => consult.dots.querySelector(`[data-agent="${SLUG[k]}"]`).classList.contains('is-filled'));
+    consult.dots.setAttribute('aria-label', done.length ? 'Replied: ' + done.map((k) => LABEL[k]).join(', ') : 'Waiting on your specialists');
+  }
+  function fillDot(key) {
+    const d = consult.dots.querySelector(`[data-agent="${SLUG[key]}"]`);
+    if (d) d.classList.add('is-filled');
+    syncDotsLabel();
+  }
+  function syncCount() {
+    const s = consult.sources.size, n = consult.notes;
+    const t = n ? `${words(s)} specialist${s === 1 ? '' : 's'} · ${words(n)} note${n === 1 ? '' : 's'}` : '';
+    consult.count.textContent = t.charAt(0).toUpperCase() + t.slice(1);
+  }
+  function addNote(key, summary) {
+    const list = consult.list;
+    const empty = list.querySelector('.notes-empty');
+    if (empty) empty.remove();
+    const el = document.createElement('article');
+    el.className = 'field-note is-entering';
+    el.dataset.agent = SLUG[key];
+    el.innerHTML = `<div class="field-note-head"><span class="field-note-dot"></span><span class="field-note-agent">${esc(LABEL[key])}</span></div><p class="field-note-text"></p>`;
+    el.querySelector('.field-note-text').textContent = summary;
+    el.title = `${LABEL[key]} — ${summary}`;
+    // FLIP: the notes already shown glide down instead of jumping.
+    const cards = [...list.querySelectorAll('.field-note:not(.is-gone)')];
+    const before = cards.map((c) => c.getBoundingClientRect().top);
+    list.prepend(el);
+    cards.forEach((c, i) => {
+      const dy = before[i] - c.getBoundingClientRect().top;
+      if (dy) { c.style.transition = 'none'; c.style.transform = `translateY(${dy}px)`; }
+    });
+    void list.offsetHeight;
+    cards.forEach((c) => { c.style.transition = ''; c.style.transform = ''; });
+    el.classList.remove('is-entering');
+    cards.slice(NOTES_MAX - 1).forEach((c) => { c.classList.add('is-gone'); setTimeout(() => c.remove(), 450); });
+    consult.notes += 1;
+    consult.sources.add(key);
+    syncCount();
+  }
+  function reveal(it) {
+    const narrating = PHASE_RANK[consult.phase] < 2;
+    if (it.type === 'line') { if (narrating) setLine(it.line); return; }
+    if (it.type === 'note') { if (narrating) setLine(it.line); fillDot(it.key); addNote(it.key, it.summary); return; }
+    consult.phase = it.phase;
+    consult.box.dataset.phase = it.phase;
+    setLine(it.phase === 'composing' ? 'Composing your plan…'
+      : it.phase === 'ready' ? `Ready — prepared by your ${countLit()} travel specialists`
+        : 'Your specialists were interrupted — try again');
+  }
+
+  /* ---- turn lifecycle ---- */
+  function consultBeginTurn(text) {
+    clearTimeout(consult.timer);
+    Object.assign(consult, { timer: null, q: [], flushing: false, phase: 'consulting', queued: 'consulting', last: performance.now() });
+    consult.replied.clear(); consult.spoke.clear(); consult.agentPlaces.clear();
+    const ps = placesIn(text || '');
+    if (ps.length) consult.turnPlaces = ps;
+    consult.dots.querySelectorAll('.is-filled').forEach((d) => d.classList.remove('is-filled'));
+    syncDotsLabel();
+    consult.box.dataset.phase = 'consulting';
+    setLine('Consulting your specialists…');
+  }
+  function consultReset() {
+    clearTimeout(consult.timer);
+    Object.assign(consult, { timer: null, q: [], flushing: false, phase: 'idle', queued: 'idle', notes: 0, turnPlaces: [] });
+    consult.replied.clear(); consult.spoke.clear(); consult.agentPlaces.clear(); consult.sources.clear();
+    consult.dots.querySelectorAll('.is-filled').forEach((d) => d.classList.remove('is-filled'));
+    syncDotsLabel();
+    consult.list.innerHTML = `<p class="notes-empty">${esc(NOTES_EMPTY)}</p>`;
+    syncCount();
+    consult.box.dataset.phase = 'idle';
+    setLine(IDLE_LINE);
   }
 
   /* ================= ITINERARY ================= */
@@ -483,11 +786,9 @@
   const BUDGET = { budget: 'Budget', balanced: 'Balanced', comfort: 'Comfort', luxury: 'Luxury' };
 
   // v0 is a draft: a prebuilt plan for a quick-start chip (instant) or a Haiku sketch for free text.
-  // v1+ come from the swarm. A draft never replaces a swarm version.
-  const DRAFT = {
-    prebuilt: { label: 'instant plan', note: 'the swarm is tailoring it to you…', chat: 'Instant plan v0 is on screen — the swarm is tailoring it to you' },
-    sketch: { label: 'sketch by Atlas', note: 'the swarm is pricing &amp; refining…', chat: 'Sketch v0 is ready — the swarm is pricing & refining it' },
-  };
+  // v1+ come from the specialists. A draft never replaces a specialist version.
+  const DRAFT_COPY = { label: 'instant plan', note: 'your specialists are tailoring it for you…', chat: 'Your instant plan is ready — your specialists are tailoring it for you' };
+  const DRAFT = { prebuilt: DRAFT_COPY, sketch: DRAFT_COPY };
   function renderItinerary(it, version, draftKind = null) {
     if (!it || typeof it !== 'object') return;
     const draft = DRAFT[draftKind] || null;
@@ -504,7 +805,7 @@
     stage.classList.remove('empty');
     stage.classList.toggle('sketching', sketch);
     const nextQ = sketch ? '' : it.next_question;
-    const verLabel = sketch ? `v${v} · ${draft.label}` : `v${v} · priced by 6 agents`;
+    const verLabel = sketch ? `v${v} · ${draft.label}` : `v${v} · prepared by your specialists`;
 
     // Summary
     const sb = $('#summaryBody');
@@ -527,20 +828,15 @@
         ${Array.isArray(it.days) ? `<span>🗓️ ${it.days.length} days</span>` : ''}
       </div>
       ${it.weather_note ? `<div class="weather"><span>🌤️</span><span>${esc(it.weather_note)}</span></div>` : ''}
-      ${nextQ ? `<div class="next-q" id="nextQ"><div class="eyebrow">Atlas asks</div><div class="next-q-text">${esc(nextQ)}</div></div>` : ''}
-      <div class="sum-bottom">
-        <div><div class="total-label">${sketch ? 'First estimate' : 'Estimated total'}</div><div class="total">${esc(fmtEur(it.total_estimate_eur) || '—')}</div></div>
-        <button class="book-btn" id="bookBtn" type="button">Book everything →</button>
-      </div>`;
+      ${nextQ ? `<div class="next-q" id="nextQ"><div class="eyebrow">Atlas asks</div><div class="next-q-text">${esc(nextQ)}</div></div>` : ''}`;
     sb.classList.remove('reveal'); void sb.offsetWidth; sb.classList.add('reveal');
-    $('#bookBtn').addEventListener('click', book);
     const nq = $('#nextQ');
     if (nq) nq.addEventListener('click', () => { const i = $('#input'); i.focus(); i.placeholder = 'Answer: ' + nextQ; });
 
     if (isNew) {
       addMsg('system', sketch
         ? `✦ ${draft.chat}`
-        : `✦ Itinerary v${v} is ready${prevVersion !== null ? ' — refined from v' + prevVersion : ''}`);
+        : `✦ Version ${v} is ready — refined by your specialists`);
     }
     if (nextQ && isNew) addMsg('assistant', nextQ, 'question');
 
@@ -548,15 +844,16 @@
     renderFlights(it.flights || []);
     renderExperiences(it.experiences || []);
     renderInsider(it.insider_tips || []);
+    renderTripTotal(it, sketch);
     setTimeout(() => renderMap(it), firstTime ? 120 : 0);
   }
 
-  // The turn ended with only the sketch on screen (swarm failed): stop promising a refinement.
+  // The turn ended with only the draft on screen (the specialists failed): stop promising a refinement.
   function endSketch() {
     if (!state.sketch) return;
     $('#stage').classList.remove('sketching');
     const n = $('#v0Shimmer');
-    if (n) { n.classList.add('ended'); n.querySelector('.v0-shimmer-text').textContent = 'the swarm could not refine it this time'; }
+    if (n) { n.classList.add('ended'); n.querySelector('.v0-shimmer-text').textContent = 'your specialists could not refine it this time'; }
   }
 
   function renderDays(days) {
@@ -584,8 +881,8 @@
         <div class="credit">&nbsp;</div>
         <div class="day-body">
           ${slots}
-          ${s && s.name ? `<div class="day-line"><span>🛏️</span><span><b>${esc(s.name)}</b>${s.type ? ' · ' + esc(s.type) : ''}${s.why ? `<br><span style="opacity:.75">${esc(s.why)}</span>` : ''}</span>${s.price_per_night_eur ? `<span class="price">${esc(fmtEur(s.price_per_night_eur))}/night</span>` : ''}</div>` : ''}
-          ${t && (t.from || t.to) ? `<div class="day-line"><span>${MODE[t.mode] || '➜'}</span><span><b>${esc(t.from)} → ${esc(t.to)}</b>${t.carrier ? ' · ' + esc(t.carrier) : ''}${t.depart ? `<br><span style="opacity:.75">${esc(t.depart)}${t.arrive ? ' → ' + esc(t.arrive) : ''}</span>` : ''}</span>${t.price_eur ? `<span class="price">${esc(fmtEur(t.price_eur))}</span>` : ''}</div>` : ''}
+          ${s && s.name ? `<div class="day-line"><span>🛏️</span><span><b>${esc(s.name)}</b>${s.type ? ' · ' + esc(s.type) : ''}${s.why ? `<br><span style="opacity:.75">${esc(s.why)}</span>` : ''}</span></div>` : ''}
+          ${t && (t.from || t.to) ? `<div class="day-line"><span>${MODE[t.mode] || '➜'}</span><span><b>${esc(t.from)} → ${esc(t.to)}</b>${t.carrier ? ' · ' + esc(t.carrier) : ''}${t.depart ? `<br><span style="opacity:.75">${esc(t.depart)}${t.arrive ? ' → ' + esc(t.arrive) : ''}</span>` : ''}</span></div>` : ''}
         </div>`;
       wrap.appendChild(card);
       const mediaId = (place && place.id) || d.place_id || (d.morning && d.morning.place_id) || (d.afternoon && d.afternoon.place_id);
@@ -626,14 +923,13 @@
 
   function renderFlights(flights) {
     const el = $('#flights');
-    if (!flights.length) { el.innerHTML = '<div class="empty-note">Flights land here once the Flights agent replies.</div>'; return; }
+    if (!flights.length) { el.innerHTML = '<div class="empty-note">Flights land here once your Flight Specialist replies.</div>'; return; }
     const code = (s) => { const m = String(s || '').match(/\b[A-Z]{3}\b/); return m ? m[0] : String(s || '').slice(0, 14); };
     el.innerHTML = flights.map((f) => `
       <div class="pass">
         <div><div class="code">${esc(code(f.from))}</div><div class="time">${esc(f.depart || '')}</div></div>
         <div class="arrow"><i>✈</i>${esc(f.duration || '')}<br>${esc(f.carrier || '')}</div>
         <div class="right"><div class="code">${esc(code(f.to))}</div><div class="time">${esc(f.arrive || '')}</div></div>
-        <div class="fare"><b>${esc(fmtEur(f.price_eur))}</b><span>${esc(f.from || '')}</span></div>
       </div>`).join('');
   }
   function renderExperiences(exps) {
@@ -642,8 +938,7 @@
     const ico = (t) => (/sail|boat|cruise/i.test(t) ? '⛵' : /div|snork|swim/i.test(t) ? '🤿' : /para|fly/i.test(t) ? '🪂' : /food|taste|wine|lobster|dinner/i.test(t) ? '🍷' : /walk|hike|trail/i.test(t) ? '🥾' : '✨');
     el.innerHTML = exps.map((x) => `
       <div class="exp"><div class="exp-ico">${ico(x.title || '')}</div>
-        <div><div class="exp-title">${esc(x.title)}</div>${x.why ? `<div class="exp-why">${esc(x.why)}</div>` : ''}</div>
-        <div class="exp-price">${esc(fmtEur(x.price_eur))}</div></div>`).join('');
+        <div><div class="exp-title">${esc(x.title)}</div>${x.why ? `<div class="exp-why">${esc(x.why)}</div>` : ''}</div></div>`).join('');
   }
   function renderInsider(tips) {
     const el = $('#insider');
@@ -655,6 +950,60 @@
         ${p ? `<div class="tip-place">📍 ${esc(p.name)}</div>` : ''}</div>`;
     }).join('');
   }
+
+  /* ================= YOUR TRIP, ALL TOGETHER =================
+     The only place prices appear: a breakdown built from the itinerary fields, closing with the
+     estimated total and the booking button. Falls back to total_estimate_eur alone. */
+  const num = (n) => (typeof n === 'number' && isFinite(n) && n > 0 ? n : 0);
+  function tripBreakdown(it) {
+    const days = Array.isArray(it.days) ? it.days : [];
+    const flightsList = Array.isArray(it.flights) && it.flights.length ? it.flights : days.map((d) => d.transport).filter((t) => t && t.mode === 'flight');
+    const flights = flightsList.reduce((a, f) => a + num(f.price_eur), 0);
+    const stays = new Map();
+    days.forEach((d) => {
+      const st = d.stay;
+      if (!st || !st.name || !num(st.price_per_night_eur)) return;
+      const key = st.name + '|' + st.price_per_night_eur;
+      const rec = stays.get(key) || { name: st.name, rate: st.price_per_night_eur, nights: 0 };
+      rec.nights += 1;
+      stays.set(key, rec);
+    });
+    const stayList = [...stays.values()];
+    const staysTotal = stayList.reduce((a, s) => a + s.nights * s.rate, 0);
+    const experiences = (Array.isArray(it.experiences) ? it.experiences : []).reduce((a, x) => a + num(x.price_eur), 0);
+    const known = flights + staysTotal + experiences;
+    const total = num(it.total_estimate_eur) >= known ? num(it.total_estimate_eur) : known;
+    return { flights, stayList, staysTotal, experiences, extras: total - known >= 1 ? total - known : 0, total };
+  }
+  function renderTripTotal(it, sketch) {
+    const b = tripBreakdown(it);
+    const nights = (n) => `${n} night${n === 1 ? '' : 's'}`;
+    const stayDetail = b.stayList.length === 1
+      ? `${nights(b.stayList[0].nights)} × ${fmtEur(b.stayList[0].rate)}`
+      : b.stayList.map((s) => `${esc(s.name)}, ${nights(s.nights)} × ${fmtEur(s.rate)}`).join(' · ');
+    const row = (label, amount, detail = '') => (amount ? `
+      <div class="tt-row"><div class="tt-label">${label}${detail ? `<span class="tt-detail">${detail}</span>` : ''}</div><div class="tt-amount">${esc(fmtEur(amount))}</div></div>` : '');
+    const rows = row('Flights', b.flights) + row('Stays', b.staysTotal, stayDetail)
+      + row('Experiences', b.experiences) + row('Ferries, meals &amp; extras', b.extras);
+    $('#tripTotalBody').innerHTML = `
+      ${rows ? `<div class="tt-rows">${rows}</div><div class="tt-rule"></div>` : ''}
+      <div class="tt-bottom">
+        <div><div class="total-label">${sketch ? 'First estimate' : 'Estimated total'}</div><div class="total">${esc(fmtEur(b.total) || '—')}</div></div>
+        <button class="book-btn" id="bookBtn" type="button">Book everything →</button>
+      </div>
+      <div class="tt-note">Simulated booking · no payment taken</div>`;
+    $('#bookBtn').addEventListener('click', book);
+  }
+  // The planning cost shows once, quietly, after your specialists are done.
+  function showCost() {
+    if (state.cost == null) return;
+    let el = $('#preparedCost');
+    if (!el) { el = document.createElement('div'); el.id = 'preparedCost'; el.className = 'prepared-cost'; }
+    el.textContent = `prepared for $${Math.max(0.01, state.cost).toFixed(2)}`;
+    $('#swarm').appendChild(el); // last child: below the notes and any card attached later
+    el.classList.remove('hidden');
+  }
+  function hideCost() { const el = $('#preparedCost'); if (el) el.classList.add('hidden'); }
 
   /* ================= MAP ================= */
   function renderMap(it) {
@@ -751,7 +1100,7 @@
     const ctx = c.getContext('2d');
     const dpr = window.devicePixelRatio || 1;
     c.width = innerWidth * dpr; c.height = innerHeight * dpr; ctx.scale(dpr, dpr);
-    const colors = ['#C89B50', '#D68C4C', '#F6E6C0', '#C4D6E8', '#5FD0B5', '#FFFFFF'];
+    const colors = ['#0F766E', '#E8664A', '#3B82C4', '#B8925A', '#C2603E', '#1E2A44'];
     const ps = [];
     const origins = [[innerWidth * 0.5, innerHeight * 0.42], [innerWidth * 0.2, innerHeight * 0.9], [innerWidth * 0.8, innerHeight * 0.9]];
     origins.forEach(([ox, oy], oi) => {
@@ -783,12 +1132,13 @@
     addMsg('assistant', 'Fresh canvas. Where would you like to go next?');
     $('#stage').classList.add('empty');
     $('#summaryBody').innerHTML = ''; $('#days').innerHTML = '';
-    $('#ticker').innerHTML = '';
     orbMap.forEach((rec) => { rec.el.className = 'orb' + (rec.a.key === COORD ? ' coord' : ''); if (rec.beam) { rec.beam.classList.remove('lit'); rec.flow.classList.remove('lit'); } });
-    clearInterval(state.timer); state.timer = null; state.t0 = null;
+    state.t0 = null;
     $('#swarm').classList.remove('running', 'done');
-    $('#swarmElapsed').textContent = '0.0'; $('#swarmMsg').textContent = 'Waiting for your first wish…'; setPill('idle', 'Idle');
-    $('#costChip').classList.add('hidden');
+    setPill('idle', 'Idle');
+    consultReset();
+    state.cost = null; hideCost();
+    $('#tripTotalBody').innerHTML = '';
   }
 
   /* ================= MOCK (dev hook: ?mock=1, &auto=1 to auto-run) ================= */
@@ -885,51 +1235,82 @@
     } catch { return null; }
   }
   async function emit(ev, ms = 0) { if (ms) await sleep(ms); handleEvent(ev); }
+  // Shaped like real backend events: briefs as `delegated`, "working…", ≤140-char reply previews
+  // (cut with "…"), present_itinerary, the memory edit and a done message that carries seconds.
+  const MOCK_SCRIPT = [
+    {
+      opening: 'Reading the request and briefing 5 specialists',
+      team: ['Explorer', 'Flights', 'Stays', 'Experiences', 'Local Insider'],
+      briefs: {
+        Explorer: 'Traveller: parent + 2 kids (7 and 10), mid budget, sailing in late June. Suggest the best route around Split, Hvar and Vis with weather…',
+        Flights: 'Parent + 2 kids, late June, likely Munich to Split. Suggest 2 nonstop flights with civilised times and simulated EUR prices.',
+        Stays: 'Parent + 2 kids, mid budget, 6 nights across Split, Hvar and Vis. One apartment with 1 double + 2 singles, near the harbour.',
+        Experiences: 'Parent + 2 kids, late June, Split/Hvar/Vis. Suggest up to 4 kid-friendly sailing or snorkelling experiences with EUR prices.',
+        'Local Insider': 'Parent + 2 kids, Split/Hvar/Vis, late June. Suggest 3 non-touristy, kid-friendly local spots (ids: komiza-hr, stari-grad-hr, split-…',
+      },
+      flow: [
+        ['Explorer', 'working', 'Reading the late-June climate for Split and the islands', 900],
+        ['Flights', 'working', 'Comparing routes into Split: nonstop from Munich vs via Zagreb', 700],
+        ['Local Insider', 'working', 'Asking around in Komiža for a quiet cove the kids will love', 800],
+        ['Stays', 'replied', 'Family lodging, Split and Hvar: - Palace Loft Apartments, Split: two bedrooms inside the palace walls, €165/night. - Apartment Dalmatina…', 1300],
+        ['Experiences', 'working', 'Weighing skippered day sails: Kornati vs Pakleni', 500],
+        ['Explorer', 'replied', '- Best pick: Split → Hvar → Vis, every hop under 1h30. Late June brings 27 °C days and a 24 °C sea, with the maestral breeze after 2 pm…', 1100],
+        ['Experiences', 'replied', '- Kornati day sail (skippered catamaran, kids can steer): about €390 for the family. Blue Cave by speedboat at 8 am, before the crowds…', 900],
+        ['Trip Architect', 'working', 'Still waiting on the flights and local-insider replies.', 600],
+        ['Local Insider', 'replied', 'Local picks, Split/Hvar/Vis: - Komiža, Vis: Konoba Jastožera serves lobster on planks over the water. Book the 18:30 table so the kids…', 1200],
+        ['Trip Architect', 'working', 'Still waiting on the flights reply.', 500],
+        ['Flights', 'replied', 'Munich (MUC) → Split (SPU), 1 adult + 2 children, simulated fares. Best option: Croatia Airlines OU 4415, 08:05 → 09:40 nonstop, €189 a seat.', 1000],
+      ],
+    },
+    {
+      opening: 'Reading the change and re-briefing Stays, Experiences and the Local Insider',
+      team: ['Stays', 'Experiences', 'Local Insider'],
+      briefs: {
+        Stays: 'Update: the traveller wants a pool villa near Stari Grad for the Hvar nights. Same dates, comfort over price.',
+        Experiences: 'Update: villa base near Stari Grad. Move the sunset sail to day 4 and keep mornings calm for the kids.',
+        'Local Insider': 'Update: base moves to a villa above Stari Grad. One quiet konoba nearby that locals book ahead.',
+      },
+      flow: [
+        ['Stays', 'working', 'Checking pool villas within 10 minutes of Stari Grad', 900],
+        ['Local Insider', 'working', 'Asking around in Stari Grad for a konoba locals book ahead', 800],
+        ['Stays', 'replied', 'Pool villas near Stari Grad: - Villa Lavanda: private pool among lavender fields, 5 min to Stari Grad, about €60 a night more.', 1200],
+        ['Experiences', 'replied', 'Moved the sunset sail: a traditional gajeta from Stari Grad on day 4, two hours on the water, about €180 for the family.', 1000],
+        ['Local Insider', 'replied', '- Konoba Kokot, near Stari Grad: lamb peka slow-cooked under the bell. Order a day ahead, they only make what is booked.', 1100],
+      ],
+    },
+  ];
   async function mockTurn(text) {
     state.mockTurn += 1;
     const turn = state.mockTurn;
+    const S = MOCK_SCRIPT[turn === 1 ? 0 : 1];
+    const t0 = performance.now();
     await emit({ type: 'conversation', conversation_id: 'mock-conv-1' }, 120);
     const pre = turn === 1 ? await mockPrebuilt(text) : null;
     if (pre) await emit({ type: 'itinerary', version: 0, prebuilt: true, itinerary: pre });
-    await emit({ type: 'swarm.status', status: 'starting', message: 'Trip Architect is briefing the specialists' }, 150);
+    await emit({ type: 'swarm.status', status: 'starting', message: 'Briefing the team' }, 150);
     const reply = turn === 1
       ? 'Sailing with the kids at the end of June — lovely. I’m sketching a week around Split, Hvar and Vis with short hops and calm mornings.'
       : 'There’s a villa with a pool above Stari Grad — I’m swapping it in for the Hvar nights now.';
     for (const w of reply.split(/(\s+)/)) await emit({ type: 'concierge.delta', text: w }, 28);
     await emit({ type: 'concierge.done', text: reply });
     await emit({ type: 'speak', text: reply });
-    await emit({ type: 'agent.activity', agent: 'Trip Architect', kind: 'delegated', text: turn === 1 ? 'Briefing 5 specialists in parallel' : 'Re-briefing Stays and Experiences' }, 300);
+    await emit({ type: 'agent.activity', agent: 'Trip Architect', kind: 'working', text: S.opening }, 300);
     if (turn === 1 && !pre) await emit({ type: 'itinerary', version: 0, sketch: true, itinerary: mockSketch() }, 900);
-    const all = ['Explorer', 'Flights', 'Stays', 'Experiences', 'Local Insider'];
-    const team = turn === 1 ? all : ['Stays', 'Experiences', 'Local Insider'];
-    for (const a of team) await emit({ type: 'agent.spawned', agent: a, thread_id: 'th_' + a.slice(0, 3) }, 220);
-    await emit({ type: 'swarm.status', status: 'running', message: `${team.length} specialists working in parallel` }, 200);
-    const acts = turn === 1 ? [
-      ['Explorer', 'working', 'Late June in Dalmatia: 27 °C, sea 24 °C, calm mornings'],
-      ['Flights', 'tool', 'Searching MUC → SPU, 27 Jun, 1 adult + 2 children'],
-      ['Stays', 'working', 'Family rooms with 1 double + 2 singles in Hvar town'],
-      ['Experiences', 'working', 'Comparing skippered day sails: Kornati vs Pakleni'],
-      ['Local Insider', 'working', "Reading a Komiža fishermen's blog for a quiet cove"],
-      ['Flights', 'replied', 'OU 4415 MUC 08:05 → SPU 09:40, €189 per seat'],
-      ['Stays', 'replied', 'Apartment Dalmatina, Hvar — family suite, €145/night'],
-      ['Experiences', 'replied', 'Blue Cave + Stiniva by speedboat at 8 am, before crowds'],
-      ['Explorer', 'replied', 'Route Split → Hvar → Vis → Split, every hop under 1h30'],
-      ['Local Insider', 'replied', 'Konoba Jastožera in Komiža — lobster in the old boathouse'],
-      ['Trip Architect', 'working', 'Composing v1 around the 09:40 landing (light day 1)'],
-    ] : [
-      ['Stays', 'tool', 'Pool villas within 10 min of Stari Grad, 29 Jun – 1 Jul'],
-      ['Experiences', 'working', 'Moving the sunset sail to day 4'],
-      ['Local Insider', 'working', 'Checking quiet konobas near the villa'],
-      ['Stays', 'replied', 'Villa Lavanda: private pool, +€60/night'],
-      ['Experiences', 'replied', 'Gajeta sunset sail from Stari Grad, day 4'],
-      ['Local Insider', 'replied', 'Konoba Kokot — lamb peka, order a day ahead'],
-      ['Trip Architect', 'working', 'Composing v2'],
-    ];
-    for (const [agent, kind, t] of acts) await emit({ type: 'agent.activity', agent, kind, text: t }, 520 + Math.random() * 380);
-    await emit({ type: 'itinerary', version: turn, itinerary: mockItinerary(turn) }, 700);
-    await emit({ type: 'speak', text: 'Version ' + turn + ' is ready. ' + mockItinerary(turn).next_question });
+    for (const a of S.team) await emit({ type: 'agent.spawned', agent: a, thread_id: 'sthr_mock_' + a.slice(0, 3).toLowerCase() }, 140);
+    await emit({ type: 'swarm.status', status: 'running', message: 'Trip Architect is delegating' }, 120);
+    for (const a of S.team) {
+      await emit({ type: 'agent.activity', agent: a, kind: 'delegated', text: S.briefs[a] }, 110);
+      await emit({ type: 'agent.activity', agent: a, kind: 'working', text: 'working…' }, 60);
+    }
+    await emit({ type: 'agent.activity', agent: 'Trip Architect', kind: 'working', text: "Waiting for the specialists' replies." }, 200);
+    for (const [agent, kind, t, ms] of S.flow) await emit({ type: 'agent.activity', agent, kind, text: t }, ms);
+    const it = mockItinerary(turn);
+    await emit({ type: 'agent.activity', agent: 'Trip Architect', kind: 'tool', text: `present_itinerary v${turn}: ${it.title}` }, 600);
+    await emit({ type: 'itinerary', version: turn, itinerary: it }, 120);
+    await emit({ type: 'agent.activity', agent: 'Trip Architect', kind: 'tool', text: 'edit {"file_path": "/mnt/memory/experience-atlas-traveller-demo/preferences.md", "new_string": "- Travels with two kids…' }, 300);
+    await emit({ type: 'speak', text: 'Version ' + turn + ' is ready. ' + it.next_question });
     await emit({ type: 'usage', cost_usd: turn === 1 ? 0.072 : 0.031 }, 100);
-    await emit({ type: 'swarm.status', status: 'done', message: `v${turn} ready` }, 150);
+    await emit({ type: 'swarm.status', status: 'done', message: `Version ${turn} in ${((performance.now() - t0) / 1000).toFixed(1)}s` }, 150);
     await emit({ type: 'turn.done' });
   }
   function mockBooking() {
@@ -967,11 +1348,12 @@
 
   async function boot() {
     buildSwarm();
+    buildConsult();
     wire();
     initVoice();
     await loadPlaces();
     if (MOCK) {
-      toast('Mock mode: replaying a canned swarm turn', 'info');
+      toast('Demo mode: replaying a recorded planning session', 'info');
       if (params.get('auto') === '1') setTimeout(() => sendTurn('Sailing in Europe with my two kids in late June, mid budget'), 600);
     }
   }

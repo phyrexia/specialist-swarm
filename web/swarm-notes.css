@@ -1,0 +1,201 @@
+/* Experience Atlas — "consulting your specialists".
+   One narration line (.consult-line), five specialist dots (.specialist-dots) and a notebook of
+   findings (.swarm-notes > .field-note), all driven by app.js from real events.
+   Unscoped rules are a sensible default for the dark theme; body.theme-light refines them. */
+
+/* The old elapsed-seconds counter must never show, whatever the markup. */
+.swarm .elapsed { display: none !important; }
+
+/* ---------- agent accents ---------- */
+.swarm [data-agent="architect"] { --ac: #C89B50; }
+.swarm [data-agent="explorer"] { --ac: #7FB3E6; }
+.swarm [data-agent="flights"] { --ac: #9FD8F5; }
+.swarm [data-agent="stays"] { --ac: #D68C4C; }
+.swarm [data-agent="experiences"] { --ac: #5FD0B5; }
+.swarm [data-agent="insider"] { --ac: #F6E6C0; }
+
+/* ---------- narration line + dots ---------- */
+.consult {
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 20px 8px; border-top: 1px solid var(--line);
+}
+.consult-line {
+  flex: 1; min-width: 0;
+  display: grid; align-content: center;
+  min-height: 2.6em; /* two rows reserved: a longer line never pushes the notes */
+  font-size: 20px; line-height: 1.3;
+}
+.consult-text {
+  grid-area: 1 / 1;
+  font-family: var(--display); font-style: italic; font-weight: 500;
+  color: var(--champ);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  transition: opacity .4s ease, transform .4s ease;
+}
+.consult-text.is-entering { opacity: 0; transform: translateY(6px); }
+.consult-text.is-leaving { opacity: 0; transform: translateY(-6px); }
+
+.specialist-dots { display: flex; gap: 8px; flex-shrink: 0; }
+.specialist-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--ac) 55%, transparent);
+  background: transparent;
+  transition: background-color .7s ease, border-color .7s ease, box-shadow .7s ease;
+}
+.specialist-dot.is-filled {
+  background: var(--ac); border-color: var(--ac);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ac) 16%, transparent);
+}
+
+/* ---------- field notes ---------- */
+.swarm-notes {
+  flex: 0 1 216px; min-height: 96px;
+  display: flex; flex-direction: column;
+  padding: 0 20px 12px; overflow: hidden;
+}
+.notes-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 2px 0 8px; }
+.notes-title { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--slate); }
+.notes-count { font-size: 12px; color: var(--slate); }
+.notes-list {
+  position: relative; flex: 1; min-height: 0; overflow: hidden;
+  display: flex; flex-direction: column; gap: 8px;
+  -webkit-mask-image: linear-gradient(#000 72%, transparent);
+  mask-image: linear-gradient(#000 72%, transparent);
+}
+.notes-empty { margin: 0; font-family: var(--display); font-style: italic; font-size: 16px; line-height: 1.4; color: var(--slate); }
+
+.field-note {
+  flex-shrink: 0;
+  display: grid; grid-template-columns: 136px minmax(0, 1fr); gap: 12px; align-items: start;
+  padding: 8px 12px; border-radius: 12px;
+  background: rgba(255, 255, 255, .03); border: 1px solid var(--line);
+  transition: transform .4s ease, opacity .4s ease;
+}
+.field-note-head { display: flex; align-items: center; gap: 7px; min-width: 0; height: 18px; }
+.field-note-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ac); flex-shrink: 0; }
+.field-note-agent { font-size: 12px; font-weight: 700; color: var(--mist); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.field-note-text {
+  margin: 0; font-size: 13px; line-height: 18px; color: var(--mist);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+/* the notebook: newest on top, older notes fade */
+.field-note:nth-child(2) { opacity: .9; }
+.field-note:nth-child(3) { opacity: .78; }
+.field-note:nth-child(4) { opacity: .64; }
+.field-note:nth-child(5) { opacity: .52; }
+.field-note:nth-child(n+6) { opacity: .4; }
+/* after the nth-child rules, so entering/leaving always wins */
+.field-note.is-entering { opacity: 0; transform: translateY(-8px); }
+.field-note.is-gone { opacity: 0; }
+
+/* ---------- light theme ---------- */
+body.theme-light .swarm [data-agent="architect"] { --ac: var(--a-arch, #1E2A44); }
+body.theme-light .swarm [data-agent="explorer"] { --ac: var(--a-explorer, #0F766E); }
+body.theme-light .swarm [data-agent="flights"] { --ac: var(--a-flights, #3B82C4); }
+body.theme-light .swarm [data-agent="stays"] { --ac: var(--a-stays, #C2603E); }
+body.theme-light .swarm [data-agent="experiences"] { --ac: var(--a-exp, #E8664A); }
+body.theme-light .swarm [data-agent="insider"] { --ac: var(--a-insider, #B8925A); }
+
+body.theme-light .consult { border-top: 1px solid var(--hair); padding: 12px 20px 8px; }
+body.theme-light .consult-line { font-size: 21px; }
+body.theme-light .consult-text {
+  font-family: var(--script); font-weight: 500; color: var(--ink);
+  letter-spacing: .1px; font-variant-numeric: lining-nums;
+}
+body.theme-light .consult[data-phase="idle"] .consult-text { color: var(--grey); }
+body.theme-light .consult[data-phase="ready"] .consult-text { color: var(--teal); }
+body.theme-light .consult[data-phase="error"] .consult-text { color: #B4372A; }
+body.theme-light .specialist-dot { border-color: color-mix(in srgb, var(--ac) 55%, #FFFFFF); }
+body.theme-light .specialist-dot.is-filled { box-shadow: 0 0 0 3px color-mix(in srgb, var(--ac) 14%, #FFFFFF); }
+
+body.theme-light .notes-title {
+  font-family: var(--body); font-size: 13px; font-weight: 700;
+  text-transform: lowercase; font-variant: small-caps; letter-spacing: .12em; color: var(--grey);
+}
+body.theme-light .notes-count { font-size: 12.5px; color: var(--grey); }
+body.theme-light .notes-empty { font-family: var(--script); font-size: 17px; color: var(--grey); }
+body.theme-light .field-note {
+  background: color-mix(in srgb, var(--ac) 3%, var(--paper, #FFFFFF));
+  border: 1px solid var(--hair);
+  box-shadow: 0 1px 2px rgba(20, 24, 31, .04);
+}
+body.theme-light .field-note-agent { color: var(--ink); }
+body.theme-light .field-note-text { color: var(--ink-2); }
+
+/* Orb names and role lines sit on a soft chip so the beams never cross the text */
+body.theme-light .orb-name, body.theme-light .orb-role {
+  position: relative; padding: 0 6px; border-radius: 6px;
+  background: color-mix(in srgb, var(--paper, #FFFFFF) 90%, transparent);
+}
+
+/* Powered-by line under the credits */
+.foot-powered { display: block; margin-top: 4px; font-size: 11.5px; letter-spacing: .3px; opacity: .85; }
+body.theme-light .foot-powered { color: var(--grey-2); }
+
+/* ---------- planning cost, once, after your specialists are done ---------- */
+.prepared-cost {
+  padding: 6px 20px 12px; text-align: right;
+  font-size: 12px; letter-spacing: .02em; color: var(--slate);
+  font-variant-numeric: tabular-nums;
+  animation: costIn .6s ease both;
+}
+.prepared-cost.hidden { display: none; }
+@keyframes costIn { from { opacity: 0; } }
+body.theme-light .prepared-cost { color: var(--grey-2, #9CA3AF); font-family: var(--body); }
+
+/* ---------- closing section: the only place prices appear ---------- */
+.stage.empty .trip-total { display: none; }
+.trip-total { padding-bottom: 6px; }
+.trip-total-title {
+  margin: 0; font-family: var(--display); font-style: italic; font-weight: 600;
+  font-size: 34px; line-height: 1.1; color: var(--champ);
+}
+.trip-total-body { padding: 4px 22px 18px; max-width: 760px; }
+.tt-rows { display: flex; flex-direction: column; gap: 12px; padding-top: 4px; }
+.tt-row { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; }
+.tt-label { font-size: 15px; font-weight: 600; color: var(--mist); min-width: 0; }
+.tt-detail { display: block; margin-top: 2px; font-size: 12.5px; font-weight: 500; color: var(--slate); }
+.tt-amount { font-size: 16px; font-weight: 600; color: var(--mist); white-space: nowrap; font-variant-numeric: tabular-nums lining-nums; }
+.tt-rule { height: 1px; background: var(--line); margin: 18px 0 16px; }
+.tt-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.tt-bottom .total { font-size: 48px; }
+.tt-note { margin-top: 12px; font-size: 12px; color: var(--slate); }
+
+body.theme-light .trip-total-title { font-family: var(--script); font-weight: 600; color: var(--ink); }
+body.theme-light .tt-label, body.theme-light .tt-amount { color: var(--ink); }
+body.theme-light .tt-detail, body.theme-light .tt-note { color: var(--grey); }
+body.theme-light .tt-rule { background: var(--hair); }
+body.theme-light .tt-bottom .total { font-size: 52px; }
+
+/* ---------- mobile: notes stack full width, three at most ---------- */
+@media (max-width: 768px) {
+  .consult { padding: 10px 16px 6px; gap: 12px; }
+  .consult-line, body.theme-light .consult-line { font-size: 18px; }
+  .swarm-notes { flex: 0 0 auto; min-height: 0; padding: 0 16px 12px; }
+  .notes-list { flex: none; min-height: 184px; -webkit-mask-image: none; mask-image: none; }
+  /* the clamp clips at the padding box, so the inset is a transparent border and the hairline a shadow */
+  .field-note,
+  body.theme-light .field-note {
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    padding: 0 4px; border: 8px solid transparent; line-height: 19px;
+    box-shadow: 0 0 0 1px var(--line), 0 1px 2px rgba(20, 24, 31, .04);
+  }
+  .field-note-head { display: inline; height: auto; }
+  .field-note-dot { display: inline-block; vertical-align: 1px; margin-right: 6px; }
+  .field-note-agent { display: inline; overflow: visible; }
+  .field-note-agent::after { content: " — "; font-weight: 400; }
+  .field-note-text { display: inline; -webkit-line-clamp: unset; }
+  .field-note:nth-child(n+4), body.theme-light .field-note:nth-child(n+4) { display: none; }
+}
+
+@media (max-width: 768px) {
+  .trip-total-body { padding: 4px 16px 16px; max-width: none; }
+  .trip-total-title { font-size: 28px; }
+  .tt-bottom { flex-direction: column; align-items: stretch; }
+  .trip-total .book-btn { width: 100%; min-height: 52px; font-size: 16px; }
+  body.theme-light .tt-bottom .total { font-size: 42px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .consult-text, .specialist-dot, .field-note { transition: none !important; }
+}

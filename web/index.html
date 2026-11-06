@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/web/styles.css" />
   <link rel="stylesheet" href="/web/theme-light.css" />
   <link rel="stylesheet" href="/web/swarm-notes.css" />
+  <link rel="stylesheet" href="/web/preferences.css" />
 </head>
 <body class="theme-light">
 <div class="app">
@@ -26,7 +27,7 @@
       </div>
     </div>
     <div class="hero-right">
-      <div class="hero-claim"><span class="dot-live"></span> Six Claude agents · one Trip Architect · real places</div>
+      <div class="hero-claim"><span class="dot-live"></span> Your personal travel team · real places, real seasons</div>
       <button id="newTripBtn" class="ghost-btn" type="button">✦ New trip</button>
     </div>
   </header>
@@ -76,9 +77,8 @@
         <!-- SWARM -->
         <div class="panel swarm" id="swarm">
           <div class="panel-head">
-            <div class="panel-title script"><span class="title-glyph">✦</span> The Swarm <span class="sub">Managed Agents</span></div>
+            <div class="panel-title script"><span class="title-glyph">✦</span> Your travel specialists <span class="sub">working for you</span></div>
             <div class="swarm-meta">
-              <span id="costChip" class="cost-chip hidden"></span>
               <span id="swarmPill" class="pill idle">Idle</span>
             </div>
           </div>
@@ -86,11 +86,14 @@
             <svg id="swarmSvg" class="swarm-svg"></svg>
             <div id="orbs"></div>
           </div>
-          <div class="swarm-status">
-            <div class="elapsed"><span id="swarmElapsed">0.0</span><small>s</small></div>
-            <div class="status-msg" id="swarmMsg">Waiting for your first wish…</div>
+          <div class="consult" id="consult" data-phase="idle">
+            <div class="consult-line" id="consultLine" aria-live="polite"><span class="consult-text">Waiting for your first wish…</span></div>
+            <div class="specialist-dots" id="specialistDots" role="img" aria-label="Waiting on your specialists"></div>
           </div>
-          <div class="ticker" id="ticker"></div>
+          <div class="swarm-notes" id="swarmNotes">
+            <div class="notes-head"><span class="notes-title">Field notes</span><span class="notes-count" id="notesCount"></span></div>
+            <div class="notes-list" id="notesList"></div>
+          </div>
         </div>
 
         <!-- SUMMARY -->
@@ -134,7 +137,13 @@
         <div id="insider" class="insider"></div>
       </div>
 
-      <footer class="foot">Experience Atlas · by League of AI — Gabriel González Pineda &amp; Leonardo Eleuteri</footer>
+      <!-- CLOSING: the price only appears here, once the whole trip has been read -->
+      <section class="panel trip-total" id="tripTotal" aria-labelledby="tripTotalTitle">
+        <div class="panel-head"><h3 class="trip-total-title" id="tripTotalTitle">Your trip, all together</h3></div>
+        <div class="trip-total-body" id="tripTotalBody"></div>
+      </section>
+
+      <footer class="foot">Experience Atlas · by League of AI — Gabriel González Pineda &amp; Leonardo Eleuteri<span class="foot-powered">Powered by Claude — Sonnet 5.5 trip planner, Haiku 5.5 specialists</span></footer>
     </section>
   </main>
 </div>
@@ -158,5 +167,6 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="/web/voice.js"></script>
 <script src="/web/app.js"></script>
+<script src="/web/preferences.js" defer></script>
 </body>
 </html>
